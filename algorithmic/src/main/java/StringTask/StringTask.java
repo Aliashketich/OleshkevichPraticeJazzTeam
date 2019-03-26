@@ -3,7 +3,7 @@ package StringTask;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StringTask<result> {
+public class StringTask {
     private static final Map<String,String> letters = new HashMap<String, String>();
 
     static {
@@ -76,7 +76,7 @@ public class StringTask<result> {
         letters.put(" " , " ");
     }
 
-    private static String transliteration(String text){
+    static String transliteration(String text){
         String result = "";
         char[] chArray = text.toCharArray();
         for(int i = 0; i < text.length(); i++){
@@ -86,8 +86,4 @@ public class StringTask<result> {
         return result;
     }
 
-    public static void main(String[] args){
-        String test = "Снег, снежок,  АЗБУКА";
-        System.out.println(transliteration(test));
-    }
 }
