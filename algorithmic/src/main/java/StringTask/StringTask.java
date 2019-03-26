@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StringTask {
-    private static final Map<String,String> letters = new HashMap<String, String>();
+    static final Map<String,String> letters = new HashMap<String, String>();
 
     static {
         letters.put("А", "A");
