@@ -7,7 +7,7 @@ import static StringTask.StringTask.transliteration;
 
 public class StringTaskTest {
 
-    private static String text = "Подъезд, Larrge, ывай№;";
+    private static String text = "Подъезд, Снеговик, ПАНОРАМА";
 
     private StringTask stringTask;
     @Test
