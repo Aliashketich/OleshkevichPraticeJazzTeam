@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class StringTask {
     static final Map<String,String> letters = new HashMap<String, String>();
+    /*Создаем HashMap, который будет хранить в качестве ключей русские символы, а значений - английские символы*/
 
     static {
         letters.put("А", "A");
