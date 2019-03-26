@@ -74,6 +74,25 @@ public class StringTask {
         letters.put("," , ",");
         letters.put("." , ".");
         letters.put(" " , " ");
+        letters.put("!","!");
+        letters.put("@","@");
+        letters.put("#","#");
+        letters.put("$","$");
+        letters.put("^","^");
+        letters.put("1","1");
+        letters.put("2","2");
+        letters.put("3","3");
+        letters.put("4","4");
+        letters.put("5","5");
+        letters.put("6","6");
+        letters.put("7","7");
+        letters.put("8","8");
+        letters.put("9","9");
+        letters.put("0","0");
+        letters.put("-","-");
+        letters.put("_","_");
+        letters.put("+","+");
+        letters.put("=","=");
     }
 
     static String transliteration(String text){
