@@ -1,13 +1,17 @@
 package StringTask;
 
+import util.FileReader;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class StringTask {
-    static final Map<String,String> letters = new HashMap<String, String>();
-    /*Создаем HashMap, который будет хранить в качестве ключей русские символы, а значений - английские символы*/
+    private static final String path = "src/main/java/StringTask/data.txt";
 
-    static {
+    /*Создаем HashMap, который будет хранить в качестве ключей русские символы, а значений - английские символы*/
+    private Map<String, String> letters = new HashMap<String, String>();
+    {
         letters.put("А", "A");
         letters.put("Б", "B");
         letters.put("В", "V");
@@ -72,36 +76,38 @@ public class StringTask {
         letters.put("э", "e");
         letters.put("ю", "yu");
         letters.put("я", "ya");
-        letters.put("," , ",");
-        letters.put("." , ".");
-        letters.put(" " , " ");
-        letters.put("!","!");
-        letters.put("@","@");
-        letters.put("#","#");
-        letters.put("$","$");
-        letters.put("^","^");
-        letters.put("1","1");
-        letters.put("2","2");
-        letters.put("3","3");
-        letters.put("4","4");
-        letters.put("5","5");
-        letters.put("6","6");
-        letters.put("7","7");
-        letters.put("8","8");
-        letters.put("9","9");
-        letters.put("0","0");
-        letters.put("-","-");
-        letters.put("_","_");
-        letters.put("+","+");
-        letters.put("=","=");
+        letters.put(",", ",");
+        letters.put(".", ".");
+        letters.put(" ", " ");
+        letters.put("!", "!");
+        letters.put("@", "@");
+        letters.put("#", "#");
+        letters.put("$", "$");
+        letters.put("^", "^");
+        letters.put("1", "1");
+        letters.put("2", "2");
+        letters.put("3", "3");
+        letters.put("4", "4");
+        letters.put("5", "5");
+        letters.put("6", "6");
+        letters.put("7", "7");
+        letters.put("8", "8");
+        letters.put("9", "9");
+        letters.put("0", "0");
+        letters.put("-", "-");
+        letters.put("_", "_");
+        letters.put("+", "+");
+        letters.put("=", "=");
     }
 
-    static String transliteration(String text){
+    public String transliteration() throws IOException {
+        FileReader fileReader = new FileReader();
+        String readFromFileString = fileReader.readFile(path);
         String result = "";
-        char[] chArray = text.toCharArray();
-        for(int i = 0; i < text.length(); i++){
+        char[] chArray = readFromFileString.toCharArray();
+        for (int i = 0; i < readFromFileString.length(); i++) {
             String temp = String.valueOf(chArray[i]);
-            result+=letters.get(temp);
+            result += letters.get(temp);
         }
         return result;
     }
