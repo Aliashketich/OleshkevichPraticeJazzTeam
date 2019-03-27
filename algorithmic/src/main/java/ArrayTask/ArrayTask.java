@@ -4,6 +4,8 @@ package ArrayTask;
 public class ArrayTask {
     private int column = 5;
     private int row = 4;
+    private int finalColumn = column;
+    private int finalRow = row;
     private int flagI=0, flagJ=0;
     private int[][] array = new int[row][column];
 
@@ -11,8 +13,8 @@ public class ArrayTask {
 
     ArrayTask(int[][] array){
         int[][] resultArray = deleteRowAndColumn(array);
-        for(int i =0; i<2;i++){
-            for(int j = 0; j<3; j++){
+        for(int i =0; i<finalRow;i++){
+            for(int j = 0; j<finalColumn; j++){
                 System.out.print(resultArray[i][j]+" ");
             }
             System.out.println();
@@ -45,8 +47,6 @@ public class ArrayTask {
                         }
                     }
                     deleteRowAndColumn(newArray);
-                    row--;
-                    column--;
                 }
             }
             if(i==row){
