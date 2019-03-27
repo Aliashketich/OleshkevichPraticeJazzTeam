@@ -44,6 +44,7 @@ public class ArrayTask {
                                     }
                                 }
                             }
+
                         }
                     }
                     deleteRowAndColumn(newArray);
