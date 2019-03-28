@@ -105,7 +105,7 @@ public class StringTask {
 
         ReadStringFromFile readStringFromFile = new ReadStringFromFile(); //cоздание объекта класса ReadStringFromFile из Util
         String readFromFileString = readStringFromFile.readString(path); //Вызов метода прочтения из файла объекта ReadStringFromFile
-
+        readFromFileString= "Практика это прекрасно!";
         char[] chArray = readFromFileString.toCharArray();
         for (int i = 0; i < readFromFileString.length(); i++) {
             String temp = String.valueOf(chArray[i]);

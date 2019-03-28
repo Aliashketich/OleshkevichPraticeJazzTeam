@@ -16,7 +16,6 @@ public class StringTaskTest {
     public void setUp() throws IOException {
         stringTask = new StringTask();
         expectedString = stringTask.transliteration();
-
     }
 
     @Test
