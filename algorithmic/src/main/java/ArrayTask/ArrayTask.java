@@ -7,17 +7,8 @@ public class ArrayTask {
     private int[] flagI = new int[20];
     private int[] flagJ = new int[20];
 
-    ArrayTask(int[][] array) {
-        int[][] resultArray = deleteRowAndColumn(array);
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                System.out.print(resultArray[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
 
-    private int[][] deleteRowAndColumn(int[][] array) {
+    int[][] deleteRowAndColumn(int[][] array) {
 
         int numberOfDeleteRow = 0;
         int numberOfDeleteColumn = 0;
@@ -35,34 +26,55 @@ public class ArrayTask {
                         flagJ[numberOfDeleteColumn] = j;
                         numberOfDeleteColumn++;
                     }
-                    j = column;
                     numberOfDeleteRow++;
                 }
             }
         }
-        System.out.print("flagI: ");
-        for (int i = 0; i < numberOfDeleteRow; i++) {
-            System.out.print(flagI[i] + " ");
-        }
-        System.out.println();
+//        System.out.print("flagI: ");
+//        for (int i = 0; i < numberOfDeleteRow; i++) {
+//            System.out.print(flagI[i] + " ");
+//        }
+//        System.out.println();
 
-        System.out.print("flagJ: ");
-        for (int i = 0; i < numberOfDeleteColumn; i++) {
-            System.out.print(flagJ[i] + " ");
-        }
-        System.out.println();
+//        System.out.print("flagJ: ");
+//        for (int i = 0; i < numberOfDeleteColumn; i++) {
+//            System.out.print(flagJ[i] + " ");
+//        }
+//        System.out.println();
 
-        int newRow = row - numberOfDeleteRow;
-        int newColumn = column - numberOfDeleteColumn;
-        System.out.println("newRow " + newRow);
-        System.out.println("newColumn " + newColumn);
-        int[][] newArray = new int[newRow][newColumn];
-        for (int i = 0; i < newRow; i++) {
-            for (int j = 0; j < newColumn; j++) {
-                System.out.print(newArray[i][j] + " ");
+        int newRow = row - 1;
+        int newColumn = column - 1;
+        for (int mn = 0; mn < numberOfDeleteRow; mn++) {
+            int[][] newArray = new int[newRow][newColumn];
+            int deli = flagI[mn];
+            int delj = flagJ[mn];
+            for (int i = 0, ln = 0; ln < newRow; ) {
+                if (i != deli) {
+                    for (int j = 0, cn = 0; cn < newColumn; j++, cn++) {
+                        if (j == delj) j++;
+                        newArray[ln][cn] = array[i][j];
+                    }
+                    i++;
+                    ln++;
+                } else i++;
+            }
+            array = newArray;
+            for (int i = 0; i < newRow; i++) {
+                for (int j = 0; j < newColumn; j++) {
+                    System.out.print(array[i][j] + "    ");
+                }
+                System.out.println();
             }
             System.out.println();
+            newRow--;
+            newColumn--;
         }
-        return newArray;
+//        for (int i = 0; i < newRow; i++) {
+//            for (int j = 0; j < newColumn; j++) {
+//                System.out.print(array[i][j] + "    ");
+//            }
+//            System.out.println();
+//        }
+        return array;
     }
 }

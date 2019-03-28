@@ -7,12 +7,13 @@ public class ArrayTaskTest {
     public void runArrayTask() throws Exception {
         int[][] array = {
                 {2, 4, 5, 6},
-                {1, 3, 5, 1},
-                {3, 4, 2, 1},
-                {3, 4, 3, 2},
-                {4, 3, 2, 1}
+                {3, 3, 1, 3},
+                {3, 4, 2, 3},
+                {1, 4, 3, 2},
+                {3, 3, 5, 2}
         };
-        ArrayTask arrayTask = new ArrayTask(array);
+        ArrayTask arrayTask = new ArrayTask();
+        arrayTask.deleteRowAndColumn(array);
 
     }
 }

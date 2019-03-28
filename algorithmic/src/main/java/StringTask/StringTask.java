@@ -8,9 +8,9 @@ import java.util.Map;
 
 public class StringTask {
     private static final String path = "src/main/java/StringTask/data.txt";
-
     /*Создаем HashMap, который будет хранить в качестве ключей русские символы, а значений - английские символы*/
     private Map<String, String> letters = new HashMap<String, String>();
+
     {
         letters.put("А", "A");
         letters.put("Б", "B");
@@ -101,15 +101,17 @@ public class StringTask {
     }
 
     public String transliteration() throws IOException {
-        FileReader fileReader = new FileReader();
-        String readFromFileString = fileReader.readFile(path);
-        String result = "";
+        String resultString = "";
+
+        FileReader fileReader = new FileReader(); //cоздание объекта класса FileReader из Util
+        String readFromFileString = fileReader.readFile(path); //Вызов метода прочтения из файла объекта FileReader
+
         char[] chArray = readFromFileString.toCharArray();
         for (int i = 0; i < readFromFileString.length(); i++) {
             String temp = String.valueOf(chArray[i]);
-            result += letters.get(temp);
+            resultString += letters.get(temp);
         }
-        return result;
+        return resultString;
     }
-
 }
+

@@ -1,50 +1,13 @@
 package StringTask;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.apache.log4j.Logger;
+import org.junit.*;
 
 
 public class StringTaskTest {
 
-    @Test
-    public void runTransliterationTest() throws Exception {
-        StringTask stringTask = new StringTask();
-        stringTask.transliteration();
-    }
-
-//    @Test
-//    public void incorrectSymbolsInPrimaryString() {
-//        byte[] textBytes = text.getBytes();
-//        for (int i = 0; i < text.length(); i++) {
-//            String temp = String.valueOf(textBytes[i]);
-//            if (letters.get(temp) == null) {
-//                System.out.println("\nPrimary String has incorrect symbols (latin / numbers / !@#$%^&*()_+-=\n");
-//                i = text.length() + 1;
-//            }
-//        }
-//    }
-
-//    @Test
-//    public void nullStringTest() {
-//        if (text == null) {
-//            System.out.println("Primary string is null!");
-//        }
-//    }
-
-//    @Test
-//    public void nullReturnValue() {
-//        if (transliteration(text) == null) {
-//            System.out.println("Return value is null!");
-//        }
-//    }
-
-    @Ignore("Test has been ignored.")
-    @Test
-    public void ignoredTest() {
-        System.out.println("will not print it");
-    }
+    private static final Logger logger = Logger.getLogger(StringTaskTest.class);
+    StringTask stringTask = new StringTask();
 
     @BeforeClass
     public static void beforeClass() {
@@ -54,6 +17,23 @@ public class StringTaskTest {
     @AfterClass
     public static void afterClass() {
         System.out.println("After StringTask.class");
+    }
+
+    @Test
+    public void runTransliterationTest() throws Exception {
+        String actual = "Praktika eto prekrasno!";
+        Assert.assertEquals("Полученная строка не совпадает с тестовой", stringTask.transliteration(), actual);
+    }
+
+    @Test
+    public void testStringIsNull() throws Exception {
+        Assert.assertNotNull("Полученная строка null", stringTask.transliteration());
+    }
+
+    @Ignore("Test has been ignored.")
+    @Test
+    public void ignoredTest() {
+        System.out.println("will not print it");
     }
 
 }
