@@ -1,6 +1,6 @@
 package StringTask;
 
-import util.FileReader;
+import util.ReadStringFromFile;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -103,8 +103,8 @@ public class StringTask {
     public String transliteration() throws IOException {
         String resultString = "";
 
-        FileReader fileReader = new FileReader(); //cоздание объекта класса FileReader из Util
-        String readFromFileString = fileReader.readFile(path); //Вызов метода прочтения из файла объекта FileReader
+        ReadStringFromFile readStringFromFile = new ReadStringFromFile(); //cоздание объекта класса ReadStringFromFile из Util
+        String readFromFileString = readStringFromFile.readString(path); //Вызов метода прочтения из файла объекта ReadStringFromFile
 
         char[] chArray = readFromFileString.toCharArray();
         for (int i = 0; i < readFromFileString.length(); i++) {

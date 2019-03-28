@@ -4,10 +4,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class FileReader {
+public class ReadStringFromFile {
     private static StringBuilder stringFromFile = new StringBuilder();
 
-    public String readFile(String path) throws IOException {
+    public String readString(String path) throws IOException {
         FileInputStream fileInputStream = null;
         InputStreamReader inputStreamReader = null;
         try {
