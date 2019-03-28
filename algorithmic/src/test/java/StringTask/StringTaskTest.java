@@ -11,29 +11,31 @@ public class StringTaskTest {
 
     @BeforeClass
     public static void beforeClass() {
-        System.out.println("Before StringTask.class");
+        logger.info("Before StringTask.class");
     }
 
     @AfterClass
     public static void afterClass() {
-        System.out.println("After StringTask.class");
+        logger.info("After StringTask.class");
     }
 
     @Test
     public void runTransliterationTest() throws Exception {
+        logger.info("Имя теста: runTransliterationTest");
         String actual = "Praktika eto prekrasno!";
         Assert.assertEquals("Полученная строка не совпадает с тестовой", stringTask.transliteration(), actual);
     }
 
     @Test
     public void testStringIsNull() throws Exception {
+        logger.info("Имя теста: testStringIsNull");
         Assert.assertNotNull("Полученная строка null", stringTask.transliteration());
     }
 
     @Ignore("Test has been ignored.")
     @Test
     public void ignoredTest() {
-        System.out.println("will not print it");
+        logger.info("will not print it");
     }
 
 }

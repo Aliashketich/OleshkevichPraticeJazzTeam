@@ -1,21 +1,24 @@
 package ArrayTask;
 
+import org.apache.log4j.Logger;
 
 public class ArrayTask {
+    private static final Logger logger = Logger.getLogger(ArrayTask.class);
     private int column = 4;
     private int row = 5;
     private int[] flagI = new int[20];
     private int[] flagJ = new int[20];
 
-
     int[][] deleteRowAndColumn(int[][] array) {
-
+        int[][] primaryArrayCopy = array;
+        int flagEntryIntoFlagsArays = 0;
         int numberOfDeleteRow = 0;
         int numberOfDeleteColumn = 0;
         int t;
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 if (array[i][j] == 1) {
+                    flagEntryIntoFlagsArays++;
                     flagI[numberOfDeleteRow] = i;
                     for (t = 0; t < 20; t++) {
                         if (flagJ[t] == j) {
@@ -30,18 +33,6 @@ public class ArrayTask {
                 }
             }
         }
-//        System.out.print("flagI: ");
-//        for (int i = 0; i < numberOfDeleteRow; i++) {
-//            System.out.print(flagI[i] + " ");
-//        }
-//        System.out.println();
-
-//        System.out.print("flagJ: ");
-//        for (int i = 0; i < numberOfDeleteColumn; i++) {
-//            System.out.print(flagJ[i] + " ");
-//        }
-//        System.out.println();
-
         int newRow = row - 1;
         int newColumn = column - 1;
         for (int mn = 0; mn < numberOfDeleteRow; mn++) {
@@ -58,23 +49,18 @@ public class ArrayTask {
                     ln++;
                 } else i++;
             }
+            if (flagI[mn + 1] != 0)
+                flagI[mn + 1]--;
+            if (flagJ[mn + 1] != 0)
+                flagJ[mn + 1]--;
             array = newArray;
-            for (int i = 0; i < newRow; i++) {
-                for (int j = 0; j < newColumn; j++) {
-                    System.out.print(array[i][j] + "    ");
-                }
-                System.out.println();
-            }
-            System.out.println();
             newRow--;
             newColumn--;
         }
-//        for (int i = 0; i < newRow; i++) {
-//            for (int j = 0; j < newColumn; j++) {
-//                System.out.print(array[i][j] + "    ");
-//            }
-//            System.out.println();
-//        }
-        return array;
+        if (flagEntryIntoFlagsArays != 0)
+            return array;
+        else
+            return primaryArrayCopy;
+        /*@todo Вернуться сюда после работы над Exception*/
     }
 }
