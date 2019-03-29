@@ -8,8 +8,8 @@ public class ReadStringFromFile {
     private static StringBuilder stringFromFile = new StringBuilder();
 
     public String readString(String path) throws IOException {
-        FileInputStream fileInputStream = null;
-        InputStreamReader inputStreamReader = null;
+        FileInputStream fileInputStream = new FileInputStream(path);
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
         try {
             fileInputStream = new FileInputStream(path);
             inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
@@ -23,10 +23,8 @@ public class ReadStringFromFile {
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
-            if (fileInputStream != null)
-                fileInputStream.close();
-            if (inputStreamReader != null)
-                inputStreamReader.close();
+            fileInputStream.close();
+            inputStreamReader.close();
         }
         return stringFromFile.toString();
     }

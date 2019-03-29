@@ -103,11 +103,10 @@ public class StringTask {
     public String transliteration() throws IOException {
         String resultString = "";
 
-        ReadStringFromFile readStringFromFile = new ReadStringFromFile(); //cоздание объекта класса ReadStringFromFile из Util
-        String readFromFileString = readStringFromFile.readString(path); //Вызов метода прочтения из файла объекта ReadStringFromFile
-        readFromFileString= "Практика это прекрасно!";
-        char[] chArray = readFromFileString.toCharArray();
-        for (int i = 0; i < readFromFileString.length(); i++) {
+        ReadStringFromFile readStringFromFile = new ReadStringFromFile();
+        String workString = readStringFromFile.readString(path);
+        char[] chArray = workString.toCharArray();
+        for (int i = 1; i < workString.length(); i++) {
             String temp = String.valueOf(chArray[i]);
             resultString += letters.get(temp);
         }
