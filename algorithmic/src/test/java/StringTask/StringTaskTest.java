@@ -3,31 +3,31 @@ package StringTask;
 import org.apache.log4j.Logger;
 import org.junit.*;
 
-import java.io.IOException;
-
 
 public class StringTaskTest {
 
     private static final Logger logger = Logger.getLogger(StringTaskTest.class);
-    StringTask stringTask;
-    String expectedString;
+    private StringTask stringTask;
+    private String recieveString;
+    private String expectedString;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         stringTask = new StringTask();
-        expectedString = stringTask.transliteration();
+        recieveString = stringTask.transliteration();
+        expectedString = new String(recieveString.getBytes("windows-1251"), "utf-8");
     }
 
     @Test
     public void runTransliterationTest() throws Exception {
-        logger.info("Имя теста: runTransliterationTest");
+        logger.info("Test name: runTransliterationTest");
         String actual = "Praktika eto prekrasno!";
-        Assert.assertEquals("Полученная строка не совпадает с тестовой", expectedString, actual);
+        Assert.assertEquals("Strings not equals", expectedString, actual);
     }
 
     @Test
     public void testStringIsNull() throws Exception {
-        logger.info("Имя теста: testStringIsNull");
+        logger.info("Test name: testStringIsNull");
         Assert.assertNotNull("Полученная строка null", expectedString);
     }
 

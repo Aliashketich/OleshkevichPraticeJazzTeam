@@ -100,7 +100,7 @@ public class StringTask {
         letters.put("=", "=");
     }
 
-    public String transliteration() throws IOException {
+    public String transliteration() throws Exception {
         String resultString = "";
 
         ReadStringFromFile readStringFromFile = new ReadStringFromFile();

@@ -67,13 +67,13 @@ public class CollectionTaskTest {
 
     @Test
     public void mergeTwoQueueIsNoNull() throws Exception {
-        logger.info("Имя теста: mergeTwoQueueIsNoNull");
+        logger.info("Test name: mergeTwoQueueIsNoNull");
         Assert.assertNotNull(expectedQueue.toArray());
     }
 
     @Test
     public void primaryQueueIsNull() throws Exception {
-        logger.info("Имя теста: primaryQueueIsNull");
+        logger.info("Test name: primaryQueueIsNull");
         /*@// TODO: 28.03.2019 разобраться что это и почему не хочет видеть это из @Before */
         firstQueue = new PriorityQueue<Integer>();
         {

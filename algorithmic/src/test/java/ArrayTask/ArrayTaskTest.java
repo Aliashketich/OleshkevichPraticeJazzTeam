@@ -27,25 +27,25 @@ public class ArrayTaskTest {
 
     @Test
     public void runArrayTask() throws Exception {
-        logger.info("Имя теста: runArrayTask.");
+        logger.info("Test name: runArrayTask.");
         Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(array), actualArray);
     }
 
     @Test
     public void primaryArrayIsNotNull() throws Exception {
-        logger.info("Имя теста: primaryArrayIsNotNull");
+        logger.info("Test name: primaryArrayIsNotNull");
         Assert.assertNotNull(array);
     }
 
     @Test
     public void newArrayIsNotNull(){
-        logger.info("Имя теста: newArrayIsNotNull");
+        logger.info("Test name: newArrayIsNotNull");
         Assert.assertNotNull(arrayTask.deleteRowAndColumn(array));
     }
 
     @Test
     public void primaryArrayWithoutNumberOne(){
-        logger.info("Имя теста: primaryArrayWithoutNumberOne");
+        logger.info("Test name: primaryArrayWithoutNumberOne");
         int[][] actualArrayFromTest = {
                 {2, 4, 5, 6},
                 {3, 3, 3, 3},

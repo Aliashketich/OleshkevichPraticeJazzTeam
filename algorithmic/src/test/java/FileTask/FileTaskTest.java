@@ -20,12 +20,12 @@ public class FileTaskTest {
 
     @Test
     public void runFileTaskTest() throws Exception {
-        logger.info("Имя теста: runFileTaskTest");
+        logger.info("Test name: runFileTaskTest");
     }
 
     @Test
     public void fileIsEmpty(){
-        logger.info("Имя теста: fileIsEmpty");
+        logger.info("Test name: fileIsEmpty");
         Assert.assertNotNull(checkString);
     }
 
