@@ -1,8 +1,7 @@
 package StringTask;
 
-import util.ReadStringFromFile;
+import util.fileUtil.ReadStringFromFile;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -5,7 +5,7 @@
 package FileTask;
 
 import org.apache.log4j.Logger;
-import util.ReadTextFromFile;
+import util.fileUtil.ReadTextFromFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +22,6 @@ public class FileTask {
             List<String> wordsSource = readTextFromFile.readText(path);
             answer=wordsSource.toString();
         }catch (IOException ex){
-            ex.printStackTrace();
             logger.error(ex);
         }
 

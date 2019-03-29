@@ -1,4 +1,6 @@
-package util;
+package util.fileUtil;
+
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadTextFromFile {
+    private static final Logger logger = Logger.getLogger(ReadTextFromFile.class);
+
     private static StringBuilder stringFromText = new StringBuilder();
 
     public List<String> readText(String path) throws IOException {
@@ -18,7 +22,7 @@ public class ReadTextFromFile {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return arr;
     }

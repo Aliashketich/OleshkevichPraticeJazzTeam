@@ -43,7 +43,7 @@ public class CollectionTask {
             }
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            logger.error("Exception in MergedQueue", ex);
         }
         return finalMergedQueue;
     }
