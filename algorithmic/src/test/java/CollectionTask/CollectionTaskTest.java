@@ -55,13 +55,13 @@ public class CollectionTaskTest {
 
     @Test
     public void incorrectMerge() throws Exception {
-        logger.info("Имя теста: incorrectMerge");
+        logger.info("Test name: incorrectMerge");
 
         if (expectedQueue.size() == actualQueue.size()) {
             Assert.assertNotEquals(expectedQueue, actualQueue);
         } else {
-            logger.error("Сравнение невозможно, получаемый и эталонный массив разной длины!");
-            Assert.fail("Сравнение невозможно, получаемый и эталонный массив разной длины!");
+            logger.error("Arrays are different lengths");
+            Assert.fail("Arrays are different lengths");
         }
     }
 

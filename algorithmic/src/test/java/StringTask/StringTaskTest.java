@@ -8,14 +8,12 @@ public class StringTaskTest {
 
     private static final Logger logger = Logger.getLogger(StringTaskTest.class);
     private StringTask stringTask;
-    private String recieveString;
     private String expectedString;
 
     @Before
     public void setUp() throws Exception {
         stringTask = new StringTask();
-        recieveString = stringTask.transliteration();
-        expectedString = new String(recieveString.getBytes("windows-1251"), "utf-8");
+        expectedString = stringTask.transliteration();
     }
 
     @Test
