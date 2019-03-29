@@ -13,14 +13,13 @@ public class ReadTextFromFile {
 
     private static StringBuilder stringFromText = new StringBuilder();
 
-    public List<String> readText(String path) throws IOException {
+    public static List<String> readText(String path) {
         ArrayList<String> arr = new ArrayList<String>();
         try (FileReader fileReader = new FileReader(path); BufferedReader br = new BufferedReader(fileReader)) {
             String sCurrentLine;
             while ((sCurrentLine = br.readLine()) != null) {
                 arr.add(sCurrentLine);
             }
-
         } catch (IOException e) {
             logger.error(e);
         }

@@ -5,25 +5,21 @@
 package FileTask;
 
 import org.apache.log4j.Logger;
-import util.fileUtil.ReadTextFromFile;
 
-import java.io.IOException;
 import java.util.List;
 
-public class FileTask {
+import static util.fileUtil.ReadTextFromFile.readText;
+
+class FileTask {
     private static final Logger logger = Logger.getLogger(FileTask.class);
     private static final String path = "src/main/java/FileTask/data.txt";
 
-    public String buildSquare() throws IOException {
+    String buildSquare() {
 
-        String answer = "";
-        try {
-            ReadTextFromFile readTextFromFile = new ReadTextFromFile();
-            List<String> wordsSource = readTextFromFile.readText(path);
-            answer=wordsSource.toString();
-        }catch (IOException ex){
-            logger.error(ex);
-        }
+        List<String> wordsSource = readText(path);
+        String answer = wordsSource.toString();
+
+        /*@todo Реализовать запись результата в файл с ответом, и сравнение этих 2 файлов в тесте.*/
 
         return answer;
     }

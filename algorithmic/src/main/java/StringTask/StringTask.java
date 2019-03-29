@@ -1,13 +1,17 @@
 package StringTask;
 
-import util.fileUtil.ReadStringFromFile;
+import exception.MyExceptionForGetStringFromFile;
+import org.apache.log4j.Logger;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StringTask {
-    private static final String path = "src/main/java/StringTask/data.txt";
-    /*Создаем HashMap, который будет хранить в качестве ключей русские символы, а значений - английские символы*/
+import static util.fileUtil.GetStringFromFile.readString;
+
+class StringTask {
+    private static final Logger logger = Logger.getLogger(StringTask.class);
+
     private Map<String, String> letters = new HashMap<String, String>();
 
     {
@@ -99,16 +103,26 @@ public class StringTask {
         letters.put("=", "=");
     }
 
-    public String transliteration() throws Exception {
+
+    String transliteration(String filePath) throws MyExceptionForGetStringFromFile, FileNotFoundException {
         String resultString = "";
 
-        ReadStringFromFile readStringFromFile = new ReadStringFromFile();
-        String workString = readStringFromFile.readString(path);
-        char[] chArray = workString.toCharArray();
-        for (int i = 1; i < workString.length(); i++) {
-            String temp = String.valueOf(chArray[i]);
-            resultString += letters.get(temp);
+        String workString = readString(filePath);
+
+        workString = workString.substring(1);
+        char[] workStringToArray = workString.toCharArray();
+
+        boolean latinSymbolsIndicator = false;
+
+        for (int i = 0; i < workString.length(); i++) {
+            if (letters.get(String.valueOf(workStringToArray[i])).equals("")) {
+                latinSymbolsIndicator = true;
+                break;
+            } else
+                resultString += letters.get(String.valueOf(workStringToArray[i]));
         }
+        if(latinSymbolsIndicator)
+            throw new MyExceptionForGetStringFromFile("Test string have latin symbols");
         return resultString;
     }
 }

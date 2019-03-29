@@ -8,9 +8,9 @@ public class ArrayTaskTest {
 
     private ArrayTask arrayTask;
     private int[][] actualArray = {
-            {3,3},
-            {9,2},
-            {3,2}
+            {3, 3},
+            {9, 2},
+            {3, 2}
     };
     private int[][] array = {
             {2, 1, 5, 6},
@@ -26,7 +26,7 @@ public class ArrayTaskTest {
     }
 
     @Test
-    public void runArrayTask() throws Exception {
+    public void runArrayTask() {
         logger.info("Test name: runArrayTask.");
         Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(array), actualArray);
     }
@@ -38,13 +38,13 @@ public class ArrayTaskTest {
     }
 
     @Test
-    public void newArrayIsNotNull(){
+    public void newArrayIsNotNull() {
         logger.info("Test name: newArrayIsNotNull");
         Assert.assertNotNull(arrayTask.deleteRowAndColumn(array));
     }
 
     @Test
-    public void primaryArrayWithoutNumberOne(){
+    public void primaryArrayWithoutNumberOne() {
         logger.info("Test name: primaryArrayWithoutNumberOne");
         int[][] actualArrayFromTest = {
                 {2, 4, 5, 6},
@@ -53,14 +53,8 @@ public class ArrayTaskTest {
                 {9, 4, 3, 2},
                 {3, 3, 5, 2}
         };
-        int[][] arrayFromTest = {
-                {2, 4, 5, 6},
-                {3, 3, 3, 3},
-                {3, 4, 2, 3},
-                {9, 4, 3, 2},
-                {3, 3, 5, 2}
-        };
-        Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(actualArrayFromTest),arrayFromTest);
+
+        Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(actualArrayFromTest), actualArrayFromTest);
     }
 
     @BeforeClass
@@ -73,9 +67,4 @@ public class ArrayTaskTest {
         logger.info("AfterClass StringTask.class");
     }
 
-    @Ignore("Test has been ignored.")
-    @Test
-    public void ignoredTest() {
-        logger.info("will not print it");
-    }
 }

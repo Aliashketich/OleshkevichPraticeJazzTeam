@@ -54,7 +54,7 @@ public class CollectionTaskTest {
     }
 
     @Test
-    public void incorrectMerge() throws Exception {
+    public void incorrectMerge() {
         logger.info("Test name: incorrectMerge");
 
         if (expectedQueue.size() == actualQueue.size()) {
@@ -66,41 +66,35 @@ public class CollectionTaskTest {
     }
 
     @Test
-    public void mergeTwoQueueIsNoNull() throws Exception {
+    public void mergeTwoQueueIsNoNull() {
         logger.info("Test name: mergeTwoQueueIsNoNull");
         Assert.assertNotNull(expectedQueue.toArray());
     }
 
     @Test
-    public void primaryQueueIsNull() throws Exception {
-        logger.info("Test name: primaryQueueIsNull");
+    public void firstPrimaryQueueNO_NULL() {
+        logger.info("Test name: firstPrimaryQueueNO_NULL");
         /*@// TODO: 28.03.2019 разобраться что это и почему не хочет видеть это из @Before */
-        firstQueue = new PriorityQueue<Integer>();
-        {
-            firstQueue.add(1);
-            firstQueue.add(3);
-            firstQueue.add(5);
-            firstQueue.add(7);
-        }
-        secondQueue = new PriorityQueue<Integer>();
-        {
-            secondQueue.add(2);
-            secondQueue.add(4);
-            secondQueue.add(6);
-        }
         if (firstQueue.size() == 0) {
             logger.info("FirstQueue size is 0");
             Assert.fail("FirstQueue size is 0");
         }
+
+    }
+
+    @Test
+    public void secondPrimaryQueueNO_NULL(){
+        logger.info("Test name: secondPrimaryQueueNO_NULL");
         if (secondQueue.size() == 0) {
             logger.info("SecondQueue size is 0");
             Assert.fail("SecondQueue size is 0");
         }
     }
 
-    @Ignore("Test has been ignored.")
     @Test
-    public void ignoredTest() {
-        logger.info("will not print it");
+    public void bothPrimaryQueueNO_NULL(){
+        logger.info("Test name: bothPrimaryQueueNO_NULL");
+
     }
+
 }

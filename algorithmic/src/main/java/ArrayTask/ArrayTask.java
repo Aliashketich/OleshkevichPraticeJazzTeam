@@ -4,21 +4,21 @@ import org.apache.log4j.Logger;
 
 public class ArrayTask {
     private static final Logger logger = Logger.getLogger(ArrayTask.class);
-    private int column = 4;
-    private int row = 5;
     private int[] flagI = new int[20];
     private int[] flagJ = new int[20];
 
     int[][] deleteRowAndColumn(int[][] array) {
         int[][] primaryArrayCopy = array;
-        int flagEntryIntoFlagsArays = 0;
+        int flagEntryIntoFlagsArrays = 0;
         int numberOfDeleteRow = 0;
         int numberOfDeleteColumn = 0;
         int t;
+        int column = 4;
+        int row = 5;
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 if (array[i][j] == 1) {
-                    flagEntryIntoFlagsArays++;
+                    flagEntryIntoFlagsArrays++;
                     flagI[numberOfDeleteRow] = i;
                     for (t = 0; t < 20; t++) {
                         if (flagJ[t] == j) {
@@ -57,10 +57,11 @@ public class ArrayTask {
             newRow--;
             newColumn--;
         }
-        if (flagEntryIntoFlagsArays != 0)
+        if (flagEntryIntoFlagsArrays != 0)
             return array;
-        else
+        else {
+            logger.info("Primary array haven't 1.");
             return primaryArrayCopy;
-        /*@todo Вернуться сюда после работы над Exception*/
+        }
     }
 }

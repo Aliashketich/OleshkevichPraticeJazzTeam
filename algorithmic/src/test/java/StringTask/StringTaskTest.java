@@ -1,47 +1,52 @@
 package StringTask;
 
-import org.apache.log4j.Logger;
-import org.junit.*;
+import exception.MyExceptionForGetStringFromFile;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.FileNotFoundException;
 
 
 public class StringTaskTest {
 
-    private static final Logger logger = Logger.getLogger(StringTaskTest.class);
     private StringTask stringTask;
     private String expectedString;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         stringTask = new StringTask();
-        expectedString = stringTask.transliteration();
     }
 
     @Test
-    public void runTransliterationTest() throws Exception {
-        logger.info("Test name: runTransliterationTest");
-        String actual = "Praktika eto prekrasno!";
-        Assert.assertEquals("Strings not equals", expectedString, actual);
+    public void transliterationResultTest() throws MyExceptionForGetStringFromFile, FileNotFoundException {
+        String filePath = "src/main/java/StringTask/data.txt";
+        expectedString = "Praktika eto prekrasno!";
+        Assert.assertEquals("Strings not equals", expectedString, stringTask.transliteration(filePath));
+    }
+
+    @Test(expected = MyExceptionForGetStringFromFile.class)
+    public void primaryTransliterationTestStringIsNull() throws FileNotFoundException, MyExceptionForGetStringFromFile {
+        String filePath = "src/main/java/StringTask/data1.txt";
+        Assert.assertEquals("Test file not found", stringTask.transliteration(filePath));
+    }
+
+    @Test(expected = MyExceptionForGetStringFromFile.class)
+    public void transliterationTestFileIsEmpty() throws MyExceptionForGetStringFromFile, FileNotFoundException {
+        String filePath = "src/main/java/StringTask/emptyTestFile.txt";
+        Assert.assertEquals("Strings not equals", stringTask.transliteration(filePath));
     }
 
     @Test
-    public void testStringIsNull() throws Exception {
-        logger.info("Test name: testStringIsNull");
-        Assert.assertNotNull("Полученная строка null", expectedString);
+    public void transliterationTestFileContainsOnlyNumbers() throws MyExceptionForGetStringFromFile, FileNotFoundException {
+        String filePath = "src/main/java/StringTask/TestFileWithNumbers.txt";
+        expectedString = "1234567890";
+        Assert.assertEquals(expectedString, stringTask.transliteration(filePath));
     }
 
-    @Ignore("Test has been ignored.")
-    @Test
-    public void ignoredTest() {
-        logger.info("will not print it");
-    }
-
-    @BeforeClass
-    public static void beforeClass() {
-        logger.info("Before StringTask.class");
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        logger.info("After StringTask.class");
+    @Test(expected = MyExceptionForGetStringFromFile.class)
+    public void transliterationTestFileContainsLatinSymbols() throws MyExceptionForGetStringFromFile, FileNotFoundException {
+        String filePath = "src/main/java/StringTask/TestFileWithLatinSymbols.txt";
+        Assert.assertEquals("Test string have latin symbols", stringTask.transliteration(filePath));
     }
 }
