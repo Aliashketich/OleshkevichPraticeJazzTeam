@@ -1,10 +1,11 @@
 package util.fileUtil;
 
-import exception.MyExceptionForGetStringFromFile;
+import exception.FileWorkException;
 import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
@@ -12,46 +13,27 @@ public class GetStringFromFile {
     private static final Logger logger = Logger.getLogger(GetStringFromFile.class);
 
 
-    public static String readString(String path) throws MyExceptionForGetStringFromFile {
-        FileInputStream fileInputStream;
+    public static String readString(String path) throws FileWorkException, IOException {
+
         StringBuilder stringFromFile = new StringBuilder();
 
-        try {
-            fileInputStream = new FileInputStream(path);
-        } catch (FileNotFoundException ex) {
-            throw new MyExceptionForGetStringFromFile("Test file not found");
-        }
+        try (FileInputStream fileInputStream = new FileInputStream(path); InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
 
-        InputStreamReader inputStreamReader = null;
-        try {
-            inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
-        } catch (StringIndexOutOfBoundsException ex) {
-            logger.error(ex);
-        }
-
-        if (inputStreamReader != null) {
-            try {
-                int data = inputStreamReader.read();
-                char content;
-                while (data != -1) {
-                    content = (char) data;
-                    stringFromFile.append(content);
-                    data = inputStreamReader.read();
-                }
-            } catch (Exception ex) {
-                logger.error(ex);
-            } finally {
-                try {
-                    fileInputStream.close();
-                } catch (Exception ex) {
-                    logger.error(ex);
-                }
+            int data = inputStreamReader.read();
+            char content;
+            while (data != -1) {
+                content = (char) data;
+                stringFromFile.append(content);
+                data = inputStreamReader.read();
             }
-            if (stringFromFile.toString().equals("")) {
-                throw new MyExceptionForGetStringFromFile("String can not be empty!");
-            } else
+            if (!stringFromFile.toString().equals("")) {
                 return stringFromFile.toString();
-        } else
-            throw new MyExceptionForGetStringFromFile("inputStreamReader is null");
+            } else
+                throw new FileWorkException("Test string must be not empty!");
+
+        } catch (FileNotFoundException | NullPointerException ex) {
+            logger.error(ex);
+            throw ex;
+        }
     }
 }

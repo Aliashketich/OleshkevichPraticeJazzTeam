@@ -1,9 +1,9 @@
-package StringTask;
+package Tasks.Strings.Task1;
 
-import exception.MyExceptionForGetStringFromFile;
+import exception.FileWorkException;
 import org.apache.log4j.Logger;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,7 +104,7 @@ class StringTask {
     }
 
 
-    String transliteration(String filePath) throws MyExceptionForGetStringFromFile, FileNotFoundException {
+    String transliteration(String filePath) throws FileWorkException, IOException {
         String resultString = "";
 
         String workString = readString(filePath);
@@ -122,7 +122,7 @@ class StringTask {
                 resultString += letters.get(String.valueOf(workStringToArray[i]));
         }
         if(latinSymbolsIndicator)
-            throw new MyExceptionForGetStringFromFile("Test string have latin symbols");
+            throw new FileWorkException("Test string have latin symbols");
         return resultString;
     }
 }

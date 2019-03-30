@@ -1,7 +1,9 @@
-package CollectionTask;
+package Tasks.Collections.Task1;
 
 import org.apache.log4j.Logger;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.PriorityQueue;
 
@@ -14,15 +16,6 @@ public class CollectionTaskTest {
     private PriorityQueue<Integer> actualQueue;
     private PriorityQueue<Integer> expectedQueue;
 
-    @BeforeClass
-    public static void beforeClass() {
-        logger.info("Before StringTask.class");
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        logger.info("After StringTask.class");
-    }
 
     @Before
     public void setUp() throws Exception {
@@ -40,6 +33,12 @@ public class CollectionTaskTest {
             secondQueue.add(4);
             secondQueue.add(6);
         }
+
+        expectedQueue = collectionTask.mergeTwoQueue(firstQueue, secondQueue);
+    }
+
+    @Test
+    public void mergeTwoQueueIsCorrect() {
         actualQueue = new PriorityQueue<Integer>();
         {
             actualQueue.add(1);
@@ -50,13 +49,6 @@ public class CollectionTaskTest {
             actualQueue.add(6);
             actualQueue.add(7);
         }
-        expectedQueue = collectionTask.mergeTwoQueue(firstQueue, secondQueue);
-    }
-
-    @Test
-    public void incorrectMerge() {
-        logger.info("Test name: incorrectMerge");
-
         if (expectedQueue.size() == actualQueue.size()) {
             Assert.assertNotEquals(expectedQueue, actualQueue);
         } else {
@@ -67,7 +59,6 @@ public class CollectionTaskTest {
 
     @Test
     public void mergeTwoQueueIsNoNull() {
-        logger.info("Test name: mergeTwoQueueIsNoNull");
         Assert.assertNotNull(expectedQueue.toArray());
     }
 
@@ -83,7 +74,7 @@ public class CollectionTaskTest {
     }
 
     @Test
-    public void secondPrimaryQueueNO_NULL(){
+    public void secondPrimaryQueueNO_NULL() {
         logger.info("Test name: secondPrimaryQueueNO_NULL");
         if (secondQueue.size() == 0) {
             logger.info("SecondQueue size is 0");
@@ -92,7 +83,7 @@ public class CollectionTaskTest {
     }
 
     @Test
-    public void bothPrimaryQueueNO_NULL(){
+    public void bothPrimaryQueueNO_NULL() {
         logger.info("Test name: bothPrimaryQueueNO_NULL");
 
     }

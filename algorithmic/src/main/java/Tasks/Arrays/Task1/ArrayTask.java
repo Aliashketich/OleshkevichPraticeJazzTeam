@@ -1,4 +1,4 @@
-package ArrayTask;
+package Tasks.Arrays.Task1;
 
 import org.apache.log4j.Logger;
 

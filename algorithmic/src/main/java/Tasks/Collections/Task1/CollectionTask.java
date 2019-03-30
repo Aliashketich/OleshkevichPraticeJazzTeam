@@ -1,6 +1,6 @@
 /*Даны две упорядоченные очереди, элементами которых являются целые числа.
  Объединить эти очереди в одну упорядоченную очередь*/
-package CollectionTask;
+package Tasks.Collections.Task1;
 
 import org.apache.log4j.Logger;
 
@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 class CollectionTask {
     private static final Logger logger = Logger.getLogger(CollectionTask.class);
 
-    PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) throws Exception {
+    PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) {
         PriorityQueue<Integer> mergedQueue = new PriorityQueue<Integer>();
         PriorityQueue<Integer> sortedMergedQueue = new PriorityQueue<Integer>();
 

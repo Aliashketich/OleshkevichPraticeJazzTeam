@@ -1,28 +1,32 @@
 package util.fileUtil;
 
+import exception.FileWorkException;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReadTextFromFile {
     private static final Logger logger = Logger.getLogger(ReadTextFromFile.class);
 
-    private static StringBuilder stringFromText = new StringBuilder();
 
-    public static List<String> readText(String path) {
-        ArrayList<String> arr = new ArrayList<String>();
-        try (FileReader fileReader = new FileReader(path); BufferedReader br = new BufferedReader(fileReader)) {
+    public static ArrayList<String> readTextFromFile(String path) throws IOException, FileWorkException {
+        ArrayList<String> stringsFromFile = new ArrayList<String>();
+
+        try (FileReader fileReader = new FileReader(path); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String sCurrentLine;
-            while ((sCurrentLine = br.readLine()) != null) {
-                arr.add(sCurrentLine);
+            while ((sCurrentLine = bufferedReader.readLine()) != null) {
+                stringsFromFile.add(sCurrentLine);
             }
         } catch (IOException e) {
             logger.error(e);
+            throw e;
         }
-        return arr;
+        if(stringsFromFile.size()!=0)
+            return stringsFromFile;
+        else
+            throw new FileWorkException("Test file is empty!");
     }
 }
