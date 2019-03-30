@@ -14,7 +14,6 @@ import static util.fileUtil.ReadTextFromFile.readTextFromFile;
 
 class FileTask {
     private static final Logger logger = Logger.getLogger(FileTask.class);
-    private static final String path = "src/main/java/Files/data.txt";
 
     String buildSquare(String filePathFromTest) throws IOException, FileWorkException {
 
