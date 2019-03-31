@@ -2,7 +2,7 @@ package Tasks.Arrays.Task1;
 
 import org.apache.log4j.Logger;
 
-public class ArrayTask {
+class ArrayTask {
     private static final Logger logger = Logger.getLogger(ArrayTask.class);
     private int[] flagI = new int[20];
     private int[] flagJ = new int[20];

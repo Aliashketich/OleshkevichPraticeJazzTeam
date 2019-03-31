@@ -11,8 +11,7 @@ class CollectionTask {
     private static final Logger logger = Logger.getLogger(CollectionTask.class);
 
     PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) {
-        PriorityQueue<Integer> mergedQueue = new PriorityQueue<Integer>();
-        PriorityQueue<Integer> sortedMergedQueue = new PriorityQueue<Integer>();
+        PriorityQueue<Integer> mergedQueue = new PriorityQueue<>();
 
         if (firstQueue.size() == 0 && secondQueue.size() == 0) {
             logger.error("Both queue is null");
@@ -36,8 +35,7 @@ class CollectionTask {
         Integer[] intArray = new Integer[mergedQueue.size()];
         mergedQueue.toArray(intArray);
         Arrays.sort(intArray);
-        sortedMergedQueue.addAll(Arrays.asList(intArray).subList(0, mergedQueue.size()));
 
-        return sortedMergedQueue;
+        return new PriorityQueue<>(Arrays.asList(intArray).subList(0, mergedQueue.size()));
     }
 }

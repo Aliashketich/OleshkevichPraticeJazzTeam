@@ -13,7 +13,7 @@ public class ReadTextFromFile {
 
 
     public static ArrayList<String> readTextFromFile(String path) throws IOException, FileWorkException {
-        ArrayList<String> stringsFromFile = new ArrayList<String>();
+        ArrayList<String> stringsFromFile = new ArrayList<>();
 
         try (FileReader fileReader = new FileReader(path); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String sCurrentLine;

@@ -12,7 +12,7 @@ import static util.fileUtil.GetStringFromFile.readString;
 class StringTask {
     private static final Logger logger = Logger.getLogger(StringTask.class);
 
-    private Map<String, String> letters = new HashMap<String, String>();
+    private Map<String, String> letters = new HashMap<>();
 
     {
         letters.put("А", "A");

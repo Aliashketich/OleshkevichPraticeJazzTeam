@@ -3,10 +3,10 @@ package Tasks.Strings.Task2;
 import org.apache.log4j.Logger;
 
 /*Напечатать слова, которые встречаются в предложениях только 1 раз*/
-public class StringTask2 {
+class StringTask2 {
     private static final Logger logger = Logger.getLogger(StringTask2.class);
 
-    public String printIdenticalWordsFromTwoStrings(String firstString, String secondString) {
+    String printIdenticalWordsFromTwoStrings(String firstString, String secondString) {
         String resultString = "";
         try {
             String[] subString1 = firstString.split("[\\\\s\\\\-\\\\-\\\\.\\\\'\\\\?\\\\,\\\\_\\\\@\\\\!\\\\ ]+");

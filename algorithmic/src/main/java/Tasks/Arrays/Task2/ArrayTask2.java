@@ -4,8 +4,8 @@ package Tasks.Arrays.Task2;
 
 import java.util.Arrays;
 
-public class ArrayTask2 {
-    public int[][] normalisation(int[][] array) {
+class ArrayTask2 {
+    int[][] normalisation(int[][] array) {
         Arrays.sort(array, (o1, o2) -> {
             Integer i1 = o1[0];
             Integer i2 = o2[0];

@@ -5,16 +5,15 @@
 package Tasks.Files.Task1;
 
 import exception.FileWorkException;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static util.fileUtil.ReadTextFromFile.readTextFromFile;
 
 class FileTask {
-    private static final Logger logger = Logger.getLogger(FileTask.class);
 
     ArrayList<String> buildSquare(String filePathFromTest) throws IOException, FileWorkException {
         ArrayList<String> answer;
@@ -37,14 +36,14 @@ class FileTask {
                         int countOfAcceptLetters = 0;
                         char[] wordFromArrayListOfWordWithSetLength = arrayListOfWordWithSetLength.get(j).toCharArray();
                         for (int t = 0; t < wordFromArrayListOfWordWithSetLength.length; t++) {
-                            if (!arrayListHasSomeWordOnThisLetter(arrayListOfWordWithSetLength, wordFromArrayListOfWordWithSetLength[t], wordFromArrayListOfWordWithSetLength.toString()))
+                            if (!arrayListHasSomeWordOnThisLetter(arrayListOfWordWithSetLength, wordFromArrayListOfWordWithSetLength[t], Arrays.toString(wordFromArrayListOfWordWithSetLength)))
                                 break;
                             else countOfAcceptLetters++;
                         }
                         if (countOfAcceptLetters == arrayListOfWordWithSetLength.get(j).length()) {
                             //в этом моменте я имею слово которое может быть 1ым, после нужно перебрать все варианты 3х3 и 4х4, проверяя наличие слов
                             String firstWordOfResultArrayList = arrayListOfWordWithSetLength.get(j);
-                            ArrayList<String> answerVariant = new ArrayList<String>();
+                            ArrayList<String> answerVariant = new ArrayList<>();
                             for (int i1 = 0; i1 < firstWordOfResultArrayList.length(); i1++) {
                                 answerVariant.add(i1, arrayListOfWordWithSetLength.get(j++));
                             }
@@ -78,9 +77,9 @@ class FileTask {
     }
 
     private HashMap<Integer, ArrayList<String>> separateWordsIntoLengthGroups(ArrayList<String> wordsSource, int maxWordLength, int minWordLength) {
-        HashMap<Integer, ArrayList<String>> answerHashMap = new HashMap<Integer, ArrayList<String>>();
+        HashMap<Integer, ArrayList<String>> answerHashMap = new HashMap<>();
         for (int i = minWordLength; i < maxWordLength + 1; i++) {
-            ArrayList<String> arrayListOfWordsWithSameLength = new ArrayList<String>();
+            ArrayList<String> arrayListOfWordsWithSameLength = new ArrayList<>();
             for (int j = 0, t = 0; j < wordsSource.size(); j++) {
                 if (wordsSource.get(j).length() == i) {
                     arrayListOfWordsWithSameLength.add(t, wordsSource.get(j));

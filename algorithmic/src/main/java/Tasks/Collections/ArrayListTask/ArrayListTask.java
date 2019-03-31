@@ -6,10 +6,10 @@ import java.util.ArrayList;
  Create a method called search(String keyword, int minLength) that returns an ArrayList of String.
   The method should return all the words that contain the keyword and have a length no less than minLength.
    if minLength == -1, then it returns all words with any length.*/
-public class ArrayListTask {
+class ArrayListTask {
 
-    public ArrayList<String> search(ArrayList<String> stringArrayList, String keyword, int minLength) {
-        ArrayList<String> resultArrayList = new ArrayList<String>();
+    ArrayList<String> search(ArrayList<String> stringArrayList, String keyword, int minLength) {
+        ArrayList<String> resultArrayList = new ArrayList<>();
         try {
             if (minLength != -1)
                 for (int i = 0; i < stringArrayList.size(); i++) {
