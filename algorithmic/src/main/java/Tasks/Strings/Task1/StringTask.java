@@ -121,7 +121,7 @@ class StringTask {
             } else
                 resultString += letters.get(String.valueOf(workStringToArray[i]));
         }
-        if(latinSymbolsIndicator)
+        if (latinSymbolsIndicator)
             throw new FileWorkException("Test string have latin symbols");
         return resultString;
     }

@@ -46,7 +46,7 @@ public class StringTask2Test {
     }
 
     @Test
-    public void wordsInStringsAreDividedByNotSpaceOnly(){
+    public void wordsInStringsAreDividedByNotSpaceOnly() {
         firstString = "Ранним утром!хорошо прогуляться не только по лесу, но и вдоль реки.";
         secondString = "Прошлым-утром я не встретил его в лесу.";
         actualString = "утром не лесу";
@@ -54,7 +54,7 @@ public class StringTask2Test {
     }
 
     @Test
-    public void multipleEntryOfIdenticalWord(){
+    public void multipleEntryOfIdenticalWord() {
         firstString = "Ранним утром!хорошо  прогуляться не только по по лесу, но и вдоль реки, и по полю.";
         secondString = "Прошлым-утром я не встретил его во по время прогулки по лесу.";
         actualString = "утром не по лесу";

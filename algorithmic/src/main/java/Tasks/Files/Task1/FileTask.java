@@ -9,20 +9,115 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static util.fileUtil.ReadTextFromFile.readTextFromFile;
 
 class FileTask {
     private static final Logger logger = Logger.getLogger(FileTask.class);
 
-    String buildSquare(String filePathFromTest) throws IOException, FileWorkException {
-
+    ArrayList<String> buildSquare(String filePathFromTest) throws IOException, FileWorkException {
+        ArrayList<String> answer;
         ArrayList<String> wordsSource = readTextFromFile(filePathFromTest);
-        String answer = wordsSource.toString();
 
-        /*@todo Реализовать запись результата в файл с ответом, и сравнение этих 2 файлов в тесте.*/
+        /*@ TODO: 30.03.2019 реализовать алгоритм. */
+        boolean squareIsBuild = false;
+        while (!squareIsBuild) {
+            int maxWordLength = getStringListMaxElementLength(wordsSource);
+            int minWordLength = getStringListMinElementLength(wordsSource);
+            int numbersWordsWithMaxLength = getNumbersOfWordsWithSetLength(wordsSource, maxWordLength);
+            HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength = separateWordsIntoLengthGroups(wordsSource, maxWordLength, minWordLength);
 
+            int numbersOfWordsInGroupWithOneLength;
+            for (int i = minWordLength; i < maxWordLength + 1; i++) {
+                numbersOfWordsInGroupWithOneLength = getNumberOfWordsInGroup(wordsGroupWithSameLength, i);
+                if (numbersOfWordsInGroupWithOneLength >= minWordLength) {
+                    ArrayList<String> arrayListOfWordWithSetLength = wordsGroupWithSameLength.get(i);
+                    for (int j = 0; j < numbersOfWordsInGroupWithOneLength; j++) {
+                        int countOfAcceptLetters = 0;
+                        char[] wordFromArrayListOfWordWithSetLength = arrayListOfWordWithSetLength.get(j).toCharArray();
+                        for (int t = 0; t < wordFromArrayListOfWordWithSetLength.length; t++) {
+                            if (!arrayListHasSomeWordOnThisLetter(arrayListOfWordWithSetLength, wordFromArrayListOfWordWithSetLength[t], wordFromArrayListOfWordWithSetLength.toString()))
+                                break;
+                            else countOfAcceptLetters++;
+                        }
+                        if (countOfAcceptLetters == arrayListOfWordWithSetLength.get(j).length()) {
+                            //в этом моменте я имею слово которое может быть 1ым, после нужно перебрать все варианты 3х3 и 4х4, проверяя наличие слов
+                            String firstWordOfResultArrayList = arrayListOfWordWithSetLength.get(j);
+                            ArrayList<String> answerVariant = new ArrayList<String>();
+                            for (int i1 = 0; i1 < firstWordOfResultArrayList.length(); i1++) {
+                                answerVariant.add(i1, arrayListOfWordWithSetLength.get(j++));
+                            }
+                            System.out.println(answerVariant);
+                        }
+                    }
+                }
+            }
+
+
+            squareIsBuild = true;
+        }
+        answer = wordsSource;
         return answer;
+    }
+
+    private boolean arrayListHasSomeWordOnThisLetter(ArrayList<String> arrayListOfWordWithSetLength, char c, String excludeWord) {
+        for (int i = 0; i < arrayListOfWordWithSetLength.size(); i++) {
+            char[] chars = arrayListOfWordWithSetLength.get(i).toCharArray();
+            if ((chars[0] == c) && (!arrayListOfWordWithSetLength.get(i).equals(excludeWord))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private int getNumberOfWordsInGroup(HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength, int wordsLengthInGroup) {
+        ArrayList<String> arrayListOfWordGroup = wordsGroupWithSameLength.get(wordsLengthInGroup);
+        return arrayListOfWordGroup.size();
+    }
+
+    private HashMap<Integer, ArrayList<String>> separateWordsIntoLengthGroups(ArrayList<String> wordsSource, int maxWordLength, int minWordLength) {
+        HashMap<Integer, ArrayList<String>> answerHashMap = new HashMap<Integer, ArrayList<String>>();
+        for (int i = minWordLength; i < maxWordLength + 1; i++) {
+            ArrayList<String> arrayListOfWordsWithSameLength = new ArrayList<String>();
+            for (int j = 0, t = 0; j < wordsSource.size(); j++) {
+                if (wordsSource.get(j).length() == i) {
+                    arrayListOfWordsWithSameLength.add(t, wordsSource.get(j));
+                    t++;
+                }
+            }
+            answerHashMap.put(i, arrayListOfWordsWithSameLength);
+        }
+        return answerHashMap;
+    }
+
+    private int getNumbersOfWordsWithSetLength(ArrayList<String> wordsSource, int maxWordLength) {
+        int numbersOfWordsWithSetLength = 0;
+        for (int i = 0; i < wordsSource.size(); i++) {
+            if (wordsSource.get(i).length() == maxWordLength)
+                numbersOfWordsWithSetLength++;
+        }
+        return numbersOfWordsWithSetLength;
+    }
+
+    private int getStringListMinElementLength(ArrayList<String> wordsSource) {
+        int minElementLength = wordsSource.get(0).length();
+        for (int i = 0; i < wordsSource.size(); i++) {
+            if (wordsSource.get(i).length() < minElementLength)
+                minElementLength = wordsSource.get(i).length();
+        }
+        return minElementLength;
+
+    }
+
+    private int getStringListMaxElementLength(ArrayList<String> wordsSource) {
+        int maxElementLength = 0;
+        for (int i = 0; i < wordsSource.size(); i++) {
+            if (wordsSource.get(i).length() > maxElementLength)
+                maxElementLength = wordsSource.get(i).length();
+        }
+        return maxElementLength;
     }
 
 }

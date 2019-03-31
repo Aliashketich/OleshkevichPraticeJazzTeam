@@ -1,3 +1,4 @@
+look
 slam
 test
 text
@@ -10,3 +11,12 @@ aces
 snow
 mert
 seek
+cat
+are
+pea
+cap
+tea
+cut
+top
+alo
+table

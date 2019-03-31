@@ -24,7 +24,7 @@ public class ReadTextFromFile {
             logger.error(e);
             throw e;
         }
-        if(stringsFromFile.size()!=0)
+        if (stringsFromFile.size() != 0)
             return stringsFromFile;
         else
             throw new FileWorkException("Test file is empty!");

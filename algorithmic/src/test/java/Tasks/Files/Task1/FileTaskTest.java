@@ -5,9 +5,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import util.fileUtil.ReadTextFromFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class FileTaskTest {
     private FileTask fileTask;
@@ -25,9 +27,11 @@ public class FileTaskTest {
 
     @Ignore
     @Test
-    public void squareBuildIsCorrect() {
-        String filePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/fileToCompareResult.txt";
-//        Assert.assertEquals();
+    public void squareBuildIsCorrect() throws IOException, FileWorkException {
+        String dataFilePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/data.txt";
+        String actualFilePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/fileToCompareResult.txt";
+        ArrayList<String> actualSquare = ReadTextFromFile.readTextFromFile(actualFilePath);
+        Assert.assertEquals(fileTask.buildSquare(dataFilePath), actualSquare);
     }
 
     @Test(expected = FileWorkException.class)

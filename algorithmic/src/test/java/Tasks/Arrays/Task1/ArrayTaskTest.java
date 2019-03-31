@@ -20,6 +20,16 @@ public class ArrayTaskTest {
             {3, 3, 5, 2}
     };
 
+    @BeforeClass
+    public static void beforeClass() {
+        logger.info("BeforeClass Strings.class");
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        logger.info("AfterClass Strings.class");
+    }
+
     @Before
     public void setUp() {
         arrayTask = new ArrayTask();
@@ -33,7 +43,7 @@ public class ArrayTaskTest {
 
     @Test
     public void primaryArrayIsNotNull() throws Exception {
-        logger.info("Test name: primaryArrayIsNotNull");
+        logger.info("Test name: primaryArrayIsNull");
         Assert.assertNotNull(array);
     }
 
@@ -55,16 +65,6 @@ public class ArrayTaskTest {
         };
 
         Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(actualArrayFromTest), actualArrayFromTest);
-    }
-
-    @BeforeClass
-    public static void beforeClass() {
-        logger.info("BeforeClass Strings.class");
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        logger.info("AfterClass Strings.class");
     }
 
 }
