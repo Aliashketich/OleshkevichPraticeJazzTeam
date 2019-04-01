@@ -1,6 +1,6 @@
 package Tasks.Collections.Task1;
 
-import org.apache.log4j.Logger;
+import exception.MyExceptionForFileWork;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,84 +8,64 @@ import org.junit.Test;
 import java.util.PriorityQueue;
 
 public class CollectionTaskTest {
-    private static final Logger logger = Logger.getLogger(CollectionTaskTest.class);
     private CollectionTask collectionTask;
 
     private PriorityQueue<Integer> firstQueue;
     private PriorityQueue<Integer> secondQueue;
-    private PriorityQueue<Integer> actualQueue;
     private PriorityQueue<Integer> expectedQueue;
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         collectionTask = new CollectionTask();
-        firstQueue = new PriorityQueue<Integer>();
+        firstQueue = new PriorityQueue<>();
         {
             firstQueue.add(1);
             firstQueue.add(3);
             firstQueue.add(5);
             firstQueue.add(7);
         }
-        secondQueue = new PriorityQueue<Integer>();
+        secondQueue = new PriorityQueue<>();
         {
             secondQueue.add(2);
             secondQueue.add(4);
             secondQueue.add(6);
         }
-
-        expectedQueue = collectionTask.mergeTwoQueue(firstQueue, secondQueue);
     }
 
     @Test
-    public void mergeTwoQueueIsCorrect() {
-        actualQueue = new PriorityQueue<Integer>();
+    public void mergeTwoQueueIsCorrect() throws MyExceptionForFileWork {
+        PriorityQueue<Integer> expectedQueueForThisTest = new PriorityQueue<>();
         {
-            actualQueue.add(1);
-            actualQueue.add(2);
-            actualQueue.add(3);
-            actualQueue.add(4);
-            actualQueue.add(5);
-            actualQueue.add(6);
-            actualQueue.add(7);
+            expectedQueueForThisTest.add(1);
+            expectedQueueForThisTest.add(2);
+            expectedQueueForThisTest.add(3);
+            expectedQueueForThisTest.add(4);
+            expectedQueueForThisTest.add(5);
+            expectedQueueForThisTest.add(6);
+            expectedQueueForThisTest.add(7);
         }
-        if (expectedQueue.size() == actualQueue.size()) {
-            Assert.assertNotEquals(expectedQueue, actualQueue);
-        } else {
-            logger.error("Arrays are different lengths");
-            Assert.fail("Arrays are different lengths");
-        }
+        Assert.assertEquals(expectedQueueForThisTest.toString(), collectionTask.mergeTwoQueue(firstQueue, secondQueue).toString());
     }
 
-    @Test
-    public void mergeTwoQueueIsNoNull() {
-        Assert.assertNotNull(expectedQueue.toArray());
-    }
 
-    @Test
-    public void firstPrimaryQueueNO_NULL() {
-        logger.info("Test name: firstPrimaryQueueNO_NULL");
-        /*@// TODO: 28.03.2019 разобраться что это и почему не хочет видеть это из @Before */
-        if (firstQueue.size() == 0) {
-            logger.info("FirstQueue size is 0");
-//            Assert.fail("FirstQueue size is 0");
-        }
+    @Test(expected = MyExceptionForFileWork.class)
+    public void firstPrimaryQueueIsNotEmpty() throws MyExceptionForFileWork {
+        PriorityQueue<Integer> firstQueueForThisTest = new PriorityQueue<>();
+        Assert.assertEquals("First primary queue is empty!", collectionTask.mergeTwoQueue(firstQueueForThisTest, secondQueue).toString());
 
     }
 
-    @Test
-    public void secondPrimaryQueueNO_NULL() {
-        logger.info("Test name: secondPrimaryQueueNO_NULL");
-        if (secondQueue.size() == 0) {
-            logger.info("SecondQueue size is 0");
-//            Assert.fail("SecondQueue size is 0");
-        }
+    @Test(expected = MyExceptionForFileWork.class)
+    public void secondPrimaryQueueIsNotEmpty() throws MyExceptionForFileWork {
+        PriorityQueue<Integer> secondQueueForThisTest = new PriorityQueue<>();
+        Assert.assertEquals("Second primary queue is empty!", collectionTask.mergeTwoQueue(firstQueue, secondQueueForThisTest).toString());
     }
 
-    @Test
-    public void bothPrimaryQueueNO_NULL() {
-        logger.info("Test name: bothPrimaryQueueNO_NULL");
-
+    @Test(expected = MyExceptionForFileWork.class)
+    public void bothPrimaryQueueIsNotEmpty() throws MyExceptionForFileWork {
+        PriorityQueue<Integer> firstQueueForThisTest = new PriorityQueue<>();
+        PriorityQueue<Integer> secondQueueForThisTest = new PriorityQueue<>();
+        Assert.assertEquals("Both primary queue is empty!", collectionTask.mergeTwoQueue(firstQueueForThisTest, secondQueueForThisTest).toString());
     }
-
 }

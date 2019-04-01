@@ -6,6 +6,7 @@ package Tasks.Collections.HashMapTask;
 import exception.MyExceptionForFileWork;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import static util.fileUtil.GetVocabularyFromFile.setVocabularyToHashMap;
@@ -27,8 +28,9 @@ class HashMapTask {
         } catch (MyExceptionForFileWork | IOException e) {
             throw e;
         }
-        if (!stringAfterTransliteration.toString().equals(""))
-            return stringAfterTransliteration.toString().substring(0, stringAfterTransliteration.toString().length() - 1);
-        else return stringAfterTransliteration.toString();
+        String formatForJenkinsTestString = new String(stringAfterTransliteration.toString().getBytes(), StandardCharsets.UTF_8);
+        if (!formatForJenkinsTestString.equals(""))
+            return formatForJenkinsTestString.substring(0, formatForJenkinsTestString.length() - 1);
+        else return formatForJenkinsTestString;
     }
 }

@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 public class HashMapTaskTest {
     private HashMapTask hashMapTask;
@@ -23,8 +22,7 @@ public class HashMapTaskTest {
     public void checkResultOfTransliteration() throws IOException, MyExceptionForFileWork {
         String expectedString = "мы собираем конструктор";
         String vocabularyFilePath = "src/main/java/Tasks/Collections/HashMapTask/TextFileSources/vocabulary.txt";
-        String actualString = new String(hashMapTask.translateStringToRussian(vocabularyFilePath, stringForTransliteration).getBytes(), StandardCharsets.UTF_8);
-        Assert.assertEquals(expectedString, actualString);
+        Assert.assertEquals(expectedString, hashMapTask.translateStringToRussian(vocabularyFilePath, stringForTransliteration));
     }
 
     @Test(expected = FileNotFoundException.class)
@@ -38,8 +36,7 @@ public class HashMapTaskTest {
         String vocabularyFilePath = "src/main/java/Tasks/Collections/HashMapTask/TextFileSources/vocabulary.txt";
         String expectedString = "she собираем конструктор";
         String stringForTransliterationInThisTest = "she collect constructor";
-        String actualString = new String(hashMapTask.translateStringToRussian(vocabularyFilePath, stringForTransliterationInThisTest).getBytes(), StandardCharsets.UTF_8);
-        Assert.assertEquals(expectedString, actualString);
+        Assert.assertEquals(expectedString, hashMapTask.translateStringToRussian(vocabularyFilePath, stringForTransliterationInThisTest));
     }
 
     @Test

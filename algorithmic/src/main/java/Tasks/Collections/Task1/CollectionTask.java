@@ -1,36 +1,27 @@
-/*Даны две упорядоченные очереди, элементами которых являются целые числа.
- Объединить эти очереди в одну упорядоченную очередь*/
+
 package Tasks.Collections.Task1;
 
-import org.apache.log4j.Logger;
+import exception.MyExceptionForFileWork;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
+import static util.queueUtil.CheckCorrectQueue.checkCorrectInputQueue;
+import static util.queueUtil.InsertionQueueToOtherQueue.insertQueue;
+
+/*Даны две упорядоченные очереди, элементами которых являются целые числа.
+ Объединить эти очереди в одну упорядоченную очередь*/
 class CollectionTask {
-    private static final Logger logger = Logger.getLogger(CollectionTask.class);
 
-    PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) {
+    PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) throws MyExceptionForFileWork {
         PriorityQueue<Integer> mergedQueue = new PriorityQueue<>();
-
-        if (firstQueue.size() == 0 && secondQueue.size() == 0) {
-            logger.error("Both queue is null");
-            return null;
+        try {
+            checkCorrectInputQueue(firstQueue, secondQueue);
+        } catch (MyExceptionForFileWork ex) {
+            throw ex;
         }
-
-        if (firstQueue.size() == 0 || secondQueue.size() == 0) {
-            logger.error("One of primary queues is null");
-            if (firstQueue.size() == 0)
-                return secondQueue;
-            if (secondQueue.size() == 0)
-                return firstQueue;
-        }
-
-
-        while (!firstQueue.isEmpty())
-            mergedQueue.add(firstQueue.poll());
-        while (!secondQueue.isEmpty())
-            mergedQueue.add(secondQueue.poll());
+        mergedQueue = insertQueue(mergedQueue, firstQueue);
+        mergedQueue = insertQueue(mergedQueue, secondQueue);
 
         Integer[] intArray = new Integer[mergedQueue.size()];
         mergedQueue.toArray(intArray);

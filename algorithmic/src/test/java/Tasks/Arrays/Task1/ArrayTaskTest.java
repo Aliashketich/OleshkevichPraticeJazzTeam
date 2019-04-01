@@ -1,11 +1,11 @@
 package Tasks.Arrays.Task1;
 
-import org.apache.log4j.Logger;
-import org.junit.*;
+import exception.MyExceptionForFileWork;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class ArrayTaskTest {
-    private static final Logger logger = Logger.getLogger(ArrayTaskTest.class);
-
     private ArrayTask arrayTask;
     private int[][] actualArray = {
             {3, 3},
@@ -20,42 +20,29 @@ public class ArrayTaskTest {
             {3, 3, 5, 2}
     };
 
-    @BeforeClass
-    public static void beforeClass() {
-        logger.info("BeforeClass Strings.class");
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        logger.info("AfterClass Strings.class");
-    }
-
     @Before
     public void setUp() {
         arrayTask = new ArrayTask();
     }
 
     @Test
-    public void runArrayTask() {
-        logger.info("Test name: runArrayTask.");
+    public void runArrayTask() throws MyExceptionForFileWork {
         Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(array), actualArray);
     }
 
-    @Test
-    public void primaryArrayIsNotNull() throws Exception {
-        logger.info("Test name: primaryArrayIsNull");
-        Assert.assertNotNull(array);
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void arrayIndexOutOfBoundsExceptionProcessing() throws MyExceptionForFileWork {
+        int[][] arrayForThisTest = new int[0][];
+        arrayTask.deleteRowAndColumn(arrayForThisTest);
     }
 
     @Test
-    public void newArrayIsNotNull() {
-        logger.info("Test name: newArrayIsNotNull");
+    public void newArrayIsNotNull() throws MyExceptionForFileWork {
         Assert.assertNotNull(arrayTask.deleteRowAndColumn(array));
     }
 
-    @Test
-    public void primaryArrayWithoutNumberOne() {
-        logger.info("Test name: primaryArrayWithoutNumberOne");
+    @Test(expected = MyExceptionForFileWork.class)
+    public void primaryArrayWithoutNumberOne() throws MyExceptionForFileWork {
         int[][] actualArrayFromTest = {
                 {2, 4, 5, 6},
                 {3, 3, 3, 3},
@@ -63,8 +50,7 @@ public class ArrayTaskTest {
                 {9, 4, 3, 2},
                 {3, 3, 5, 2}
         };
-
-        Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(actualArrayFromTest), actualArrayFromTest);
+        Assert.assertEquals("Primary array haven't 1.", arrayTask.deleteRowAndColumn(actualArrayFromTest));
     }
 
 }
