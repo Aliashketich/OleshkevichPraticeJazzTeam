@@ -4,20 +4,20 @@
 
 package Tasks.Files.Task1;
 
-import exception.FileWorkException;
+import exception.MyExceptionForFileWork;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static util.fileUtil.ReadTextFromFile.readTextFromFile;
+import static util.fileUtil.GetTextFromFile.readFile;
 
 class FileTask {
 
-    ArrayList<String> buildSquare(String filePathFromTest) throws IOException, FileWorkException {
+    ArrayList<String> buildSquare(String filePathFromTest) throws IOException, MyExceptionForFileWork {
         ArrayList<String> answer;
-        ArrayList<String> wordsSource = readTextFromFile(filePathFromTest);
+        ArrayList<String> wordsSource = readFile(filePathFromTest);
 
         /*@ TODO: 30.03.2019 реализовать алгоритм. */
         boolean squareIsBuild = false;
@@ -41,7 +41,7 @@ class FileTask {
                             else countOfAcceptLetters++;
                         }
                         if (countOfAcceptLetters == arrayListOfWordWithSetLength.get(j).length()) {
-                            //в этом моменте я имею слово которое может быть 1ым, после нужно перебрать все варианты 3х3 и 4х4, проверяя наличие слов
+                            /*@todo Алгоритм генерации ArrayList<String> всех возможных комбинаций слов. Проверить каждую из них на удовлетворению условию. */
                             String firstWordOfResultArrayList = arrayListOfWordWithSetLength.get(j);
                             ArrayList<String> answerVariant = new ArrayList<>();
                             for (int i1 = 0; i1 < firstWordOfResultArrayList.length(); i1++) {

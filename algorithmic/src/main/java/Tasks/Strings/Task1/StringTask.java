@@ -1,7 +1,6 @@
 package Tasks.Strings.Task1;
 
-import exception.FileWorkException;
-import org.apache.log4j.Logger;
+import exception.MyExceptionForFileWork;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,8 +9,6 @@ import java.util.Map;
 import static util.fileUtil.GetStringFromFile.readString;
 
 class StringTask {
-    private static final Logger logger = Logger.getLogger(StringTask.class);
-
     private Map<String, String> letters = new HashMap<>();
 
     {
@@ -104,7 +101,7 @@ class StringTask {
     }
 
 
-    String transliteration(String filePath) throws FileWorkException, IOException {
+    String transliteration(String filePath) throws MyExceptionForFileWork, IOException {
         String resultString = "";
 
         String workString = readString(filePath);
@@ -122,7 +119,7 @@ class StringTask {
                 resultString += letters.get(String.valueOf(workStringToArray[i]));
         }
         if (latinSymbolsIndicator)
-            throw new FileWorkException("Test string have latin symbols");
+            throw new MyExceptionForFileWork("Test string have latin symbols");
         return resultString;
     }
 }

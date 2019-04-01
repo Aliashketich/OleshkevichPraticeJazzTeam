@@ -1,6 +1,6 @@
 package util.fileUtil;
 
-import exception.FileWorkException;
+import exception.MyExceptionForFileWork;
 import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ public class GetStringFromFile {
     private static final Logger logger = Logger.getLogger(GetStringFromFile.class);
 
 
-    public static String readString(String path) throws FileWorkException, IOException {
+    public static String readString(String path) throws MyExceptionForFileWork, IOException {
 
         StringBuilder stringFromFile = new StringBuilder();
 
@@ -29,7 +29,7 @@ public class GetStringFromFile {
             if (!stringFromFile.toString().equals("")) {
                 return stringFromFile.toString();
             } else
-                throw new FileWorkException("Test string must be not empty!");
+                throw new MyExceptionForFileWork("Test string must be not empty!");
 
         } catch (FileNotFoundException | NullPointerException ex) {
             logger.error(ex);
