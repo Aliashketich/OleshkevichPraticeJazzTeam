@@ -4,6 +4,7 @@ import exception.MyException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class GetStringFromFile {
@@ -19,10 +20,10 @@ public class GetStringFromFile {
         } catch (IOException e) {
             throw e;
         }
-        if (!stringFromFile.equals("")) {
-            return stringFromFile;
+        String stringSaveInUnicode = new String(stringFromFile.getBytes(), StandardCharsets.UTF_8);
+        if (!stringSaveInUnicode.equals("")) {
+            return stringSaveInUnicode;
         } else
             throw new MyException("Test string must be not empty!");
-
     }
 }
