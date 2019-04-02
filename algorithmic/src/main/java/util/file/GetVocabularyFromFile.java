@@ -1,4 +1,4 @@
-package util.fileUtil;
+package util.file;
 
 import exception.MyException;
 

@@ -1,4 +1,4 @@
-package util.stringsUtil;
+package util.strings;
 
 public class SplitStringWithMyRegex {
     public static String[] splitStringWithMyRegex(String string) {

@@ -2,7 +2,7 @@ package Tasks.Strings.Task2;
 
 import org.apache.log4j.Logger;
 
-import static util.stringsUtil.SplitStringWithMyRegex.splitStringWithMyRegex;
+import static util.strings.SplitStringWithMyRegex.splitStringWithMyRegex;
 
 
 /*Напечатать слова, которые встречаются в предложениях только 1 раз*/

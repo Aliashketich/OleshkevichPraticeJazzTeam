@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-import static util.fileUtil.GetVocabularyFromFile.setVocabularyToHashMap;
-import static util.stringsUtil.TranslateWordToRussian.translateWordToRussian;
+import static util.file.GetVocabularyFromFile.setVocabularyToHashMap;
+import static util.strings.TranslateWordToRussian.translateWordToRussian;
 
 class HashMapTask {
     String translateStringToRussian(String filePath, String stringForTransliteration) throws IOException, MyException {

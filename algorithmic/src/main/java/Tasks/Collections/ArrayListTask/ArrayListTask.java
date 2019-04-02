@@ -2,7 +2,7 @@ package Tasks.Collections.ArrayListTask;
 
 import java.util.ArrayList;
 
-import static util.stringsUtil.SplitStringWithMyRegex.splitStringWithMyRegex;
+import static util.strings.SplitStringWithMyRegex.splitStringWithMyRegex;
 
 /*Create an ArrayList of String called strList that contains 10 string words.
  Create a method called search(String keyword, int minLength) that returns an ArrayList of String.

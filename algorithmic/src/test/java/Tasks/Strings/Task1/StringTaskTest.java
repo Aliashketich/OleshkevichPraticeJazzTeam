@@ -10,9 +10,9 @@ import java.io.IOException;
 
 
 public class StringTaskTest {
-
     private StringTask stringTask;
     private String actualString;
+    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textFiles/tasks/stringTaskTextFiles/stringTransliteration/";
 
     @Before
     public void setUp() {
@@ -21,33 +21,33 @@ public class StringTaskTest {
 
     @Test
     public void transliterationResultTest() throws MyException, IOException {
-        String filePath = "src/main/java/Tasks/Strings/Task1/TextFilesSources/dataForTest.txt";
+        String filePath = ROOT_FILE_DIRECTORY_PATH + "data.txt";
         actualString = "Praktika eto prekrasno!";
-        Assert.assertEquals("Strings not equals", stringTask.transliteration(filePath), actualString);
+        Assert.assertEquals(stringTask.transliteration(filePath), actualString);
     }
 
     @Test(expected = FileNotFoundException.class)
-    public void primaryTransliterationTestStringIsNull() throws IOException, MyException {
-        String filePath = "src/main/java/Tasks/Strings/Task1/TextFilesSources/data1.txt";
+    public void primaryTransliterationStringIsNullTest() throws IOException, MyException {
+        String filePath = ROOT_FILE_DIRECTORY_PATH + "data1.txt";
         stringTask.transliteration(filePath);
     }
 
     @Test(expected = MyException.class)
-    public void transliterationTestFileIsEmpty() throws MyException, IOException {
-        String filePath = "src/main/java/Tasks/Strings/Task1/TextFilesSources/emptyTestFile.txt";
+    public void transliterationFileIsEmptyTest() throws MyException, IOException {
+        String filePath = ROOT_FILE_DIRECTORY_PATH + "emptyTestFile.txt";
         Assert.assertEquals("Test string must be not empty!", stringTask.transliteration(filePath));
     }
 
     @Test
-    public void transliterationTestFileContainsOnlyNumbers() throws MyException, IOException {
-        String filePath = "src/main/java/Tasks/Strings/Task1/TextFilesSources/TestFileWithNumbers.txt";
+    public void transliterationFileContainsOnlyNumbersTest() throws MyException, IOException {
+        String filePath = ROOT_FILE_DIRECTORY_PATH + "testFileWithNumbers.txt";
         actualString = "1234567890";
         Assert.assertEquals(actualString, stringTask.transliteration(filePath));
     }
 
     @Test(expected = MyException.class)
-    public void transliterationTestFileContainsLatinSymbols() throws MyException, IOException {
-        String filePath = "src/main/java/Tasks/Strings/Task1/TextFilesSources/TestFileWithLatinSymbols.txt";
-        Assert.assertEquals("Test string have latin symbols", stringTask.transliteration(filePath));
+    public void transliterationFileContainsLatinSymbolsTest() throws MyException, IOException {
+        String filePath = ROOT_FILE_DIRECTORY_PATH + "testFileWithLatinSymbols.txt";
+        Assert.assertEquals("Test string contains some latin symbols", stringTask.transliteration(filePath));
     }
 }

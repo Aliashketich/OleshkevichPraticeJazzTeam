@@ -5,8 +5,8 @@ import exception.MyException;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-import static util.queueUtil.CheckCorrectQueue.checkCorrectInputQueue;
-import static util.queueUtil.InsertionQueueToOtherQueue.insertQueue;
+import static util.queue.CheckCorrectQueue.checkCorrectInputQueue;
+import static util.queue.InsertionQueueToOtherQueue.insertQueue;
 
 /*Даны две упорядоченные очереди, элементами которых являются целые числа.
  Объединить эти очереди в одну упорядоченную очередь*/

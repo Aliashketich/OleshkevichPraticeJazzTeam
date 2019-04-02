@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static util.fileUtil.GetStringFromFile.readString;
+import static util.file.GetStringFromFile.readString;
 
 class StringTask {
     private Map<String, String> letters = new HashMap<>();
@@ -106,20 +106,18 @@ class StringTask {
 
         String workString = readString(filePath);
 
-        workString = workString.substring(1);
         char[] workStringToArray = workString.toCharArray();
 
-        boolean latinSymbolsIndicator = false;
 
-        for (int i = 0; i < workString.length(); i++) {
-            if (letters.get(String.valueOf(workStringToArray[i])).equals("")) {
-                latinSymbolsIndicator = true;
-                break;
-            } else
-                resultString += letters.get(String.valueOf(workStringToArray[i]));
+        for (int i = 1; i < workStringToArray.length; i++) {
+            try {
+                if (!letters.get(String.valueOf(workStringToArray[i])).equals("")) {
+                    resultString += letters.get(String.valueOf(workStringToArray[i]));
+                }
+            } catch (NullPointerException ex) {
+                throw new MyException("Test string contains some latin symbols");
+            }
         }
-        if (latinSymbolsIndicator)
-            throw new MyException("Test string have latin symbols");
         return resultString;
     }
 }

@@ -11,18 +11,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static util.fileUtil.GetTextFromFile.readFile;
+import static util.file.GetTextFromFile.readFile;
+import static util.fileTask.FileTaskUtils.*;
 
 class FileTask {
-
     ArrayList<String> buildSquare(String filePathFromTest) throws IOException, MyException {
-        ArrayList<String> answer = null;
+        ArrayList<String> answer;
         ArrayList<String> wordsSource = readFile(filePathFromTest);
 
-        //TODO: 30.03.2019 реализовать алгоритм.
         int maxWordLength = getStringListMaxElementLength(wordsSource);
         int minWordLength = getStringListMinElementLength(wordsSource);
-        int numbersWordsWithMaxLength = getNumbersOfWordsWithSetLength(wordsSource, maxWordLength);
 
         HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength = separateWordsIntoLengthGroups(wordsSource, maxWordLength, minWordLength);
 
@@ -55,7 +53,7 @@ class FileTask {
                                 }
                                 if (checkRectangleForSatisfaction(arrayListOfWordWithSetLength, rectangleOfWordForCorrectCheck, currentWordLength)) {
                                     answer = rectangleOfWordForCorrectCheck;
-                                    break;
+                                    return answer;
                                 }
                             }
                         }
@@ -63,91 +61,6 @@ class FileTask {
                 }
             }
         }
-
-        if (answer != null)
-            return answer;
-        else throw new MyException("Solution not found!");
+        throw new MyException("Solution not found!");
     }
-
-    private boolean checkRectangleForSatisfaction(ArrayList<String> arrayListOfWordWithSetLength, ArrayList<String> rectangleOfWordForCorrectCheck, int wordLength) {
-
-        char[][] wordsCharsArrayForSatisfaction = new char[wordLength][wordLength];
-        for (int i = 0; i < wordLength; i++) {
-            for (int j = 0; j < wordLength; j++) {
-                wordsCharsArrayForSatisfaction[i][j] = rectangleOfWordForCorrectCheck.get(j).charAt(i);
-            }
-        }
-        int count = 0;
-        for (int i = 0; i < wordLength; i++) {
-            for (int j = 0; j < arrayListOfWordWithSetLength.size(); j++) {
-                String wordFromVocabulary = new String(arrayListOfWordWithSetLength.get(j).getBytes());
-                String wordFromCharArray = new String(wordsCharsArrayForSatisfaction[i].clone());
-                if (wordFromCharArray.equals(wordFromVocabulary)) {
-                    count++;
-                    break;
-                }
-            }
-        }
-        return count == wordLength;
-    }
-
-    private boolean arrayListHasSomeWordOnThisLetter(ArrayList<String> arrayListOfWordWithSetLength, char c, String excludeWord) {
-        for (int i = 0; i < arrayListOfWordWithSetLength.size(); i++) {
-            char[] chars = arrayListOfWordWithSetLength.get(i).toCharArray();
-            if ((chars[0] == c) && (!arrayListOfWordWithSetLength.get(i).equals(excludeWord))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    private int getNumberOfWordsInGroup(HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength, int wordsLengthInGroup) {
-        ArrayList<String> arrayListOfWordGroup = wordsGroupWithSameLength.get(wordsLengthInGroup);
-        return arrayListOfWordGroup.size();
-    }
-
-    private HashMap<Integer, ArrayList<String>> separateWordsIntoLengthGroups(ArrayList<String> wordsSource, int maxWordLength, int minWordLength) {
-        HashMap<Integer, ArrayList<String>> answerHashMap = new HashMap<>();
-        for (int i = minWordLength; i < maxWordLength + 1; i++) {
-            ArrayList<String> arrayListOfWordsWithSameLength = new ArrayList<>();
-            for (int j = 0, t = 0; j < wordsSource.size(); j++) {
-                if (wordsSource.get(j).length() == i) {
-                    arrayListOfWordsWithSameLength.add(t, wordsSource.get(j));
-                    t++;
-                }
-            }
-            answerHashMap.put(i, arrayListOfWordsWithSameLength);
-        }
-        return answerHashMap;
-    }
-
-    private int getNumbersOfWordsWithSetLength(ArrayList<String> wordsSource, int maxWordLength) {
-        int numbersOfWordsWithSetLength = 0;
-        for (int i = 0; i < wordsSource.size(); i++) {
-            if (wordsSource.get(i).length() == maxWordLength)
-                numbersOfWordsWithSetLength++;
-        }
-        return numbersOfWordsWithSetLength;
-    }
-
-    private int getStringListMinElementLength(ArrayList<String> wordsSource) {
-        int minElementLength = wordsSource.get(0).length();
-        for (int i = 0; i < wordsSource.size(); i++) {
-            if (wordsSource.get(i).length() < minElementLength)
-                minElementLength = wordsSource.get(i).length();
-        }
-        return minElementLength;
-
-    }
-
-    private int getStringListMaxElementLength(ArrayList<String> wordsSource) {
-        int maxElementLength = 0;
-        for (int i = 0; i < wordsSource.size(); i++) {
-            if (wordsSource.get(i).length() > maxElementLength)
-                maxElementLength = wordsSource.get(i).length();
-        }
-        return maxElementLength;
-    }
-
 }

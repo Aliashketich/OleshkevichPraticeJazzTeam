@@ -1,4 +1,4 @@
-package util.queueUtil;
+package util.queue;
 
 import exception.MyException;
 
