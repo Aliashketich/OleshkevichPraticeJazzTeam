@@ -1,9 +1,8 @@
 package Tasks.Files.Task1;
 
-import exception.MyExceptionForFileWork;
+import exception.MyException;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import util.fileUtil.GetTextFromFile;
 
@@ -20,24 +19,28 @@ public class FileTaskTest {
     }
 
     @Test(expected = FileNotFoundException.class)
-    public void testFileNotFound() throws IOException, MyExceptionForFileWork {
+    public void testFileNotFound() throws IOException, MyException {
         String filePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/notExistFile.txt";
         fileTask.buildSquare(filePath);
     }
 
-    @Ignore
     @Test
-    public void squareBuildIsCorrect() throws IOException, MyExceptionForFileWork {
-        String dataFilePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/data.txt";
+    public void squareBuildIsCorrect() throws IOException, MyException {
+        String dataFilePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/dataForTest.txt";
         String actualFilePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/fileToCompareResult.txt";
-        ArrayList<String> actualSquare = GetTextFromFile.readFile(actualFilePath);
-        Assert.assertEquals(fileTask.buildSquare(dataFilePath), actualSquare);
+        ArrayList<String> expectedRectangle = GetTextFromFile.readFile(actualFilePath);
+        Assert.assertEquals(expectedRectangle,fileTask.buildSquare(dataFilePath));
     }
 
-    @Test(expected = MyExceptionForFileWork.class)
-    public void testFileIsEmpty() throws IOException, MyExceptionForFileWork {
+    @Test(expected = MyException.class)
+    public void testFileIsEmpty() throws IOException, MyException {
         String filePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/emptyTestFile.txt";
         Assert.assertEquals("Test file is empty!", fileTask.buildSquare(filePath));
     }
 
+    @Test(expected = MyException.class)
+    public void rectangleCanNotBeBuildWithEntryValuesTest() throws IOException, MyException {
+        String filePath = "src/main/java/Tasks/Files/Task1/TextFilesSources/testFileWithoutSolution.txt";
+        Assert.assertEquals("Solution not found!", fileTask.buildSquare(filePath));
+    }
 }

@@ -18,14 +18,14 @@ class ArrayListTask {
                 for (int i = 0; i < stringArrayList.size(); i++) {
                     if (stringArrayList.get(i).length() >= minLength) {
                         String[] wordsFromArrayListElement = splitStringWithMyRegex(stringArrayList.get(i));
-                        boolean checkEntryKeywordToArrayListString = false;
+                        boolean checkEntryKeywordInArrayListString = false;
                         for (int j = 0; j < wordsFromArrayListElement.length; j++) {
                             if (wordsFromArrayListElement[j].equals(keyword)) {
-                                checkEntryKeywordToArrayListString = true;
+                                checkEntryKeywordInArrayListString = true;
                                 break;
                             }
                         }
-                        if (checkEntryKeywordToArrayListString)
+                        if (checkEntryKeywordInArrayListString)
                             resultArrayList.add(stringArrayList.get(i));
                     }
                 }

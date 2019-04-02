@@ -3,7 +3,7 @@ package Tasks.Collections.HashMapTask;
 /*Написать программу переводчик, которая будет переводить текст, написанный на одном языке,
  на другой язык согласно заранее составленному словарю(словарь - отдельный файл в формате "draw/рисовать")*/
 
-import exception.MyExceptionForFileWork;
+import exception.MyException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +13,7 @@ import static util.fileUtil.GetVocabularyFromFile.setVocabularyToHashMap;
 import static util.stringsUtil.TranslateWordToRussian.translateWordToRussian;
 
 class HashMapTask {
-    String translateStringToRussian(String filePath, String stringForTransliteration) throws IOException, MyExceptionForFileWork {
+    String translateStringToRussian(String filePath, String stringForTransliteration) throws IOException, MyException {
         StringBuilder stringAfterTransliteration = new StringBuilder();
         String[] wordsForTransliteration = stringForTransliteration.split(" ");
         HashMap<String, String> vocabularyHashMap;
@@ -25,7 +25,7 @@ class HashMapTask {
                     stringAfterTransliteration.append(russianWord).append(" ");
                 else stringAfterTransliteration.append(wordsForTransliteration[i]).append(" ");
             }
-        } catch (MyExceptionForFileWork | IOException e) {
+        } catch (IOException e) {
             throw e;
         }
         String formatForJenkinsTestString = new String(stringAfterTransliteration.toString().getBytes(), StandardCharsets.UTF_8);

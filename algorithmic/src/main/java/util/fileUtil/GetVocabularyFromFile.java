@@ -1,6 +1,6 @@
 package util.fileUtil;
 
-import exception.MyExceptionForFileWork;
+import exception.MyException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class GetVocabularyFromFile {
 
-    public static HashMap<String, String> setVocabularyToHashMap(String vocabularyFilePath) throws IOException, MyExceptionForFileWork {
+    public static HashMap<String, String> setVocabularyToHashMap(String vocabularyFilePath) throws IOException, MyException {
 
         ArrayList<String> stringArrayListFromReadTextFromFile = GetTextFromFile.readFile(vocabularyFilePath);
         HashMap<String, String> vocabularyHashMap = new HashMap<>();
@@ -19,7 +19,7 @@ public class GetVocabularyFromFile {
         }
 
         if (vocabularyHashMap.isEmpty())
-            throw new MyExceptionForFileWork("Vocabulary file is empty!");
+            throw new MyException("Vocabulary file is empty!");
         else return vocabularyHashMap;
     }
 }

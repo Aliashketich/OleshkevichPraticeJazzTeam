@@ -1,7 +1,6 @@
-
 package Tasks.Collections.Task1;
 
-import exception.MyExceptionForFileWork;
+import exception.MyException;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
@@ -13,11 +12,11 @@ import static util.queueUtil.InsertionQueueToOtherQueue.insertQueue;
  Объединить эти очереди в одну упорядоченную очередь*/
 class CollectionTask {
 
-    PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) throws MyExceptionForFileWork {
+    PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) throws MyException {
         PriorityQueue<Integer> mergedQueue = new PriorityQueue<>();
         try {
             checkCorrectInputQueue(firstQueue, secondQueue);
-        } catch (MyExceptionForFileWork ex) {
+        } catch (MyException ex) {
             throw ex;
         }
         mergedQueue = insertQueue(mergedQueue, firstQueue);

@@ -1,6 +1,6 @@
 package util.fileUtil;
 
-import exception.MyExceptionForFileWork;
+import exception.MyException;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GetTextFromFile {
     private static final Logger logger = Logger.getLogger(GetTextFromFile.class);
 
-    public static ArrayList<String> readFile(String path) throws IOException, MyExceptionForFileWork {
+    public static ArrayList<String> readFile(String path) throws IOException, MyException {
         ArrayList<String> stringsFromFile = new ArrayList<>();
 
         try (FileReader fileReader = new FileReader(path); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -26,6 +26,6 @@ public class GetTextFromFile {
         if (!stringsFromFile.isEmpty())
             return stringsFromFile;
         else
-            throw new MyExceptionForFileWork("Test file is empty!");
+            throw new MyException("Test file is empty!");
     }
 }

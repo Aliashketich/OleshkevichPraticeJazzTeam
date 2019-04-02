@@ -1,6 +1,6 @@
 package Tasks.Strings.Task1;
 
-import exception.MyExceptionForFileWork;
+import exception.MyException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -101,7 +101,7 @@ class StringTask {
     }
 
 
-    String transliteration(String filePath) throws MyExceptionForFileWork, IOException {
+    String transliteration(String filePath) throws MyException, IOException {
         String resultString = "";
 
         String workString = readString(filePath);
@@ -119,7 +119,7 @@ class StringTask {
                 resultString += letters.get(String.valueOf(workStringToArray[i]));
         }
         if (latinSymbolsIndicator)
-            throw new MyExceptionForFileWork("Test string have latin symbols");
+            throw new MyException("Test string have latin symbols");
         return resultString;
     }
 }

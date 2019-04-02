@@ -1,6 +1,6 @@
 package Tasks.Arrays.Task1;
 
-import exception.MyExceptionForFileWork;
+import exception.MyException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,23 +26,23 @@ public class ArrayTaskTest {
     }
 
     @Test
-    public void runArrayTask() throws MyExceptionForFileWork {
+    public void runArrayTask() throws MyException {
         Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(array), actualArray);
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void arrayIndexOutOfBoundsExceptionProcessing() throws MyExceptionForFileWork {
-        int[][] arrayForThisTest = new int[0][];
-        arrayTask.deleteRowAndColumn(arrayForThisTest);
+    public void arrayIndexOutOfBoundsExceptionProcessing() throws MyException {
+        int[][] emptyArray = new int[0][];
+        arrayTask.deleteRowAndColumn(emptyArray);
     }
 
     @Test
-    public void newArrayIsNotNull() throws MyExceptionForFileWork {
+    public void newArrayIsNotNull() throws MyException {
         Assert.assertNotNull(arrayTask.deleteRowAndColumn(array));
     }
 
-    @Test(expected = MyExceptionForFileWork.class)
-    public void primaryArrayWithoutNumberOne() throws MyExceptionForFileWork {
+    @Test(expected = MyException.class)
+    public void primaryArrayWithoutNumberOne() throws MyException {
         int[][] actualArrayFromTest = {
                 {2, 4, 5, 6},
                 {3, 3, 3, 3},

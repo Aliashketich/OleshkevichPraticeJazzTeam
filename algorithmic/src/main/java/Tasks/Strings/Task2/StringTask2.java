@@ -6,6 +6,7 @@ import static util.stringsUtil.SplitStringWithMyRegex.splitStringWithMyRegex;
 
 
 /*Напечатать слова, которые встречаются в предложениях только 1 раз*/
+
 class StringTask2 {
     private static final Logger logger = Logger.getLogger(StringTask2.class);
 

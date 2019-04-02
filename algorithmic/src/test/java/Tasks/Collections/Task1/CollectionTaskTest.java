@@ -1,6 +1,6 @@
 package Tasks.Collections.Task1;
 
-import exception.MyExceptionForFileWork;
+import exception.MyException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class CollectionTaskTest {
     }
 
     @Test
-    public void mergeTwoQueueIsCorrect() throws MyExceptionForFileWork {
+    public void mergeTwoQueueIsCorrect() throws MyException {
         PriorityQueue<Integer> expectedQueueForThisTest = new PriorityQueue<>();
         {
             expectedQueueForThisTest.add(1);
@@ -49,21 +49,21 @@ public class CollectionTaskTest {
     }
 
 
-    @Test(expected = MyExceptionForFileWork.class)
-    public void firstPrimaryQueueIsNotEmpty() throws MyExceptionForFileWork {
+    @Test(expected = MyException.class)
+    public void firstPrimaryQueueIsNotEmpty() throws MyException {
         PriorityQueue<Integer> firstQueueForThisTest = new PriorityQueue<>();
         Assert.assertEquals("First primary queue is empty!", collectionTask.mergeTwoQueue(firstQueueForThisTest, secondQueue).toString());
 
     }
 
-    @Test(expected = MyExceptionForFileWork.class)
-    public void secondPrimaryQueueIsNotEmpty() throws MyExceptionForFileWork {
+    @Test(expected = MyException.class)
+    public void secondPrimaryQueueIsNotEmpty() throws MyException {
         PriorityQueue<Integer> secondQueueForThisTest = new PriorityQueue<>();
         Assert.assertEquals("Second primary queue is empty!", collectionTask.mergeTwoQueue(firstQueue, secondQueueForThisTest).toString());
     }
 
-    @Test(expected = MyExceptionForFileWork.class)
-    public void bothPrimaryQueueIsNotEmpty() throws MyExceptionForFileWork {
+    @Test(expected = MyException.class)
+    public void bothPrimaryQueueIsNotEmpty() throws MyException {
         PriorityQueue<Integer> firstQueueForThisTest = new PriorityQueue<>();
         PriorityQueue<Integer> secondQueueForThisTest = new PriorityQueue<>();
         Assert.assertEquals("Both primary queue is empty!", collectionTask.mergeTwoQueue(firstQueueForThisTest, secondQueueForThisTest).toString());

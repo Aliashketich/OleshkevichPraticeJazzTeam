@@ -2,7 +2,6 @@ look
 test
 text
 word
-slam
 nice
 over
 west
