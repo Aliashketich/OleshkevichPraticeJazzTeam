@@ -101,24 +101,24 @@ class StringTask {
         letters.put("=", "=");
     }
 
-    String transliteration(String filePath) throws MyException, IOException {
-        String resultString = "";
+    String transliteration(String fileWithStringPath) throws MyException, IOException {
+        String resultOfTransliteration = "";
 
-        String workString = readStringFromFile(filePath);
+        String stringForTransliteration = readStringFromFile(fileWithStringPath);
 
-        char[] workStringToArray = workString.toCharArray();
+        char[] stringForTransliterationToArray = stringForTransliteration.toCharArray();
 
 
-        for (int i = 1; i < workStringToArray.length; i++) {
+        for (int i = 1; i < stringForTransliterationToArray.length; i++) {
             try {
-                if (!letters.get(String.valueOf(workStringToArray[i])).equals("")) {
-                    resultString += letters.get(String.valueOf(workStringToArray[i]));
+                if (!letters.get(String.valueOf(stringForTransliterationToArray[i])).equals("")) {
+                    resultOfTransliteration += letters.get(String.valueOf(stringForTransliterationToArray[i]));
                 }
             } catch (NullPointerException ex) {
                 throw new MyException("Test string contains some latin symbols");
             }
         }
-        return resultString;
+        return resultOfTransliteration;
     }
 
     String printIdenticalWordsFromTwoStrings(String firstString, String secondString) {
