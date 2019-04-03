@@ -1,11 +1,14 @@
 package util.fileTask;
 
+import exception.MyException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FileTaskUtils {
-    public static boolean checkRectangleForSatisfaction(ArrayList<String> arrayListOfWordWithSetLength, ArrayList<String> rectangleOfWordForCorrectCheck, int wordLength) {
-
+    public static boolean checkRectangleForSatisfaction(ArrayList<String> arrayListOfWordWithSetLength, ArrayList<String> rectangleOfWordForCorrectCheck, int wordLength) throws MyException {
+        if (wordLength == 0)
+            throw new MyException("Word length can not be equals zero!");
         char[][] wordsCharsArrayForSatisfaction = new char[wordLength][wordLength];
         for (int i = 0; i < wordLength; i++) {
             for (int j = 0; j < wordLength; j++) {
@@ -55,15 +58,6 @@ public class FileTaskUtils {
             answerHashMap.put(i, arrayListOfWordsWithSameLength);
         }
         return answerHashMap;
-    }
-
-    public static int getNumbersOfWordsWithSetLength(ArrayList<String> wordsSource, int maxWordLength) {
-        int numbersOfWordsWithSetLength = 0;
-        for (int i = 0; i < wordsSource.size(); i++) {
-            if (wordsSource.get(i).length() == maxWordLength)
-                numbersOfWordsWithSetLength++;
-        }
-        return numbersOfWordsWithSetLength;
     }
 
     public static int getStringListMinElementLength(ArrayList<String> wordsSource) {

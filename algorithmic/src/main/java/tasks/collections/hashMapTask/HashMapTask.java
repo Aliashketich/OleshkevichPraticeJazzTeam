@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import static util.file.GetTextFromFile.getVocabularyFromFile;
-import static util.strings.StringTaskUtils.translateWordToRussian;
+import static util.strings.StringTaskUtils.translateWordFromEnglishToRussian;
 
 class HashMapTask {
     String translateStringToRussian(String filePath, String stringForTransliteration) throws IOException, MyException {
@@ -20,7 +20,7 @@ class HashMapTask {
         try {
             vocabularyHashMap = getVocabularyFromFile(filePath);
             for (int i = 0; i < wordsForTransliteration.length; i++) {
-                String russianWord = translateWordToRussian(wordsForTransliteration[i], vocabularyHashMap);
+                String russianWord = translateWordFromEnglishToRussian(wordsForTransliteration[i], vocabularyHashMap);
                 if (!russianWord.equals(""))
                     stringAfterTransliteration.append(russianWord).append(" ");
                 else stringAfterTransliteration.append(wordsForTransliteration[i]).append(" ");

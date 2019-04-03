@@ -3,7 +3,7 @@ package util.strings;
 import java.util.HashMap;
 
 public class StringTaskUtils {
-    public static String translateWordToRussian(String englishWord, HashMap<String, String> vocabularyHashMap) {
+    public static String translateWordFromEnglishToRussian(String englishWord, HashMap<String, String> vocabularyHashMap) {
         String russianWord = "";
 
         for (int i = 0; i < vocabularyHashMap.size(); i++) {
