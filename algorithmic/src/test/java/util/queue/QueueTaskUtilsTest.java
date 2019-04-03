@@ -31,6 +31,7 @@ public class QueueTaskUtilsTest {
         PriorityQueue<Integer> expectedEmptyQueue = new PriorityQueue<>();
         assertEquals(expectedEmptyQueue.toString(), QueueTaskUtils.insertQueue(firstEmptyQueue, secondEmptyQueue).toString());
     }
+
     @Test
     public void insertQueueMergeOneEmptyQueueTest() {
         secondNotEmptyQueue.add(1);

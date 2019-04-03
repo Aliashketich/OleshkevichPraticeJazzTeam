@@ -31,8 +31,11 @@ class ArrayListTask {
                 }
             else
                 resultArrayList = stringArrayList;
-        } catch (NullPointerException | IndexOutOfBoundsException ex) {
-            throw ex;
+        } catch (NullPointerException e) {
+            throw e;
+        }
+        catch (IndexOutOfBoundsException ex) {
+            throw ex; //По-дргуому не работает тест
         }
         return resultArrayList;
     }

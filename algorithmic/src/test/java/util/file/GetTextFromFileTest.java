@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class GetTextFromFileTest {
 
-    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textFiles/util/filesForFileWorkUtils/";
+    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textFiles/filesForUtil/filesForFileWorkUtils/";
 
     @Test(expected = FileNotFoundException.class)
     public void readAllStringsFromFileFileNotFoundTest() throws IOException, MyException {

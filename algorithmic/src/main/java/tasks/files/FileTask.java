@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import static util.file.GetTextFromFile.readAllStringsFromFile;
-import static util.fileTask.FileTaskUtils.*;
+import static util.file.FileTaskUtils.*;
 
 class FileTask {
     ArrayList<String> buildSquare(String filePathFromTest) throws IOException, MyException {

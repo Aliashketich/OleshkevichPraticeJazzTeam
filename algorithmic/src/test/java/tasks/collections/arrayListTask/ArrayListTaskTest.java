@@ -49,7 +49,7 @@ public class ArrayListTaskTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void indexNullPointerExceptionProcessing() {
+    public void nullPointerExceptionProcessing() {
         ArrayList<String> nullTestArrayList = null;
         arrayListTask.search(nullTestArrayList, "qwerty", 2);
     }

@@ -12,7 +12,6 @@ public class CollectionTaskTest {
 
     private PriorityQueue<Integer> firstQueue;
     private PriorityQueue<Integer> secondQueue;
-    private PriorityQueue<Integer> expectedQueue;
 
 
     @Before

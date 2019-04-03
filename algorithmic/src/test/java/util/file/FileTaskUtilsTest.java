@@ -1,8 +1,9 @@
-package util.fileTask;
+package util.file;
 
 import exception.MyException;
 import org.junit.Before;
 import org.junit.Test;
+import util.file.FileTaskUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

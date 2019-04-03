@@ -1,7 +1,6 @@
 package tasks.files;
 
 import exception.MyException;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import util.file.GetTextFromFile;
@@ -9,6 +8,8 @@ import util.file.GetTextFromFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 public class FileTaskTest {
     private FileTask fileTask;
@@ -30,18 +31,18 @@ public class FileTaskTest {
         String dataFilePath = ROOT_FILE_DIRECTORY_PATH + "dataForTest.txt";
         String expectedFilePath = ROOT_FILE_DIRECTORY_PATH + "fileToCompareResult.txt";
         ArrayList<String> expectedRectangle = GetTextFromFile.readAllStringsFromFile(expectedFilePath);
-        Assert.assertEquals(expectedRectangle, fileTask.buildSquare(dataFilePath));
+        assertEquals(expectedRectangle, fileTask.buildSquare(dataFilePath));
     }
 
     @Test(expected = MyException.class)
     public void testFileIsEmpty() throws IOException, MyException {
         String filePath = ROOT_FILE_DIRECTORY_PATH + "emptyTestFile.txt";
-        Assert.assertEquals("Test file is empty!", fileTask.buildSquare(filePath));
+        assertEquals("Test file is empty!", fileTask.buildSquare(filePath));
     }
 
     @Test(expected = MyException.class)
     public void rectangleCanNotBeBuildWithEntryValuesTest() throws IOException, MyException {
         String filePath = ROOT_FILE_DIRECTORY_PATH + "testFileWithoutSolution.txt";
-        Assert.assertEquals("Solution not found!", fileTask.buildSquare(filePath));
+        assertEquals("Solution not found!", fileTask.buildSquare(filePath));
     }
 }
