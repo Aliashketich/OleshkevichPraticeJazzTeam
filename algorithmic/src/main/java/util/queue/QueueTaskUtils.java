@@ -2,6 +2,7 @@ package util.queue;
 
 import exception.MyException;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class QueueTaskUtils {
@@ -20,5 +21,12 @@ public class QueueTaskUtils {
         while (!addQueue.isEmpty())
             primaryQueue.add((Integer) addQueue.poll());
         return primaryQueue;
+    }
+
+    public static PriorityQueue<Integer> sortQueueByAscending(PriorityQueue<Integer> mergedQueue) {
+        Integer[] intArray = new Integer[mergedQueue.size()];
+        mergedQueue.toArray(intArray);
+        Arrays.sort(intArray);
+        return new PriorityQueue<>(Arrays.asList(intArray).subList(0, mergedQueue.size()));
     }
 }

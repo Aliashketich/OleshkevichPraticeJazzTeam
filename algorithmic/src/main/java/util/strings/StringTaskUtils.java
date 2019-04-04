@@ -1,5 +1,6 @@
 package util.strings;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class StringTaskUtils {
@@ -18,4 +19,13 @@ public class StringTaskUtils {
     public static String[] splitStringWithSetRegex(String string) {
         return string.split("[\\\\+\\\\-\\\\-\\\\.\\\\'\\\\@\\\\!\\\\?\\\\,\\\\_\\\\ ]+");
     }
+
+    public static String saveInUnicode(StringBuilder russianString) {
+        return new String(russianString.toString().getBytes(), StandardCharsets.UTF_8);
+    }
+
+    public static String saveInUnicode(String russianString) {
+        return new String(russianString.getBytes(), StandardCharsets.UTF_8);
+    }
+
 }

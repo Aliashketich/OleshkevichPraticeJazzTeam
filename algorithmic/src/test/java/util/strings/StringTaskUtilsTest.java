@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static util.strings.StringTaskUtils.*;
 
 public class StringTaskUtilsTest {
 
@@ -22,12 +23,12 @@ public class StringTaskUtilsTest {
 
     @Test
     public void translateWordToRussianTest() {
-        assertEquals("строим", StringTaskUtils.translateWordFromEnglishToRussian("build", vocabularyForTest));
+        assertEquals("строим", translateWordFromEnglishToRussian("build", vocabularyForTest));
     }
 
     @Test
     public void translateWordToRussianWordNotFoundInVocabularyTest() {
-        assertEquals("", StringTaskUtils.translateWordFromEnglishToRussian("dry", vocabularyForTest));
+        assertEquals("", translateWordFromEnglishToRussian("dry", vocabularyForTest));
     }
 
     @Test
@@ -35,7 +36,7 @@ public class StringTaskUtilsTest {
         expectedStringArray[0] = "мы";
         expectedStringArray[1] = "строим";
         expectedStringArray[2] = "дом";
-        assertArrayEquals(expectedStringArray, StringTaskUtils.splitStringWithSetRegex("мы--!!строим- .дом"));
+        assertArrayEquals(expectedStringArray, splitStringWithSetRegex("мы--!!строим- .дом"));
     }
 
     @Test
@@ -43,6 +44,19 @@ public class StringTaskUtilsTest {
         expectedStringArray[0] = "мы";
         expectedStringArray[1] = "№№строим";
         expectedStringArray[2] = "дом";
-        assertArrayEquals(expectedStringArray, StringTaskUtils.splitStringWithSetRegex("мы--№№строим- .дом"));
+        assertArrayEquals(expectedStringArray, splitStringWithSetRegex("мы--№№строим- .дом"));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void saveStringInUnicodeFileIsNullTest() {
+        String nullString = null;
+        saveInUnicode(nullString);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void saveStringFromStringBuilderInUnicodeFileIsNullTest() {
+        StringBuilder nullString = null;
+        saveInUnicode(nullString);
+    }
+
 }

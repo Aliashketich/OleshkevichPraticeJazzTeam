@@ -6,12 +6,10 @@ package tasks.collections.hashMapTask;
 import exception.MyException;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import static util.file.FileTaskUtils.getVocabularyFromFile;
-import static util.strings.StringTaskUtils.splitStringWithSetRegex;
-import static util.strings.StringTaskUtils.translateWordFromEnglishToRussian;
+import static util.strings.StringTaskUtils.*;
 
 class HashMapTask {
     String translateStringFromEnglishToRussian(String filePath, String stringToTranslate) throws IOException, MyException {
@@ -27,10 +25,9 @@ class HashMapTask {
             else russianString.append(wordsOfStringToTranslate[i]).append(" ");
         }
 
-        // TODO: 04.04.2019 Сделать метод для сохранения строки в Unicode UTF-8
-        String stringSaveInUnicode = new String(russianString.toString().getBytes(), StandardCharsets.UTF_8);
+        String stringSaveInUnicode = saveInUnicode(russianString);
         if (!stringSaveInUnicode.equals(""))
-            return stringSaveInUnicode.substring(0, stringSaveInUnicode.length() - 1);
+            return stringSaveInUnicode.substring(0, russianString.length() - 1);
         else return stringSaveInUnicode;
     }
 }

@@ -4,10 +4,11 @@ import exception.MyException;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import static util.strings.StringTaskUtils.saveInUnicode;
 
 public class FileTaskUtils {
     public static boolean checkRectangleForSatisfaction(ArrayList<String> arrayListOfWordWithSetLength, ArrayList<String> rectangleOfWordForCorrectCheck, int wordLength) throws MyException {
@@ -103,7 +104,7 @@ public class FileTaskUtils {
             stringFromFile = scanFile.nextLine();
         }
 
-        String stringSaveInUnicode = new String(stringFromFile.getBytes(), StandardCharsets.UTF_8);
+        String stringSaveInUnicode = saveInUnicode(stringFromFile);
         if (!stringSaveInUnicode.equals("")) {
             return stringSaveInUnicode;
         } else
