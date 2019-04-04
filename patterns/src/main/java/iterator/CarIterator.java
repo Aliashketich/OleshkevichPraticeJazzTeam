@@ -25,16 +25,34 @@ public class CarIterator implements Iterator<Car.MachinePart> {
 
     public Car.MachinePart next() {
         if (index == -1) {
-            if (car.hasBody()) { index = 0; return car.getBody(); }
-            if (car.hasMotor()) { index = 1; return car.getMotor(); }
-            if (car.hasWheel())  { index = 2; return car.getWheels().get(0); }
+            if (car.hasBody()) {
+                index = 0;
+                return car.getBody();
+            }
+            if (car.hasMotor()) {
+                index = 1;
+                return car.getMotor();
+            }
+            if (car.hasWheel()) {
+                index = 2;
+                return car.getWheels().get(0);
+            }
         }
         if (index == 0) {
-            if (car.hasMotor()) { index = 1; return car.getMotor(); }
-            if (car.hasWheel())  { index = 2; return car.getWheels().get(0); }
+            if (car.hasMotor()) {
+                index = 1;
+                return car.getMotor();
+            }
+            if (car.hasWheel()) {
+                index = 2;
+                return car.getWheels().get(0);
+            }
         }
         if (index == 1) {
-            if (car.hasWheel())  { index = 2; return car.getWheels().get(0); }
+            if (car.hasWheel()) {
+                index = 2;
+                return car.getWheels().get(0);
+            }
         }
         throw new NoSuchElementException();
     }
