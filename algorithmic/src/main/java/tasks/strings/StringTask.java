@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static util.file.GetTextFromFile.readStringFromFile;
+import static util.file.FileTaskUtils.readStringFromFile;
 import static util.strings.StringTaskUtils.splitStringWithSetRegex;
 
 class StringTask {
@@ -101,53 +101,50 @@ class StringTask {
         letters.put("=", "=");
     }
 
-    String transliteration(String fileWithStringPath) throws MyException, IOException {
-        String resultOfTransliteration = "";
+    String stringTransliterationFromRussianToEnglishSymbols(String filePathWithString) throws MyException, IOException {
+        StringBuilder transliteratedString = new StringBuilder();
 
-        String stringForTransliteration = readStringFromFile(fileWithStringPath);
+        String stringForTransliteration = readStringFromFile(filePathWithString);
 
-        char[] stringForTransliterationToArray = stringForTransliteration.toCharArray();
+        char[] charsOfStringForTransliteration = stringForTransliteration.toCharArray();
 
-
-        for (int i = 1; i < stringForTransliterationToArray.length; i++) {
+        for (int i = 1; i < charsOfStringForTransliteration.length; i++) {
             try {
-                if (!letters.get(String.valueOf(stringForTransliterationToArray[i])).equals("")) {
-                    resultOfTransliteration += letters.get(String.valueOf(stringForTransliterationToArray[i]));
+                if (!letters.get(String.valueOf(charsOfStringForTransliteration[i])).equals("")) {
+                    transliteratedString.append(letters.get(String.valueOf(charsOfStringForTransliteration[i])));
                 }
             } catch (NullPointerException ex) {
                 throw new MyException("Test string contains some latin symbols");
             }
         }
-        return resultOfTransliteration;
+        return transliteratedString.toString();
     }
 
-    String printIdenticalWordsFromTwoStrings(String firstString, String secondString) {
-        String resultString = "";
-        try {
-            String[] subStringFromFirstString = splitStringWithSetRegex(firstString);
-            String[] subStringFromSecondString = splitStringWithSetRegex(secondString);
-            for (int i = 0; i < subStringFromFirstString.length; i++) {
-                for (int j = 0; j < subStringFromSecondString.length; j++) {
-                    if (subStringFromFirstString[i].equals(subStringFromSecondString[j])) {
-                        String[] stringArrayWithPossibleDuplication = splitStringWithSetRegex(resultString);
-                        boolean checkEntryToCurrentResultString = false;
-                        for (int t = 0; t < stringArrayWithPossibleDuplication.length; t++) {
-                            if (stringArrayWithPossibleDuplication[t].equals(subStringFromSecondString[j])) {
-                                checkEntryToCurrentResultString = true;
-                                break;
-                            }
+    String selectIdenticalWordsFromTwoStrings(String firstString, String secondString) {
+        String identicalWordsFromTwoStrings = "";
+
+        String[] wordFromFirstString = splitStringWithSetRegex(firstString);
+        String[] wordFromSecondString = splitStringWithSetRegex(secondString);
+        for (String aWordFromFirstString : wordFromFirstString) {
+            for (String aWordFromSecondString : wordFromSecondString) {
+                if (aWordFromFirstString.equals(aWordFromSecondString)) {
+                    String[] wordsArrayWithPossibleDuplication = splitStringWithSetRegex(identicalWordsFromTwoStrings);
+                    boolean wordIsAlreadyInCurrentSelection = false;
+                    for (String aStringArrayWithPossibleDuplication : wordsArrayWithPossibleDuplication) {
+                        if (aStringArrayWithPossibleDuplication.equals(aWordFromSecondString)) {
+                            wordIsAlreadyInCurrentSelection = true;
+                            break;
                         }
-                        if (!checkEntryToCurrentResultString)
-                            resultString = resultString.concat(subStringFromSecondString[j]) + " ";
                     }
+                    if (!wordIsAlreadyInCurrentSelection)
+                        identicalWordsFromTwoStrings = identicalWordsFromTwoStrings.concat(aWordFromSecondString) + " ";
                 }
             }
-        } catch (NullPointerException ex) {
-            throw ex;
         }
-        if (!resultString.equals(""))
-            resultString = resultString.substring(0, resultString.length() - 1);
-        return resultString;
+
+        if (!identicalWordsFromTwoStrings.equals(""))
+            identicalWordsFromTwoStrings = identicalWordsFromTwoStrings.substring(0, identicalWordsFromTwoStrings.length() - 1);
+        return identicalWordsFromTwoStrings;
     }
 }
 

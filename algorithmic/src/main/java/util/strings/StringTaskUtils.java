@@ -14,7 +14,8 @@ public class StringTaskUtils {
         }
         return russianWord;
     }
+
     public static String[] splitStringWithSetRegex(String string) {
-        return string.split("[\\\\s\\\\-\\\\-\\\\.\\\\'\\\\@\\\\!\\\\?\\\\,\\\\_\\\\ ]+");
+        return string.split("[\\\\+\\\\-\\\\-\\\\.\\\\'\\\\@\\\\!\\\\?\\\\,\\\\_\\\\ ]+");
     }
 }

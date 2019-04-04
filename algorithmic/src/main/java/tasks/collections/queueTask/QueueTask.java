@@ -10,18 +10,17 @@ import static util.queue.QueueTaskUtils.insertQueue;
 
 /*Даны две упорядоченные очереди, элементами которых являются целые числа.
  Объединить эти очереди в одну упорядоченную очередь*/
-class CollectionTask {
+class QueueTask {
 
     PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) throws MyException {
         PriorityQueue<Integer> mergedQueue = new PriorityQueue<>();
-        try {
-            checkCorrectInputQueue(firstQueue, secondQueue);
-        } catch (MyException ex) {
-            throw ex;
-        }
-        mergedQueue = insertQueue(mergedQueue, firstQueue);
-        mergedQueue = insertQueue(mergedQueue, secondQueue);
 
+        checkCorrectInputQueue(firstQueue, secondQueue);
+
+        insertQueue(mergedQueue, firstQueue);
+        insertQueue(mergedQueue, secondQueue);
+
+        // TODO: 04.04.2019 сделать метод, который принимает mergedQueue, сортирует ее и возвращает PriorityQueue<Integer>
         Integer[] intArray = new Integer[mergedQueue.size()];
         mergedQueue.toArray(intArray);
         Arrays.sort(intArray);

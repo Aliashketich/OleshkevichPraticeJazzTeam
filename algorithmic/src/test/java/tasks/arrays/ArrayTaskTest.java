@@ -1,18 +1,19 @@
 package tasks.arrays;
 
 import exception.MyException;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class ArrayTaskTest {
     private ArrayTask arrayTask;
-    private int[][] actualArray = {
+    private int[][] expectedResult = {
             {3, 3},
             {9, 2},
             {3, 2}
     };
-    private int[][] array = {
+    private int[][] arrayWithOneValues = {
             {2, 1, 5, 6},
             {3, 3, 1, 3},
             {3, 4, 2, 3},
@@ -27,84 +28,76 @@ public class ArrayTaskTest {
     }
 
     @Test
-    public void runArrayTask() throws MyException {
-        Assert.assertArrayEquals(arrayTask.deleteRowAndColumn(array), actualArray);
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void arrayIndexOutOfBoundsExceptionProcessing() throws MyException {
-        int[][] emptyArray = new int[0][];
-        arrayTask.deleteRowAndColumn(emptyArray);
-    }
-
-    @Test
-    public void newArrayIsNotNull() throws MyException {
-        Assert.assertNotNull(arrayTask.deleteRowAndColumn(array));
+    public void deleteRowAndColumnWhichContainsOneValueCheckResultTest() throws MyException {
+        assertArrayEquals(expectedResult, arrayTask.deleteRowAndColumnWhichContainsOneValue(arrayWithOneValues));
     }
 
     @Test(expected = MyException.class)
-    public void deleteRowAndColumnWhenAllElementsAreOneValue() throws MyException {
-        int[][] actualArrayFromTest = {
+    public void entryArrayForSortingIsEmptyTest() throws MyException {
+        int[][] emptyArray = new int[0][];
+        assertEquals("Entry array is empty!", arrayTask.deleteRowAndColumnWhichContainsOneValue(emptyArray));
+    }
+
+    @Test
+    public void returnedArrayIsNotNull() throws MyException {
+        assertNotNull(arrayTask.deleteRowAndColumnWhichContainsOneValue(arrayWithOneValues));
+    }
+
+    @Test(expected = MyException.class)
+    public void deleteRowAndColumnWhenAllElementsAreOneValueTest() throws MyException {
+        int[][] arrayWhenAllElementsAreOneValue = {
                 {1, 1, 1, 1},
                 {1, 1, 1, 1},
                 {1, 1, 1, 1},
                 {1, 1, 1, 1},
                 {1, 1, 1, 1}
         };
-        Assert.assertEquals("Method should delete all elements of array because each row has 1",arrayTask.deleteRowAndColumn(actualArrayFromTest));
+        assertEquals("Method should delete all elements of arrayWithOneValues because each row has 1", arrayTask.deleteRowAndColumnWhichContainsOneValue(arrayWhenAllElementsAreOneValue));
     }
 
     @Test(expected = MyException.class)
-    public void primaryArrayWithoutNumberOne() throws MyException {
-        int[][] actualArrayFromTest = {
+    public void entryArrayHaveNotOneValuesTest() throws MyException {
+        int[][] arrayWithoutOneValues = {
                 {2, 4, 5, 6},
                 {3, 3, 3, 3},
                 {3, 4, 2, 3},
                 {9, 4, 3, 2},
                 {3, 3, 5, 2}
         };
-        Assert.assertEquals("Primary array haven't 1.", arrayTask.deleteRowAndColumn(actualArrayFromTest));
+        assertEquals("Primary arrayWithOneValues haven't 1.", arrayTask.deleteRowAndColumnWhichContainsOneValue(arrayWithoutOneValues));
     }
 
     @Test
-    public void checkNormalisationResult() {
-        int[][] expectedArrayForCheckNormalisationResultTest = {
+    public void sortingCheckResultTest() {
+        int[][] expectedArrayForCheckSortingResultTest = {
                 {9, 4, 3, 2, 2},
                 {5, 4, 2, 3, 2},
                 {3, 3, 1, 3, 3},
                 {2, 1, 5, 6, 4}
         };
-        int[][] testArray = {
+        int[][] arrayForSorting = {
                 {2, 1, 5, 6, 4},
                 {3, 3, 1, 3, 3},
                 {5, 4, 2, 3, 2},
                 {9, 4, 3, 2, 2}
         };
-        Assert.assertArrayEquals(expectedArrayForCheckNormalisationResultTest,arrayTask.normalisation(testArray));
+        assertArrayEquals(expectedArrayForCheckSortingResultTest, arrayTask.sortingArrayByDescendingByReshuffleRowsByElementsOfFirstColumn(arrayForSorting));
     }
 
     @Test
-    public void primaryArrayHasOnlyZeroInFirstColumn() {
-        int[][] actual = {
+    public void entryArrayHasOnlyZeroValuesInFirstColumnTest() {
+        int[][] arrayWithZeroValuesInFirstColumn = {
                 {0, 1, 0, 0, 0},
                 {0, 2, 0, 0, 0},
                 {0, 3, 0, 0, 0},
                 {0, 4, 0, 0, 0}
         };
-        int[][] checkArray = {
-                {0, 1, 0, 0, 0},
-                {0, 2, 0, 0, 0},
-                {0, 3, 0, 0, 0},
-                {0, 4, 0, 0, 0}
-        };
-        Assert.assertArrayEquals(arrayTask.normalisation(checkArray), actual);
+        assertArrayEquals(arrayWithZeroValuesInFirstColumn, arrayTask.sortingArrayByDescendingByReshuffleRowsByElementsOfFirstColumn(arrayWithZeroValuesInFirstColumn));
     }
 
-    @Test
-    public void primaryArrayIsNull() {
-        int[][] checkArray = new int[0][];
-        int[][] actual = new int[0][];
-        Assert.assertArrayEquals(arrayTask.normalisation(checkArray), actual);
+    @Test(expected = NullPointerException.class)
+    public void entryArrayForSortingIsNullTest() {
+        arrayTask.sortingArrayByDescendingByReshuffleRowsByElementsOfFirstColumn(null);
     }
 
 }

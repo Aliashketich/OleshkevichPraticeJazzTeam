@@ -6,36 +6,34 @@ import org.junit.Test;
 import java.util.PriorityQueue;
 
 import static org.junit.Assert.assertEquals;
+import static util.queue.QueueTaskUtils.checkCorrectInputQueue;
 
 
 public class QueueTaskUtilsTest {
 
-    private PriorityQueue<Integer> firstEmptyQueue = new PriorityQueue<>();
-    private PriorityQueue<Integer> secondEmptyQueue = new PriorityQueue<>();
-    private PriorityQueue<Integer> secondNotEmptyQueue = new PriorityQueue<>();
+    private PriorityQueue<Integer> notEmptyQueue = new PriorityQueue<>();
 
 
     @Test(expected = MyException.class)
     public void checkCorrectInputQueueBothQueueIsEmptyTest() throws MyException {
-        QueueTaskUtils.checkCorrectInputQueue(firstEmptyQueue, secondEmptyQueue);
+        checkCorrectInputQueue(new PriorityQueue<Integer>(), new PriorityQueue<Integer>());
     }
 
     @Test(expected = MyException.class)
     public void checkCorrectInputQueueOneQueueIsEmptyTest() throws MyException {
-        secondNotEmptyQueue.add(1);
-        QueueTaskUtils.checkCorrectInputQueue(firstEmptyQueue, secondNotEmptyQueue);
+        notEmptyQueue.add(1);
+        checkCorrectInputQueue(new PriorityQueue<Integer>(), notEmptyQueue);
     }
 
     @Test
     public void insertQueueMergeTwoEmptyQueueTest() {
-        PriorityQueue<Integer> expectedEmptyQueue = new PriorityQueue<>();
-        assertEquals(expectedEmptyQueue.toString(), QueueTaskUtils.insertQueue(firstEmptyQueue, secondEmptyQueue).toString());
+        assertEquals(new PriorityQueue<Integer>().toString(), QueueTaskUtils.insertQueue(new PriorityQueue<Integer>(), new PriorityQueue<Integer>()).toString());
     }
 
     @Test
     public void insertQueueMergeOneEmptyQueueTest() {
-        secondNotEmptyQueue.add(1);
-        assertEquals(secondNotEmptyQueue.toString(), QueueTaskUtils.insertQueue(firstEmptyQueue, secondNotEmptyQueue).toString());
+        notEmptyQueue.add(1);
+        assertEquals(notEmptyQueue.toString(), QueueTaskUtils.insertQueue(new PriorityQueue<Integer>(), notEmptyQueue).toString());
     }
 
 }

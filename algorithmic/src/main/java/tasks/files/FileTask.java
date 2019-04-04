@@ -11,18 +11,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static util.file.GetTextFromFile.readAllStringsFromFile;
 import static util.file.FileTaskUtils.*;
 
 class FileTask {
-    ArrayList<String> buildSquare(String filePathFromTest) throws IOException, MyException {
-        ArrayList<String> answer;
-        ArrayList<String> wordsSource = readAllStringsFromFile(filePathFromTest);
+    ArrayList<String> buildLargestRectangleOfWords(String filePathWithWordsSource) throws IOException, MyException {
+        ArrayList<String> largestRectangleOfWords;
+        ArrayList<String> wordsSourceForBuilding = readAllStringsFromFile(filePathWithWordsSource);
 
-        int maxWordLength = getStringListMaxElementLength(wordsSource);
-        int minWordLength = getStringListMinElementLength(wordsSource);
+        int maxWordLength = getStringListMaxElementLength(wordsSourceForBuilding);
+        int minWordLength = getStringListMinElementLength(wordsSourceForBuilding);
 
-        HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength = separateWordsIntoLengthGroups(wordsSource, maxWordLength, minWordLength);
+        HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength = separateWordsIntoLengthGroups(wordsSourceForBuilding, maxWordLength, minWordLength);
 
         for (int currentWordLength = maxWordLength; currentWordLength > minWordLength - 1; currentWordLength--) {
             int numbersOfWordsInGroupWithOneLength = getNumberOfWordsInGroup(wordsGroupWithSameLength, currentWordLength);
@@ -35,8 +34,8 @@ class FileTask {
 
                     int countOfAcceptLetters = 0;
                     char[] wordFromArrayListOfWordWithSetLength = arrayListOfWordWithSetLength.get(j).toCharArray();
-                    for (int t = 0; t < wordFromArrayListOfWordWithSetLength.length; t++) {
-                        if (!arrayListHasSomeWordOnThisLetter(arrayListOfWordWithSetLength, wordFromArrayListOfWordWithSetLength[t], Arrays.toString(wordFromArrayListOfWordWithSetLength)))
+                    for (char aWordFromArrayListOfWordWithSetLength : wordFromArrayListOfWordWithSetLength) {
+                        if (!arrayListHasSomeWordOnThisLetter(arrayListOfWordWithSetLength, aWordFromArrayListOfWordWithSetLength, Arrays.toString(wordFromArrayListOfWordWithSetLength)))
                             break;
                         else countOfAcceptLetters++;
                     }
@@ -52,8 +51,8 @@ class FileTask {
                                     rectangleOfWordForCorrectCheck.add(y, elementFromArrayListOfWordWithSetLength);
                                 }
                                 if (checkRectangleForSatisfaction(arrayListOfWordWithSetLength, rectangleOfWordForCorrectCheck, currentWordLength)) {
-                                    answer = rectangleOfWordForCorrectCheck;
-                                    return answer;
+                                    largestRectangleOfWords = rectangleOfWordForCorrectCheck;
+                                    return largestRectangleOfWords;
                                 }
                             }
                         }

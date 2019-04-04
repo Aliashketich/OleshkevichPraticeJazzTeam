@@ -105,7 +105,7 @@ public class ExceptionExample {
         openFile();//NOSONAR
     }
 
-    public static void openFile() {//NOSONAR
+    private static void openFile() {//NOSONAR
         FileReader reader = null;//NOSONAR
         try {//NOSONAR
             reader = new FileReader("someFile");//NOSONAR

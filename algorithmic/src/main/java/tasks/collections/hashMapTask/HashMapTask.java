@@ -9,28 +9,28 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-import static util.file.GetTextFromFile.getVocabularyFromFile;
+import static util.file.FileTaskUtils.getVocabularyFromFile;
+import static util.strings.StringTaskUtils.splitStringWithSetRegex;
 import static util.strings.StringTaskUtils.translateWordFromEnglishToRussian;
 
 class HashMapTask {
-    String translateStringToRussian(String filePath, String stringForTransliteration) throws IOException, MyException {
-        StringBuilder stringAfterTransliteration = new StringBuilder();
-        String[] wordsForTransliteration = stringForTransliteration.split(" ");
-        HashMap<String, String> vocabularyHashMap;
-        try {
-            vocabularyHashMap = getVocabularyFromFile(filePath);
-            for (int i = 0; i < wordsForTransliteration.length; i++) {
-                String russianWord = translateWordFromEnglishToRussian(wordsForTransliteration[i], vocabularyHashMap);
-                if (!russianWord.equals(""))
-                    stringAfterTransliteration.append(russianWord).append(" ");
-                else stringAfterTransliteration.append(wordsForTransliteration[i]).append(" ");
-            }
-        } catch (IOException e) {
-            throw e;
+    String translateStringFromEnglishToRussian(String filePath, String stringToTranslate) throws IOException, MyException {
+        StringBuilder russianString = new StringBuilder();
+        String[] wordsOfStringToTranslate = splitStringWithSetRegex(stringToTranslate);
+        HashMap<String, String> vocabulary;
+
+        vocabulary = getVocabularyFromFile(filePath);
+        for (int i = 0; i < wordsOfStringToTranslate.length; i++) {
+            String russianWord = translateWordFromEnglishToRussian(wordsOfStringToTranslate[i], vocabulary);
+            if (!russianWord.equals(""))
+                russianString.append(russianWord).append(" ");
+            else russianString.append(wordsOfStringToTranslate[i]).append(" ");
         }
-        String formatForJenkinsTestString = new String(stringAfterTransliteration.toString().getBytes(), StandardCharsets.UTF_8);
-        if (!formatForJenkinsTestString.equals(""))
-            return formatForJenkinsTestString.substring(0, formatForJenkinsTestString.length() - 1);
-        else return formatForJenkinsTestString;
+
+        // TODO: 04.04.2019 Сделать метод для сохранения строки в Unicode UTF-8
+        String stringSaveInUnicode = new String(russianString.toString().getBytes(), StandardCharsets.UTF_8);
+        if (!stringSaveInUnicode.equals(""))
+            return stringSaveInUnicode.substring(0, stringSaveInUnicode.length() - 1);
+        else return stringSaveInUnicode;
     }
 }

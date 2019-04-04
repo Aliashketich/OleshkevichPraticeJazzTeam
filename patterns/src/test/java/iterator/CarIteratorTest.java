@@ -28,7 +28,7 @@ public class CarIteratorTest {
     }
 
     @Test
-    public void carIteratorHasPartAfterBody() {
+    public void carIteratorHasPartAfterBodyTest() {
         Car car = new Car();
         Iterator iterator = new CarIterator(car);
         while (iterator.hasNext()) {

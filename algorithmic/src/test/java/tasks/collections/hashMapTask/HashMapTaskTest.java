@@ -9,10 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class HashMapTaskTest {
-    private HashMapTask hashMapTask;
-    private String stringForTransliteration;
     private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textFiles/tasks/collectionTaskTextFiles/hashMap/";
     private static final String VOCABULARY_PATH = "src/main/resources/textFiles/tasks/collectionTaskTextFiles/hashMap/vocabulary.txt";
+    private HashMapTask hashMapTask;
+    private String stringForTransliteration;
 
     @Before
     public void setUp() {
@@ -21,35 +21,31 @@ public class HashMapTaskTest {
     }
 
     @Test
-    public void checkResultOfTransliteration() throws IOException, MyException {
-        String expectedString = "мы собираем конструктор";
-        Assert.assertEquals(expectedString, hashMapTask.translateStringToRussian(VOCABULARY_PATH, stringForTransliteration));
+    public void checkResultOfTranslationTest() throws IOException, MyException {
+        Assert.assertEquals("мы собираем конструктор", hashMapTask.translateStringFromEnglishToRussian(VOCABULARY_PATH, stringForTransliteration));
     }
 
     @Test(expected = FileNotFoundException.class)
-    public void vocabularyFileNotFoundExceptionProcessing() throws IOException, MyException {
+    public void vocabularyFileNotFoundTest() throws IOException, MyException {
         String vocabularyFilePath = ROOT_FILE_DIRECTORY_PATH + "vocabularyNotExist.txt";
-        hashMapTask.translateStringToRussian(vocabularyFilePath, stringForTransliteration);
+        hashMapTask.translateStringFromEnglishToRussian(vocabularyFilePath, stringForTransliteration);
     }
 
     @Test
-    public void someWordsIsNotInVocabularyTranslation() throws IOException, MyException {
-        String expectedString = "she собираем конструктор";
-        String stringForTransliterationInThisTest = "she collect constructor";
-        Assert.assertEquals(expectedString, hashMapTask.translateStringToRussian(VOCABULARY_PATH, stringForTransliterationInThisTest));
+    public void someWordsIsNotInVocabularyTranslationResultTest() throws IOException, MyException {
+        String stringWithWordThatIsNotInVocabulary = "she collect constructor";
+        Assert.assertEquals("she собираем конструктор", hashMapTask.translateStringFromEnglishToRussian(VOCABULARY_PATH, stringWithWordThatIsNotInVocabulary));
     }
 
     @Test
-    public void stringForTransliterationIsEmpty() throws IOException, MyException {
-        String expectedString = "";
-        String stringForTransliterationInThisTest = "";
-        Assert.assertEquals(expectedString, hashMapTask.translateStringToRussian(VOCABULARY_PATH, stringForTransliterationInThisTest));
+    public void stringForTranslationIsEmptyTest() throws IOException, MyException {
+        Assert.assertEquals("", hashMapTask.translateStringFromEnglishToRussian(VOCABULARY_PATH, ""));
     }
 
     @Test(expected = MyException.class)
-    public void vocabularyFileIsEmpty() throws IOException, MyException {
+    public void vocabularyFileIsEmptyTest() throws IOException, MyException {
         String vocabularyFilePath = ROOT_FILE_DIRECTORY_PATH + "vocabularyIsEmpty.txt";
-        Assert.assertEquals("Vocabulary file is empty!", hashMapTask.translateStringToRussian(vocabularyFilePath, stringForTransliteration));
+        Assert.assertEquals("Vocabulary file is empty!", hashMapTask.translateStringFromEnglishToRussian(vocabularyFilePath, stringForTransliteration));
     }
 
 }

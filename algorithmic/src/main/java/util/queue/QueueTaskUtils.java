@@ -15,6 +15,7 @@ public class QueueTaskUtils {
             else throw new MyException("Second primary queue is empty!");
         }
     }
+
     public static PriorityQueue<Integer> insertQueue(PriorityQueue<Integer> primaryQueue, PriorityQueue addQueue) {
         while (!addQueue.isEmpty())
             primaryQueue.add((Integer) addQueue.poll());

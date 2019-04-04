@@ -1,31 +1,31 @@
 package builder;
 
-public class Car {
+class Car {
     private String mark;
     private int speed;
     private String color;
 
-    public String getMark() {
+    String getMark() {
         return mark;
     }
 
-    public void setMark(String mark) {
+    void setMark(String mark) {
         this.mark = mark;
     }
 
-    public int getSpeed() {
+    int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public String getColor() {
+    String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    void setColor(String color) {
         this.color = color;
     }
 }

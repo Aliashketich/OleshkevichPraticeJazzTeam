@@ -2,8 +2,12 @@ package util.file;
 
 import exception.MyException;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class FileTaskUtils {
     public static boolean checkRectangleForSatisfaction(ArrayList<String> arrayListOfWordWithSetLength, ArrayList<String> rectangleOfWordForCorrectCheck, int wordLength) throws MyException {
@@ -15,18 +19,18 @@ public class FileTaskUtils {
                 wordsCharsArrayForSatisfaction[i][j] = rectangleOfWordForCorrectCheck.get(j).charAt(i);
             }
         }
-        int count = 0;
+        int countOfCorrectWords = 0;
         for (int i = 0; i < wordLength; i++) {
             for (int j = 0; j < arrayListOfWordWithSetLength.size(); j++) {
                 String wordFromVocabulary = new String(arrayListOfWordWithSetLength.get(j).getBytes());
                 String wordFromCharArray = new String(wordsCharsArrayForSatisfaction[i].clone());
                 if (wordFromCharArray.equals(wordFromVocabulary)) {
-                    count++;
+                    countOfCorrectWords++;
                     break;
                 }
             }
         }
-        return count == wordLength;
+        return countOfCorrectWords == wordLength;
     }
 
     public static boolean arrayListHasSomeWordOnThisLetter(ArrayList<String> arrayListOfWordWithSetLength, char c, String excludeWord) {
@@ -77,6 +81,48 @@ public class FileTaskUtils {
                 maxElementLength = wordsSource.get(i).length();
         }
         return maxElementLength;
+    }
+
+    public static ArrayList<String> readAllStringsFromFile(String path) throws IOException, MyException {
+        ArrayList<String> stringsFromFile = new ArrayList<>();
+        Scanner scanFile = new Scanner(new File(path));
+        while (scanFile.hasNext()) {
+            stringsFromFile.add(scanFile.next());
+        }
+        if (!stringsFromFile.isEmpty())
+            return stringsFromFile;
+        else
+            throw new MyException("Test file is empty!");
+    }
+
+    public static String readStringFromFile(String path) throws MyException, IOException {
+        String stringFromFile = "";
+
+        Scanner scanFile = new Scanner(new File(path));
+        while (scanFile.hasNext()) {
+            stringFromFile = scanFile.nextLine();
+        }
+
+        String stringSaveInUnicode = new String(stringFromFile.getBytes(), StandardCharsets.UTF_8);
+        if (!stringSaveInUnicode.equals("")) {
+            return stringSaveInUnicode;
+        } else
+            throw new MyException("Test string must be not empty!");
+    }
+
+    public static HashMap<String, String> getVocabularyFromFile(String vocabularyFilePath) throws IOException, MyException {
+
+        ArrayList<String> stringArrayListFromReadTextFromFile = readAllStringsFromFile(vocabularyFilePath);
+        HashMap<String, String> vocabularyHashMap = new HashMap<>();
+
+        for (int i = 0; i < stringArrayListFromReadTextFromFile.size(); i++) {
+            String[] stringOfVocabulary = stringArrayListFromReadTextFromFile.get(i).split("/");
+            vocabularyHashMap.put(stringOfVocabulary[0], stringOfVocabulary[1]);
+        }
+
+        if (vocabularyHashMap.isEmpty())
+            throw new MyException("Vocabulary file is empty!");
+        else return vocabularyHashMap;
     }
 
 }
