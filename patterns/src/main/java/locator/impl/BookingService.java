@@ -7,11 +7,11 @@ public class BookingService implements Service {
     private static final String BOOKING_SERVICE = "BookingService";
     private static final String BOOKING = "Booking";
 
-    public String getName() {
+    public String getServiceName() {
         return BOOKING_SERVICE;
     }
 
-    public String execute() {
+    public String findService() {
         return BOOKING;
     }
 }

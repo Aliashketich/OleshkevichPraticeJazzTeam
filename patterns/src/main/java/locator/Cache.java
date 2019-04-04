@@ -8,8 +8,8 @@ class Cache {
 
     Service getService(String serviceName) {
         for (Service service : services) {
-            if (service.getName().equalsIgnoreCase(serviceName)) {
-                System.out.println("Returned from cache " + service.getName() + " service");
+            if (service.getServiceName().equalsIgnoreCase(serviceName)) {
+                System.out.println("Returned from cache " + service.getServiceName() + " service");
                 return service;
             }
             return null;
@@ -20,7 +20,7 @@ class Cache {
     void setService(Service newService) {
         boolean exists = false;
         for (Service service : services) {
-            if (service.getName().equalsIgnoreCase(newService.getName())) {
+            if (service.getServiceName().equalsIgnoreCase(newService.getServiceName())) {
                 exists = true;
             }
             if (!exists) {

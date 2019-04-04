@@ -2,7 +2,7 @@ package locator;
 
 public interface Service {
 
-    String getName();
+    String getServiceName();
 
-    String execute();
+    String findService();
 }

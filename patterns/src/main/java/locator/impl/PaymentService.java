@@ -7,11 +7,11 @@ public class PaymentService implements Service {
     private static final String PAYMENT_SERVICE = "PaymentService";
     private static final String PAYMENT = "Payment";
 
-    public String getName() {
+    public String getServiceName() {
         return PAYMENT_SERVICE;
     }
 
-    public String execute() {
+    public String findService() {
         return PAYMENT;
     }
 }

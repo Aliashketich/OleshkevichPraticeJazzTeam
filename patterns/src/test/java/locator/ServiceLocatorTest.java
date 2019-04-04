@@ -16,30 +16,30 @@ public class ServiceLocatorTest {
     @Test
     public void serviceLocatorCanFindBookingServiceTest() {
         Service service = ServiceLocator.getService(BOOKING_SERVICE);
-        assertEquals(service.execute(), BOOKING);
+        assertEquals(service.findService(), BOOKING);
     }
 
     @Test
     public void serviceLocatorCanFindPaymentServiceTest() {
         Service service = ServiceLocator.getService(PAYMENT_SERVICE);
-        assertEquals(service.execute(), PAYMENT);
+        assertEquals(service.findService(), PAYMENT);
     }
 
     @Test
     public void serviceLocatorShouldNotFindBookingServiceWhenPaymentServiceLookTest() {
         Service service = ServiceLocator.getService(PAYMENT_SERVICE);
-        assertNotEquals(service.execute(), BOOKING);
+        assertNotEquals(service.findService(), BOOKING);
     }
 
     @Test
     public void serviceLocatorShouldNotFindPaymentServiceWhenBookingServiceLookTest() {
         Service service = ServiceLocator.getService(BOOKING_SERVICE);
-        assertNotEquals(service.execute(), PAYMENT);
+        assertNotEquals(service.findService(), PAYMENT);
     }
 
     @Test(expected = NullPointerException.class)
     public void serviceLocatorCanNotFindExistentServiceWhenNonexistentServiceLookTest() {
         Service service = ServiceLocator.getService(NONEXISTENT_SERVICE);
-        service.execute();
+        service.findService();
     }
 }

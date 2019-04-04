@@ -9,9 +9,9 @@ class InitialContext {
     private static final String BOOKING_SERVICE = "BookingService";
 
     Object searchForTheRequiredService(String serviceType) {
-        if (serviceType.equalsIgnoreCase(PAYMENT_SERVICE)) {
+        if (serviceType.equals(PAYMENT_SERVICE)) {
             return new PaymentService();
-        } else if (serviceType.equalsIgnoreCase(BOOKING_SERVICE)) {
+        } else if (serviceType.equals(BOOKING_SERVICE)) {
             return new BookingService();
         }
         return null;

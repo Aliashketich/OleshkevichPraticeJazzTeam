@@ -1,16 +1,16 @@
 package locator;
 
-public class ServiceLocator {
+class ServiceLocator {
     private static Cache cache = new Cache();
 
-    public static Service getService(String serviceName) {
-        Service service = cache.getService(serviceName);
-        if (service != null) {
-            return service;
+    static Service getService(String serviceName) {
+        Service currentService = cache.getService(serviceName);
+        if (currentService != null) {
+            return currentService;
         }
         InitialContext initialContext = new InitialContext();
-        service = (Service) initialContext.searchForTheRequiredService(serviceName);
-        cache.setService(service);
-        return service;
+        currentService = (Service) initialContext.searchForTheRequiredService(serviceName);
+        cache.setService(currentService);
+        return currentService;
     }
 }
