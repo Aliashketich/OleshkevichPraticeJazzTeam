@@ -27,7 +27,7 @@ class HashMapTask {
 
         String stringSaveInUnicode = saveInUnicode(russianString);
         if (!stringSaveInUnicode.equals(""))
-            return stringSaveInUnicode.substring(0, russianString.length() - 1);
+            return stringSaveInUnicode.substring(0, stringSaveInUnicode.length() - 1);
         else return stringSaveInUnicode;
     }
 }
