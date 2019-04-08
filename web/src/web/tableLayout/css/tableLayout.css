@@ -18,7 +18,7 @@ TABLE, TD {
 #row1 {
     border: hidden;
     height: 29px;
-    background: #cccccc url("../background.jpg");
+    background: #cccccc url("../../images/background.jpg");
 }
 
 .row2and3 {
