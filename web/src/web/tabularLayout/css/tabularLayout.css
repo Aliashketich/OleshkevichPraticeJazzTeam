@@ -1,0 +1,27 @@
+TABLE, TD {
+    text-align: center;
+    vertical-align: center; /* Выравнивание по верхнему краю ячейки */
+}
+
+#col1 {
+    border: double olive;
+    width: 25%; /* Ширина первой колонки */
+    background: #fc0; /* Цвет фона первой колонки */
+}
+
+#col2 {
+    border: double coral;
+    width: 75%; /* Ширина второй колонки */
+    background: #f0f0f0; /* Цвет фона второй колонки */
+}
+
+#row1 {
+    border: hidden;
+    height: 29px;
+    background: #cccccc url("../background.jpg");
+}
+
+.row2and3 {
+    height: 275px;
+    border: 2px solid black;
+}
