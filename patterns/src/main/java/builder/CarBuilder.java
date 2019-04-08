@@ -1,29 +1,29 @@
 package builder;
 
 class CarBuilder {
-    private String mark = "Audi";
-    private int speed = 220;
-    private String color = "red";
+    private String mark = "Mercedes";
+    private String color = "Black";
+    private double cost = 220000;
 
-    CarBuilder buildMark(String mark) {
+    CarBuilder selectMark(String mark) {
         this.mark = mark;
         return this;
     }
 
-    CarBuilder buildSpeed(int speed) {
-        this.speed = speed;
+    CarBuilder selectCost(double cost) {
+        this.cost = cost;
         return this;
     }
 
-    CarBuilder buildColor(String color) {
+    CarBuilder selectColor(String color) {
         this.color = color;
         return this;
     }
 
-    Car build() {
+    Car constructCar() {
         Car car = new Car();
         car.setMark(mark);
-        car.setSpeed(speed);
+        car.setCost(cost);
         car.setColor(color);
         return car;
     }

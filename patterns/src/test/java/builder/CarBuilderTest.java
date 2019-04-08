@@ -8,77 +8,76 @@ import static org.junit.Assert.assertNotEquals;
 
 public class CarBuilderTest {
     private Car car;
-    private Car carDefault;
+    private Car defaultCar;
 
     @Before
     public void setUp() {
-        carDefault = new CarBuilder().build();
+        defaultCar = new CarBuilder().constructCar();
         car = new CarBuilder()
-                .buildMark("BMW")
-                .buildSpeed(280)
-                .buildColor("green").build();
+                .selectMark("BMW")
+                .selectCost(280000)
+                .selectColor("White").constructCar();
     }
 
     @Test
-    public void builderMarkPositiveTest() {
-        assertEquals(car.getMark(), "BMW");
+    public void selectMarkIsCorrectTest() {
+        assertEquals("BMW", car.getMark());
     }
 
     @Test
-    public void defaultBuilderMarkPositiveTest() {
-        assertEquals(carDefault.getMark(), "Audi");
+    public void defaultSelectMarkIsCorrectTest() {
+        assertEquals("Mercedes", defaultCar.getMark());
     }
 
     @Test
-    public void builderSpeedPositiveTest() {
-        assertEquals(car.getSpeed(), 280);
+    public void selectCostIsCorrectTest() {
+        assertEquals(280000, car.getCost(), 10);
     }
 
     @Test
-    public void defaultBuilderSpeedPositiveTest() {
-        assertEquals(carDefault.getSpeed(), 220);
+    public void defaultSelectCostIsCorrectTest() {
+        assertEquals(220000, defaultCar.getCost(), 10);
     }
 
     @Test
-    public void builderColorPositiveTest() {
-        assertEquals(car.getColor(), "green");
+    public void selectColorIsCorrectTest() {
+        assertEquals("White", car.getColor());
     }
 
     @Test
-    public void defaultBuilderColorPositiveTest() {
-        assertEquals(carDefault.getColor(), "red");
+    public void defaultSelectColorIsCorrectTest() {
+        assertEquals("Black", defaultCar.getColor());
     }
 
 
     @Test
-    public void builderMarkNegativeTest() {
-        assertNotEquals(car.getMark(), "Audi");
+    public void markNotEqualsDefaultAfterCarBuildingTest() {
+        assertNotEquals("Audi", car.getMark());
     }
 
     @Test
-    public void builderSpeedNegativeTest() {
-        assertNotEquals(car.getSpeed(), 220);
+    public void costNotEqualsDefaultAfterCarBuildingTest() {
+        assertNotEquals(car.getCost(), 220000);
     }
 
     @Test
-    public void builderColorNegativeTest() {
-        assertNotEquals(car.getColor(), "red");
+    public void colorNotEqualsDefaultAfterCarBuildingTest() {
+        assertNotEquals(car.getColor(), "Black");
     }
 
     @Test
-    public void defaultBuilderMarkNegativeTest() {
-        assertNotEquals(carDefault.getMark(), "lexus");
+    public void defaultMarkNotEqualsNonexistentValueTest() {
+        assertNotEquals(defaultCar.getMark(), "lexus");
     }
 
     @Test
-    public void defaultBuilderSpeedNegativeTest() {
-        Car carDefault = new CarBuilder().build();
-        assertNotEquals(carDefault.getSpeed(), 230);
+    public void defaultCostNotEqualsNonexistentValueTest() {
+        assertNotEquals(defaultCar.getCost(), 230000);
     }
 
     @Test
-    public void defaultBuilderColorNegativeTest() {
-        assertNotEquals(carDefault.getColor(), "black");
+    public void defaultColorNotEqualsNonexistentValueTest() {
+        assertNotEquals(defaultCar.getColor(), "black");
     }
 }
 

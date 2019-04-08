@@ -2,8 +2,8 @@ package builder;
 
 class Car {
     private String mark;
-    private int speed;
     private String color;
+    private double cost;
 
     String getMark() {
         return mark;
@@ -13,12 +13,12 @@ class Car {
         this.mark = mark;
     }
 
-    int getSpeed() {
-        return speed;
+    double getCost() {
+        return cost;
     }
 
-    void setSpeed(int speed) {
-        this.speed = speed;
+    void setCost(double cost) {
+        this.cost = cost;
     }
 
     String getColor() {
