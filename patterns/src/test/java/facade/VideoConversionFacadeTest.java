@@ -54,4 +54,10 @@ public class VideoConversionFacadeTest {
         assertTrue(videoFileConvertedToOgg instanceof MPEG4VideoFile);
     }
 
+    @Test
+    public void videoConversionObjectNotNullTest() {
+        VideoFile videoFileConvertedToOgg = VideoConversionFacade.convertVideoFileToOtherCodec(new MPEG4VideoFile(null, null));
+        assertNotNull(videoFileConvertedToOgg);
+    }
+
 }

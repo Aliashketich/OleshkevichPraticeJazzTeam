@@ -90,6 +90,7 @@ public class FileTaskUtils {
         while (scanFile.hasNext()) {
             stringsFromFile.add(scanFile.next());
         }
+        scanFile.close();
         if (!stringsFromFile.isEmpty())
             return stringsFromFile;
         else
@@ -103,7 +104,7 @@ public class FileTaskUtils {
         while (scanFile.hasNext()) {
             stringFromFile = scanFile.nextLine();
         }
-
+        scanFile.close();
         String stringSaveInUnicode = saveInUnicode(stringFromFile);
         if (!stringSaveInUnicode.equals("")) {
             return stringSaveInUnicode;

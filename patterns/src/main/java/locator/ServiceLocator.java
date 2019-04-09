@@ -5,12 +5,12 @@ class ServiceLocator {
 
     static Service getService(String serviceName) {
         Service currentService = cache.getService(serviceName);
-        if (currentService != null) {
+        if (currentService == null) {
+            InitialContext initialContext = new InitialContext();
+            currentService = (Service) initialContext.searchForTheRequiredService(serviceName);
+            cache.setService(currentService);
             return currentService;
         }
-        InitialContext initialContext = new InitialContext();
-        currentService = (Service) initialContext.searchForTheRequiredService(serviceName);
-        cache.setService(currentService);
         return currentService;
     }
 }

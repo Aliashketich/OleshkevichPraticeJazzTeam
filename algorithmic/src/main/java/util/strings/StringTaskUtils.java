@@ -17,7 +17,7 @@ public class StringTaskUtils {
     }
 
     public static String[] splitStringWithSetRegex(String string) {
-        return string.split("[\\\\+\\\\-\\\\-\\\\.\\\\'\\\\@\\\\!\\\\?\\\\,\\\\_\\\\ ]+");
+        return string.split("[\\\\+\\\\-\\\\-\\\\.\\\\'\\\\@\\\\!\\\\?\\\\,\\\\_\\\\\n\\\\\t\\\\\f\\\\\r\\\\\b ]+");
     }
 
     public static String saveInUnicode(StringBuilder russianString) {

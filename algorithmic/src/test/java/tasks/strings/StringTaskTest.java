@@ -50,6 +50,11 @@ public class StringTaskTest {
         assertEquals("лес хорошо", stringTask.selectIdenticalWordsFromTwoStrings("поле лес дом смородина хорошо", "снег скворец лес хорошо тепло"));
     }
 
+    @Test
+    public void selectIdenticalWordsFromStringsWhereOneStringHasSpecialSymbolsTest() {
+        assertEquals("лес хорошо", stringTask.selectIdenticalWordsFromTwoStrings("поле лес дом\n смородина хорошо\n", "снег скворец\t лес хорошо\b тепло"));
+    }
+
     @Test(expected = NullPointerException.class)
     public void oneOfEntryStringIsNullTest() {
         stringTask.selectIdenticalWordsFromTwoStrings(null, "снег скворец лес");

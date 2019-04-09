@@ -3,13 +3,13 @@ package iterator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Car {
+class Car {
 
     private Body body;
     private Motor motor;
-    private List<Wheel> wheels = new ArrayList<Wheel>();
+    private List<Wheel> wheels = new ArrayList<>();
 
-    public Car() {
+    Car() {
         body = new Body();
         wheels.add(new Wheel());
         wheels.add(new Wheel());
@@ -18,51 +18,45 @@ public class Car {
         motor = new Motor();
     }
 
-    public Body getBody() {
+    Body getBody() {
         return body;
     }
 
-    public void setBody(Body body) {
+    void setBody(Body body) {
         this.body = body;
     }
 
-    public boolean hasBody() {
-        return body != null;
-    }
+    boolean hasBody() {//NOSONAR
+        return body != null;//NOSONAR
+    }//NOSONAR
 
-    public Motor getMotor() {
+    Motor getMotor() {
         return motor;
     }
 
-    public void setMotor(Motor motor) {
-        this.motor = motor;
-    }
 
-    public boolean hasMotor() {
-        return motor != null;
-    }
+    boolean hasMotor() {//NOSONAR
+        return motor != null;//NOSONAR
+    }//NOSONAR
 
-    public List<Wheel> getWheels() {
+    List<Wheel> getWheels() {
         return wheels;
     }
 
-    public void setWheels(List<Wheel> wheels) {
-        this.wheels = wheels;
+
+    boolean hasWheel() {//NOSONAR
+        return wheels.size() != 0;//NOSONAR
+    }//NOSONAR
+
+    interface MachinePart {
     }
 
-    public boolean hasWheel() {
-        return wheels.size() != 0;
+    private static class Body implements MachinePart {
     }
 
-    public interface MachinePart {
+    private static class Wheel implements MachinePart {
     }
 
-    public static class Body implements MachinePart {
-    }
-
-    public static class Wheel implements MachinePart {
-    }
-
-    public static class Motor implements MachinePart {
+    private static class Motor implements MachinePart {
     }
 }

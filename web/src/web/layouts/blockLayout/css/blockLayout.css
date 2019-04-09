@@ -1,0 +1,87 @@
+#addBlock {
+    float: left;
+    width: 200px;
+    margin: 0;
+    height: 0;
+    border: none;
+    background: none;
+}
+
+#contentBlock {
+    width: 887px;
+    float: left;
+    height: 500px;
+    align-content: center;
+    border: none;
+    background: none;
+    margin: 0;
+}
+
+#footerBlock {
+    height: 35px;
+    margin-top: 5px;
+    background: url("../../images/background.jpg");
+}
+
+#headerBlock {
+    height: 35px;
+    margin-bottom: 4px;
+    background: url("../../images/background.jpg");
+}
+
+#wrapper {
+    background-color: #cccccc;
+    flex-basis: auto;
+    height: 520px;
+}
+
+#leftSideBarBlock {
+    background-color: aqua;
+    float: left;
+    height: 500px;
+    width: 200px;
+    align-content: center;
+}
+
+div {
+    background-color: coral;
+    margin: 10px;
+    border: 1px solid black;
+    font-size: 20px;
+    height: 80px;
+    text-align: center;
+}
+
+.contentPart {
+    height: 157px;
+    font-family: "Berlin Sans FB", serif;
+    font-size: 25px;
+}
+
+#contentBlockOne {
+    background: url("../../images/pic1.jpg");
+}
+
+#contentBlockTwo {
+    background: url("../../images/pic2.jpg");
+}
+
+#contentBlockThree {
+    background: url("../../images/pi3.jpg");
+}
+
+.promo {
+    float: top;
+    height: 241px;
+    background: url("../../images/addblock1.png");
+}
+
+#test {
+    font-size: 15px;
+    background-color: green;
+    float: bottom;
+    height: 245px;
+}
+label{
+    text-align: left;
+}

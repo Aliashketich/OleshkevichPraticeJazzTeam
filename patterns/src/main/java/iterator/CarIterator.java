@@ -3,11 +3,7 @@ package iterator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Реализация паттерна Iterator.
- * Iterator используется для простого переббора обьектов класса, так же мы получаем методы hasNext() , remove(), next()
- * с помощью которых мы можем удобно оперировать обьектами при переборе.
- */
+
 public class CarIterator implements Iterator<Car.MachinePart> {
 
     private int index = -1;
@@ -48,16 +44,16 @@ public class CarIterator implements Iterator<Car.MachinePart> {
                 return car.getWheels().get(0);
             }
         }
-        if (index == 1) {
-            if (car.hasWheel()) {
-                index = 2;
-                return car.getWheels().get(0);
-            }
+        if (index == 1 && car.hasWheel()) {
+
+            index = 2;
+            return car.getWheels().get(0);
+
         }
         throw new NoSuchElementException();
     }
 
-
+    @Override
     public void remove() {
         if (index == -1) throw new IllegalStateException();
         if (index == 0)
