@@ -13,11 +13,10 @@ import static util.strings.StringTaskUtils.*;
 
 class HashMapTask {
     String translateStringFromEnglishToRussian(String filePath, String stringToTranslate) throws IOException, MyException {
-        StringBuilder russianString = new StringBuilder();
-        String[] wordsOfStringToTranslate = splitStringWithSetRegex(stringToTranslate);
-        HashMap<String, String> vocabulary;
+        final String[] wordsOfStringToTranslate = splitStringWithSetRegex(stringToTranslate);
+        final HashMap<String, String> vocabulary = getVocabularyFromFile(filePath);
 
-        vocabulary = getVocabularyFromFile(filePath);
+        StringBuilder russianString = new StringBuilder();
         for (int i = 0; i < wordsOfStringToTranslate.length; i++) {
             String russianWord = translateWordFromEnglishToRussian(wordsOfStringToTranslate[i], vocabulary);
             if (!russianWord.equals(""))
@@ -25,7 +24,7 @@ class HashMapTask {
             else russianString.append(wordsOfStringToTranslate[i]).append(" ");
         }
 
-        String stringSaveInUnicode = saveInUnicode(russianString);
+        final String stringSaveInUnicode = saveInUnicode(russianString);
         if (!stringSaveInUnicode.equals(""))
             return stringSaveInUnicode.substring(0, stringSaveInUnicode.length() - 1);
         else return stringSaveInUnicode;

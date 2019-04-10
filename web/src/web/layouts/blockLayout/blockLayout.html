@@ -1,56 +1,143 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Блочная вёрстка</title>
-    <link href="css/blockLayout.css" rel="stylesheet">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>JazzTeam Practice</title>
+    <link rel="stylesheet" href="css/blockLayout.css" type="text/css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300" type="text/css">
 </head>
 <body>
-<div id="headerBlock">Пример блочной верстки</div>
+<body>
 <div id="wrapper">
-    <div id="leftSideBarBlock">
-        <p><a href="/">Ссылка 1</a></p>
-        <p><a href="/">Ссылка 2</a></p>
-        <p><a href="/">Ссылка 3</a></p>
-        <p><a href="/">Ссылка 4</a></p>
-        <p><a href="/">Ссылка 5</a></p>
-        <p><a href="/">Ссылка 6</a></p>
-        <p><a href="/">Ссылка 7</a></p>
-        <p><a href="/">Ссылка 9</a></p>
-        <p><a href="/">Ссылка 10</a></p>
-        <p><a href="/">Ссылка 11</a></p>
+    <header>
+        <a href="/"><img src="../images/jazzteamlogo.PNG" alt="JazzTeam logo"></a>
+        <form name="search" action="#" method="get">
+            <input type="text" name="q" placeholder="Search">
+            <button type="submit">GO</button>
+        </form>
+    </header>
+    <nav>
+        <ul class="top-menu">
+            <li><a href="/home/">HOME</a></li>
+            <li class="active">ABOUT US</li>
+            <li><a href="/services/">SERVICES</a></li>
+            <li><a href="/partners/">PARTNERS</a></li>
+            <li><a href="/customers/">CUSTOMERS</a></li>
+            <li><a href="/projects/">PROJECTS</a></li>
+            <li><a href="/careers/">CAREERS</a></li>
+            <li><a href="/contact/">CONTACT</a></li>
+        </ul>
+    </nav>
+    <div id="heading">
+        <h1>ABOUT US</h1>
     </div>
-    <div id="contentBlock">
-        <div class="contentPart" id="contentBlockOne">Горы</div>
-        <div class="contentPart" id="contentBlockTwo">Поле</div>
-        <div class="contentPart" id="contentBlockThree">Пустыня</div>
-    </div>
-    <div id="addBlock">
-        <div class="promo"></div>
-        <div id="test">
-            <p>Пройдите наш тест!</p>
-            <form method="post">
-                <label>
-                    1.Вы дышите по утрам?
-                    <input type="checkbox">
-                </label><br>
-                <label>
-                    2.А ваши родные?
-                    <input type="checkbox">
-                </label><br>
-                <label>
-                    3.А не родные?
-                    <input type="checkbox">
-                </label><br>
-                <label>
-                    4.Вы были честны?
-                    <input type="checkbox">
-                </label><br>
-                <input type="submit">
-            </form>
-        </div>
-    </div>
+    <aside>
+        <nav>
+            <ul class="aside-menu">
+                <li class="active">ABOUT PRACTICE</li>
+                <li><a href="/dayOne/">DAY 1</a></li>
+                <li><a href="/dayTwo/">DAY 2</a></li>
+                <li><a href="/dayThree/">DAY 3</a></li>
+                <li><a href="/dayFour/">DAY 4</a></li>
+                <li><a href="/dayFive/">DAY 5</a></li>
+            </ul>
+        </nav>
+        <h2>OFFICES</h2>
+        <p><img src="../images/ofice.jpg" width="230" height="120" alt="Offices"></p>
+    </aside>
+    <section>
+        <blockquote>
+            <p>
+                Sometime we can feel a bit dull in the morning and we need to produce our own sunshine energy.
+            </p>
+            <cite>My grandmother</cite>
+        </blockquote>
+        <p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+            are a team of software developers, providing essential software solutions and rendering professional
+            information technology services. Our main focus is Java. We constantly use Agile in software development.
+            Read more</p>
+        <p>With long-term experiences in dealing with challenges, we strive for solving them in the best way. We are
+            ready to find and correct others’ mistakes and try to rescue even hopeless projects and situations. We
+            aren’t afraid to take responsibility but always have in mind possible risks.</p>
+        <p>We practice short iterations and constantly demo results to customers. That’s why our customers always
+            understand project statuses and get results quickly! View JazzTeam profile</p>
+        <p>
+            JazzTeam is a member of Belarus Hi-Tech Park, one of the leading organization among innovative IT clusters
+            in Central and Eastern Europe today.
+        </p>
+        <p>JazzTeam’s technological expertise encourages our clients’ competitive ability and capitalizes on the
+            challenges of today in order to create opportunities for tomorrow. We have recognized wide-ranging expertise
+            and strong skills in all key Java technologies, frameworks and libraries.</p>
+        <p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+            are a team of software developers, providing essential software solutions and rendering professional
+            information technology services. Our main focus is Java. We constantly use Agile in software development.
+            Read more</p>
+        <p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p>
+        <p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p>
+        <p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p>
+        <p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p>
+        <p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p>
+        <p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p><p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p><p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p><p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p><p>JazzTeam is an innovative company founded by expert specialists with experience in international projects. We
+        are a team of software developers, providing essential software solutions and rendering professional
+        information technology services. Our main focus is Java. We constantly use Agile in software development.
+        Read more</p>
+    </section>
 </div>
-<div id="footerBlock">Все права защищает Ricardo Milos</div>
+<footer>
+    <div id="footer">
+        <div id="twitter">
+            <h3>TWITTER FEED</h3>
+            <time datetime="2019-04-05"><a href="#">5 april</a></time>
+            <p>
+                Всех с пятницей, друзья! Мы снова с хорошими новостями😊 Наша команда профессионалов завершила работу
+                над очередным проектом "Система учета и контроля расходов телекоммуникационных услуг".
+            </p>
+        </div>
+        <div id="sitemap">
+            <h3>SITEMAP</h3>
+            <div>
+                <a href="/home/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/services/">Services</a>
+            </div>
+            <div>
+                <a href="/partners/">Partners</a>
+                <a href="/customers/">Support</a>
+                <a href="/contact/">Contact</a>
+            </div>
+        </div>
+        <div id="social"></div>
+        <div id="footer-logo"></div>
+    </div>
+</footer>
+</body>
 </body>
 </html>

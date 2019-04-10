@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class HashMapTaskTest {
-    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textFiles/tasks/collectionTaskTextFiles/hashMap/";
-    private static final String VOCABULARY_PATH = "src/main/resources/textFiles/tasks/collectionTaskTextFiles/hashMap/vocabulary.txt";
+    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textfiles/tasks/collectiontasktextfiles/hashmap/";
+    private static final String VOCABULARY_PATH = "src/main/resources/textfiles/tasks/collectiontasktextfiles/hashmap/vocabulary.txt";
     private HashMapTask hashMapTask;
     private String stringForTransliteration;
 

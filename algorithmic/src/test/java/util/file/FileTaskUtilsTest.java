@@ -14,7 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static util.file.FileTaskUtils.*;
 
 public class FileTaskUtilsTest {
-    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textFiles/filesForUtil/filesForFileWorkUtils/";
+    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textfiles/filesforutil/filesforfileworkutils/";
 
 
     private ArrayList<String> arrayListOfWordWithSetLength = new ArrayList<>();

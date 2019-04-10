@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static util.file.FileTaskUtils.readAllStringsFromFile;
 
 public class FileTaskTest {
-    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textFiles/tasks/fileTaskTextFiles/";
+    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textfiles/tasks/filetasktextfiles/";
     private FileTask fileTask;
 
     @Before

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 
 public class StringTaskTest {
-    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textFiles/tasks/stringTaskTextFiles/stringTransliteration/";
+    private static final String ROOT_FILE_DIRECTORY_PATH = "src/main/resources/textfiles/tasks/stringtasktextfiles/stringtransliteration/";
     private StringTask stringTask;
 
     @Before

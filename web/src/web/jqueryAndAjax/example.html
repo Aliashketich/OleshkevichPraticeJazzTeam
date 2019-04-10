@@ -6,26 +6,20 @@
 </head>
 <body>
 <h1>Погода</h1>
-<div class="left">
-    <p>
-        <label for="">Страна: </label>
-        <select>
-            <option disabled selected>Выберите страну</option>
-            <option value="UA">Украина</option>
-            <option value="RU">Россия</option>
-            <option value="JP">Япония</option>
-        </select></p>
-    <p>
-        <label for="">Город</label>
-    <div id="city">
-
-    </div>
-    </p>
-</div>
-<div class="right">
+<div id="city">
+    <form>
+        <label>Город:
+            <select>
+                <option disabled selected>--------</option>
+                <option value="Minsk">Минск</option>
+                <option value="Brest">Брест</option>
+                <option value="Soligorsk">Солигорск</option>
+            </select>
+        </label>
+        <input type="submit" onclick="value()"></form>
     <div id="weather"></div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="weather.js"></script>
 </body>
 </html>
