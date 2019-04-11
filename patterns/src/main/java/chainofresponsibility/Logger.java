@@ -5,11 +5,11 @@ public abstract class Logger {
     private String messageToLog = "";
     private Logger nextLogger;
 
-    void setNextLogger(Logger nextLogger) {
+    public void setNextLogger(Logger nextLogger) {
         this.nextLogger = nextLogger;
     }
 
-    void nextLogger(int priority, String message) {
+    public void nextLogger(int priority, String message) {
         if (priority <= level) {
             write(message);
         }

@@ -1,7 +1,7 @@
 package facade;
 
-class VideoConversionFacade {
-    static VideoFile convertVideoFileToOtherCodec(VideoFile videoFileWithSetCodec) {
+public class VideoConversionFacade {
+    public static VideoFile convertVideoFileToOtherCodec(VideoFile videoFileWithSetCodec) {
         VideoFile convertedVideoFile = null;
 
         if (videoFileWithSetCodec instanceof OggVideoFile) {

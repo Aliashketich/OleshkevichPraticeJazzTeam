@@ -1,6 +1,6 @@
 package chainofresponsibility;
 
-class InfoLogger extends Logger {
+public class InfoLogger extends Logger {
     public InfoLogger(int level) {
         this.level = level;
     }

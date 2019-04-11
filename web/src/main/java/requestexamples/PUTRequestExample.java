@@ -1,4 +1,4 @@
-package requestExamples;
+package requestexamples;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

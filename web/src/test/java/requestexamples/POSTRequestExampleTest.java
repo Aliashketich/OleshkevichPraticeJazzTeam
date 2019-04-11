@@ -1,11 +1,11 @@
-package requestExamples;
+package requestexamples;
 
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static requestExamples.POSTRequestExample.executePOSTRequest;
+import static requestexamples.POSTRequestExample.executePOSTRequest;
 
 public class POSTRequestExampleTest {
     @Test

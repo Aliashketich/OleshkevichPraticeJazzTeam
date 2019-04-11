@@ -1,11 +1,11 @@
-package requestExamples;
+package requestexamples;
 
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static requestExamples.DELETERequestExample.executeDELETERequest;
+import static requestexamples.DELETERequestExample.executeDELETERequest;
 
 public class DELETERequestExampleTest {
     @Test

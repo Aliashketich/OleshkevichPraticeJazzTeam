@@ -1,0 +1,27 @@
+#weather {
+    align-content: center;
+}
+
+#city {
+    border: 2px solid aqua;
+    align-content: center;
+}
+
+#wrapper {
+}
+
+button {
+    color: #fff;
+    background-color: #29c5e6;
+    border: none;
+    height: 32px;
+    font-family: 'Oswald', sans-serif;
+}
+
+body {
+    color: #8f8f8f;
+    font: 12px Tahoma, sans-serif;
+    background-color: #f8f8f8;
+    border-top: 5px solid #7e7e7e;
+    margin: 0;
+}

@@ -1,6 +1,6 @@
 package chainofresponsibility;
 
-class ErrorLogger extends Logger {
+public class ErrorLogger extends Logger {
     ErrorLogger(int level) {
         this.level = level;
     }
