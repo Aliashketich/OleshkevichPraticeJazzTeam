@@ -8,9 +8,9 @@ import static util.queue.QueueTaskUtils.*;
 
 /*Даны две упорядоченные очереди, элементами которых являются целые числа.
  Объединить эти очереди в одну упорядоченную очередь*/
-class QueueTask {
+public class QueueTask {
 
-    PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) throws MyException {
+    public PriorityQueue<Integer> mergeTwoQueue(PriorityQueue<Integer> firstQueue, PriorityQueue<Integer> secondQueue) throws MyException {
         PriorityQueue<Integer> mergedQueue = new PriorityQueue<>();
 
         checkCorrectInputQueue(firstQueue, secondQueue);

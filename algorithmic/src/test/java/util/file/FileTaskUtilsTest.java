@@ -3,14 +3,14 @@ package util.file;
 import exception.MyException;
 import org.junit.Before;
 import org.junit.Test;
+import tasks.files.FileTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static util.file.FileTaskUtils.*;
 
 public class FileTaskUtilsTest {
@@ -103,5 +103,11 @@ public class FileTaskUtilsTest {
     @Test(expected = MyException.class)
     public void getVocabularyFromFileFileIsEmptyTest() throws IOException, MyException {
         assertEquals("Vocabulary file is empty!", getVocabularyFromFile(ROOT_FILE_DIRECTORY_PATH + "emptyTestFile.txt").toString());
+    }
+
+    @Test
+    public void buildCombinationOfWordWithZeroValueLengthIsNotNullTest() {
+        FileTask fileTask = new FileTask();
+        assertNotNull(fileTask.buildCombinationOfWord(0, arrayListOfWordWithSetLength, 0));
     }
 }

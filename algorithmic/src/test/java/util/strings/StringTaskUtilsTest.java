@@ -59,4 +59,9 @@ public class StringTaskUtilsTest {
         saveInUnicode(nullString);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void isWordAlreadySelectNullEntryValuesTest() {
+        isWordAlreadySelect(null, null);
+    }
+
 }

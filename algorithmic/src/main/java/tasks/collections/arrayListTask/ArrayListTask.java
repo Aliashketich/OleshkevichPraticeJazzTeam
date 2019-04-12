@@ -9,31 +9,35 @@ import static util.strings.StringTaskUtils.splitStringWithSetRegex;
   The method should return all the words that contain the keyword and have a length no less than minLength.
    if minLength == -1, then it returns all words with any length.*/
 
-class ArrayListTask {
+public class ArrayListTask {
 
-    ArrayList<String> selectionByKeywordAndStringLength(ArrayList<String> entryArrayList, String keyword, int minStringLength) {
+    public ArrayList<String> selectionByKeywordAndStringLength(ArrayList<String> entryArrayList, String keyword, int minStringLength) {
         if (entryArrayList == null)
             throw new NullPointerException();
+
         ArrayList<String> selectionResult = new ArrayList<>();
-        if (minStringLength != -1)
-            for (int i = 0; i < entryArrayList.size(); i++) {
-                if (entryArrayList.get(i).length() >= minStringLength) {
-                    String[] wordsFromArrayListElement = splitStringWithSetRegex(entryArrayList.get(i));
-                    boolean checkEntryKeywordInArrayListString = false;
-                    for (int j = 0; j < wordsFromArrayListElement.length; j++) {
-                        if (wordsFromArrayListElement[j].equals(keyword)) {
-                            checkEntryKeywordInArrayListString = true;
-                            break;
-                        }
-                    }
-                    if (checkEntryKeywordInArrayListString)
-                        selectionResult.add(entryArrayList.get(i));
+
+        if (minStringLength != -1) {
+            for (String arrayListString : entryArrayList) {
+                if (arrayListString.length() >= minStringLength) {
+                    final String[] wordsFromArrayListElement = splitStringWithSetRegex(arrayListString);
+
+                    if (isArrayListStringContainsKeyword(wordsFromArrayListElement, keyword))
+                        selectionResult.add(arrayListString);
                 }
             }
-        else
-            selectionResult = entryArrayList;
+            return selectionResult;
 
-        return selectionResult;
+        } else
+            return entryArrayList;
     }
 
+    private boolean isArrayListStringContainsKeyword(String[] wordsFromArrayListElement, String keyword) {
+        for (String wordFromArrayListElement : wordsFromArrayListElement) {
+            if (wordFromArrayListElement.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

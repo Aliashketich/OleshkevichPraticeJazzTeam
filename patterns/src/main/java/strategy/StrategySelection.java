@@ -6,8 +6,8 @@ import strategy.impl.OperationDivision;
 import strategy.impl.OperationMultiple;
 import strategy.impl.OperationSubtract;
 
-class StrategySelection {
-    int selectOperationStrategy(int a, int b, String command) throws MyException, NullPointerException, ArithmeticException {
+public class StrategySelection {
+    public int selectOperationStrategy(int a, int b, String command) throws MyException, NullPointerException, ArithmeticException {
         StrategyContext strategyContext;
         switch (command) {
             case "add":

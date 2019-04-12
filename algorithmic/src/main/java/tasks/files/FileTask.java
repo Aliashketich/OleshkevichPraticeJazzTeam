@@ -13,43 +13,33 @@ import java.util.HashMap;
 
 import static util.file.FileTaskUtils.*;
 
-class FileTask {
-    ArrayList<String> buildLargestRectangleOfWords(String filePathWithWordsSource) throws IOException, MyException {
+public class FileTask {
+    public ArrayList<String> buildLargestRectangleOfWords(String filePathWithWordsSource) throws IOException, MyException {
+        final ArrayList<String> wordsSourceForBuilding = readAllStringsFromFile(filePathWithWordsSource);
+
+        final int maxWordLength = getStringListMaxElementLength(wordsSourceForBuilding);
+        final int minWordLength = getStringListMinElementLength(wordsSourceForBuilding);
+
+        final HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength = separateWordsIntoLengthGroups(wordsSourceForBuilding, maxWordLength, minWordLength);
+
         ArrayList<String> largestRectangleOfWords;
-        ArrayList<String> wordsSourceForBuilding = readAllStringsFromFile(filePathWithWordsSource);
-
-        int maxWordLength = getStringListMaxElementLength(wordsSourceForBuilding);
-        int minWordLength = getStringListMinElementLength(wordsSourceForBuilding);
-
-        HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength = separateWordsIntoLengthGroups(wordsSourceForBuilding, maxWordLength, minWordLength);
 
         for (int currentWordLength = maxWordLength; currentWordLength > minWordLength - 1; currentWordLength--) {
             int numbersOfWordsInGroupWithOneLength = getNumberOfWordsInGroup(wordsGroupWithSameLength, currentWordLength);
 
             if (numbersOfWordsInGroupWithOneLength >= currentWordLength) {
-
                 ArrayList<String> arrayListOfWordWithSetLength = wordsGroupWithSameLength.get(currentWordLength);
 
                 for (int j = 0; j < numbersOfWordsInGroupWithOneLength; j++) {
-
-                    int countOfAcceptLetters = 0;
-                    char[] wordFromArrayListOfWordWithSetLength = arrayListOfWordWithSetLength.get(j).toCharArray();
-                    for (char aWordFromArrayListOfWordWithSetLength : wordFromArrayListOfWordWithSetLength) {
-                        if (!arrayListHasSomeWordOnThisLetter(arrayListOfWordWithSetLength, aWordFromArrayListOfWordWithSetLength, Arrays.toString(wordFromArrayListOfWordWithSetLength)))
-                            break;
-                        else countOfAcceptLetters++;
-                    }
+                    int countOfAcceptLetters = getNumberOfLetterContainsInWordsFromArrayListWithSetLength(arrayListOfWordWithSetLength, j);
 
                     if (countOfAcceptLetters == arrayListOfWordWithSetLength.get(j).length()) {
-                        ArrayList<String> rectangleOfWordForCorrectCheck;
-                        int amountOfAllPossibleCombination = numbersOfWordsInGroupWithOneLength - currentWordLength;
+                        final int amountOfAllPossibleCombination = numbersOfWordsInGroupWithOneLength - currentWordLength;
+
                         for (int numberOfCheckCombination = 0; numberOfCheckCombination < amountOfAllPossibleCombination; numberOfCheckCombination++) {
                             for (int countAddToRectangleCombination = 0, count = 0; countAddToRectangleCombination < numbersOfWordsInGroupWithOneLength - 4; countAddToRectangleCombination++, count++) {
-                                rectangleOfWordForCorrectCheck = new ArrayList<>();
-                                for (int y = 0; y < currentWordLength; y++) {
-                                    String elementFromArrayListOfWordWithSetLength = arrayListOfWordWithSetLength.get(y + count);
-                                    rectangleOfWordForCorrectCheck.add(y, elementFromArrayListOfWordWithSetLength);
-                                }
+                                ArrayList<String> rectangleOfWordForCorrectCheck = buildCombinationOfWord(currentWordLength, arrayListOfWordWithSetLength, count);
+
                                 if (checkRectangleForSatisfaction(arrayListOfWordWithSetLength, rectangleOfWordForCorrectCheck, currentWordLength)) {
                                     largestRectangleOfWords = rectangleOfWordForCorrectCheck;
                                     return largestRectangleOfWords;
@@ -61,5 +51,25 @@ class FileTask {
             }
         }
         throw new MyException("Solution not found!");
+    }
+
+    public ArrayList<String> buildCombinationOfWord(int currentWordLength, ArrayList<String> arrayListOfWordWithSetLength, int count) {
+        ArrayList<String> combinationOfWord = new ArrayList<>();
+        for (int y = 0; y < currentWordLength; y++) {
+            String elementFromArrayListOfWordWithSetLength = arrayListOfWordWithSetLength.get(y + count);
+            combinationOfWord.add(y, elementFromArrayListOfWordWithSetLength);
+        }
+        return combinationOfWord;
+    }
+
+    private int getNumberOfLetterContainsInWordsFromArrayListWithSetLength(ArrayList<String> arrayListOfWordWithSetLength, int j) {
+        int countOfAcceptLetters = 0;
+        char[] wordFromArrayListOfWordWithSetLength = arrayListOfWordWithSetLength.get(j).toCharArray();
+        for (char aWordFromArrayListOfWordWithSetLength : wordFromArrayListOfWordWithSetLength) {
+            if (!arrayListHasSomeWordOnThisLetter(arrayListOfWordWithSetLength, aWordFromArrayListOfWordWithSetLength, Arrays.toString(wordFromArrayListOfWordWithSetLength)))
+                break;
+            else countOfAcceptLetters++;
+        }
+        return countOfAcceptLetters;
     }
 }

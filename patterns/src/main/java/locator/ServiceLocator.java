@@ -1,9 +1,9 @@
 package locator;
 
-class ServiceLocator {
+public class ServiceLocator {
     private static Cache cache = new Cache();
 
-    static Service getService(String serviceName) {
+    public static Service getService(String serviceName) {
         Service currentService = cache.getService(serviceName);
         if (currentService == null) {
             InitialContext initialContext = new InitialContext();

@@ -11,22 +11,18 @@ import java.util.HashMap;
 import static util.file.FileTaskUtils.getVocabularyFromFile;
 import static util.strings.StringTaskUtils.*;
 
-class HashMapTask {
-    String translateStringFromEnglishToRussian(String filePath, String stringToTranslate) throws IOException, MyException {
+public class HashMapTask {
+    public String translateStringFromEnglishToRussian(String filePath, String stringToTranslate) throws IOException, MyException {
         final String[] wordsOfStringToTranslate = splitStringWithSetRegex(stringToTranslate);
         final HashMap<String, String> vocabulary = getVocabularyFromFile(filePath);
 
         StringBuilder russianString = new StringBuilder();
-        for (int i = 0; i < wordsOfStringToTranslate.length; i++) {
-            String russianWord = translateWordFromEnglishToRussian(wordsOfStringToTranslate[i], vocabulary);
+        for (String wordFromStringToTranslate : wordsOfStringToTranslate) {
+            String russianWord = translateWordFromEnglishToRussian(wordFromStringToTranslate, vocabulary);
             if (!russianWord.equals(""))
                 russianString.append(russianWord).append(" ");
-            else russianString.append(wordsOfStringToTranslate[i]).append(" ");
+            else russianString.append(wordFromStringToTranslate).append(" ");
         }
-
-        final String stringSaveInUnicode = saveInUnicode(russianString);
-        if (!stringSaveInUnicode.equals(""))
-            return stringSaveInUnicode.substring(0, stringSaveInUnicode.length() - 1);
-        else return stringSaveInUnicode;
+        return saveInUnicode(russianString).substring(0, saveInUnicode(russianString).length() - 1);
     }
 }

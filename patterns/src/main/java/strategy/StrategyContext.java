@@ -3,11 +3,11 @@ package strategy;
 class StrategyContext {
     private Strategy strategy;
 
-    StrategyContext(Strategy strategy) {
+    public StrategyContext(Strategy strategy) {
         this.strategy = strategy;
     }
 
-    int executeStrategy(int a, int b) {
+    public int executeStrategy(int a, int b) {
         return strategy.doOperation(a, b);
     }
 }

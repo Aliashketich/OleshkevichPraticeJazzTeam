@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static util.file.FileTaskUtils.readStringFromFile;
+import static util.strings.StringTaskUtils.isWordAlreadySelect;
 import static util.strings.StringTaskUtils.splitStringWithSetRegex;
 
-class StringTask {
-    private Map<String, String> letters = new HashMap<>();
+public class StringTask {
+    private final Map<String, String> letters = new HashMap<>();
 
     {
         letters.put("А", "A");
@@ -101,12 +102,12 @@ class StringTask {
         letters.put("=", "=");
     }
 
-    String stringTransliterationFromRussianToEnglishSymbols(String filePathWithString) throws MyException, IOException {
+    public String stringTransliterationFromRussianToEnglishSymbols(String filePathWithString) throws MyException, IOException {
         StringBuilder transliteratedString = new StringBuilder();
 
-        String stringForTransliteration = readStringFromFile(filePathWithString);
+        final String stringForTransliteration = readStringFromFile(filePathWithString);
 
-        char[] charsOfStringForTransliteration = stringForTransliteration.toCharArray();
+        final char[] charsOfStringForTransliteration = stringForTransliteration.toCharArray();
 
         for (int i = 1; i < charsOfStringForTransliteration.length; i++) {
             try {
@@ -120,24 +121,18 @@ class StringTask {
         return transliteratedString.toString();
     }
 
-    String selectIdenticalWordsFromTwoStrings(String firstString, String secondString) {
+    public String selectIdenticalWordsFromTwoStrings(String firstString, String secondString) {
         String identicalWordsFromTwoStrings = "";
 
-        String[] wordFromFirstString = splitStringWithSetRegex(firstString);
-        String[] wordFromSecondString = splitStringWithSetRegex(secondString);
-        for (String aWordFromFirstString : wordFromFirstString) {
-            for (String aWordFromSecondString : wordFromSecondString) {
-                if (aWordFromFirstString.equals(aWordFromSecondString)) {
+        final String[] wordsFromFirstString = splitStringWithSetRegex(firstString);
+        final String[] wordsFromSecondString = splitStringWithSetRegex(secondString);
+        for (String wordFromFirstString : wordsFromFirstString) {
+            for (String wordFromSecondString : wordsFromSecondString) {
+                if (wordFromFirstString.equals(wordFromSecondString)) {
                     String[] wordsArrayWithPossibleDuplication = splitStringWithSetRegex(identicalWordsFromTwoStrings);
-                    boolean wordIsAlreadyInCurrentSelection = false;
-                    for (String aStringArrayWithPossibleDuplication : wordsArrayWithPossibleDuplication) {
-                        if (aStringArrayWithPossibleDuplication.equals(aWordFromSecondString)) {
-                            wordIsAlreadyInCurrentSelection = true;
-                            break;
-                        }
-                    }
-                    if (!wordIsAlreadyInCurrentSelection)
-                        identicalWordsFromTwoStrings = identicalWordsFromTwoStrings.concat(aWordFromSecondString) + " ";
+
+                    if (!isWordAlreadySelect(wordsArrayWithPossibleDuplication, wordFromSecondString))
+                        identicalWordsFromTwoStrings = identicalWordsFromTwoStrings.concat(wordFromSecondString) + " ";
                 }
             }
         }

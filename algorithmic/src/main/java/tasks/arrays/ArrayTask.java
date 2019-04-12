@@ -4,19 +4,20 @@ import exception.MyException;
 
 import java.util.Arrays;
 
-class ArrayTask {
+public class ArrayTask {
     private int[] iCoordinateWithOneValue = new int[20];
     private int[] jCoordinateOfOneValue = new int[20];
+    private final int column = 4;
+    private final int row = 5;
 
-    int[][] deleteRowAndColumnWhichContainsOneValue(int[][] entryArray) throws MyException {
+
+    public int[][] deleteRowAndColumnWhichContainsOneValue(int[][] entryArray) throws MyException {
         if (entryArray.length == 0)
             throw new MyException("Entry array is empty!");
         boolean arrayHaveOneValue = false;
         int numberOfDeleteRow = 0;
         int numberOfDeleteColumn = 0;
 
-        int column = 4;
-        int row = 5;
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
@@ -65,12 +66,12 @@ class ArrayTask {
         }
     }
 
-    int[][] sortingArrayByDescendingByReshuffleRowsByElementsOfFirstColumn(int[][] array) {
-        Arrays.sort(array, (o1, o2) -> {
+    public int[][] sortingArrayByDescendingByReshuffleRowsByElementsOfFirstColumn(int[][] arrayForSorting) {
+        Arrays.sort(arrayForSorting, (o1, o2) -> {
             Integer i1 = o1[0];
             Integer i2 = o2[0];
             return i2.compareTo(i1);
         });
-        return array;
+        return arrayForSorting;
     }
 }

@@ -28,4 +28,13 @@ public class StringTaskUtils {
         return new String(russianString.getBytes(), StandardCharsets.UTF_8);
     }
 
+    public static boolean isWordAlreadySelect(String[] wordsArrayWithPossibleDuplication, String wordFromSecondString) {
+        for (String wordFromArrayWithPossibleDuplication : wordsArrayWithPossibleDuplication) {
+            if (wordFromArrayWithPossibleDuplication.equals(wordFromSecondString)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
