@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <title>Tamagochi</title>
     <link rel="stylesheet" href="../css/tamagochi.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css">
 </head>
 <body>
-<div id="animalCreation">
-    <input type="text" placeholder="Enter tamagochi name" id="animalName">
-    <select id="animalType">
-        <option disabled selected>Chose tamagochi type</option>
-        <option value="koala">Koala</option>
-        <option value="cat">Cat</option>
-        <option value="raccoon">Raccoon</option>
-    </select>
-    <button id="createBtn">Create</button>
-</div>
-<div id="tamagochiBars">
-
+<div class="container">
+    <div id="animalCreation">
+        <p>TAMAGOCHI TIME</p>
+        <h1>Try to not die!</h1>
+        <input type="text" placeholder="Enter tamagochi name" id="animalName">
+        <select id="animalType" class="form-select-button">
+            <option disabled selected class="glyphicon-option-vertical">Chose tamagochi type</option>
+            <option value="koala" class="glyphicon-option-vertical">Koala</option>
+            <option value="cat" class="glyphicon-option-vertical">Cat</option>
+            <option value="raccoon" class="glyphicon-option-vertical">Raccoon</option>
+        </select>
+        <button id="createBtn" class="btn btn-success">Play</button>
+    </div>
+    <div id="timer"></div>
+    <div id="tamagochiBars">
+    </div>
 </div>
 <script src="../js/jquery-3.2.1.js"></script>
 <script src="../js/tamagochi.js"></script>
