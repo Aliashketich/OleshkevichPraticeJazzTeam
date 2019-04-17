@@ -5,6 +5,15 @@ class Animal {
         this._healthLevel = healthLevel;
         this._fillLevel = fillLevel;
         this._animalType = animalType;
+        this._animalLevel = 1;
+    }
+
+    get animalLevel() {
+        return this._animalLevel;
+    }
+
+    set animalLevel(value) {
+        this._animalLevel = value;
     }
 
     get name() {
@@ -46,6 +55,18 @@ class Animal {
     set animalType(value) {
         this._animalType = value;
     }
+
+    healthChanges() {
+        this.healthLevel -= 0.01;
+    }
+
+    fillChanges() {
+        this.fillLevel -= 0.03;
+    }
+
+    happinessChanges() {
+
+    }
 }
 
 class Raccoon extends Animal {
@@ -61,6 +82,18 @@ class Raccoon extends Animal {
 
     set washHappiness(value) {
         this._washHappiness = value;
+    }
+
+    healthChanges() {
+        this.healthLevel -= 0.01;
+    }
+
+    fillChanges() {
+        this.fillLevel -= 0.03;
+    }
+
+    happinessChanges() {
+        this.washHappiness -= 0.02;
     }
 }
 
@@ -79,6 +112,18 @@ class Cat extends Animal {
     set milkLevel(value) {
         this._milkLevel = value;
     }
+
+    healthChanges() {
+        this.healthLevel -= 0.03;
+    }
+
+    fillChanges() {
+        this.fillLevel -= 0.07;
+    }
+
+    happinessChanges() {
+        this.milkLevel -= 0.02;
+    }
 }
 
 class Koala extends Animal {
@@ -94,6 +139,18 @@ class Koala extends Animal {
 
     set sleepLevel(value) {
         this._sleepLevel = value;
+    }
+
+    healthChanges() {
+        this.healthLevel -= 0.015;
+    }
+
+    fillChanges() {
+        this.fillLevel -= 0.04;
+    }
+
+    happinessChanges() {
+        this.sleepLevel -= 0.02;
     }
 }
 
@@ -137,9 +194,8 @@ let animal = btnCreation.addEventListener('click', function () {
 
     document.getElementById('animalCreation').innerHTML =
         '<div>' +
-        '<p>Name: ' + animal["name"] + '</p>' +
-        '<p>Type: ' + animal["animalType"] + '</p>' +
-        '<p>Time of birth: ' + currentTime + '</p>' +
+        '<h3>' + animal["animalType"] + ' ' + animal["name"] + '</h3>' +
+        '<h4>Time of birth: ' + currentTime + '</h4>' +
         '</div>';
 
 
@@ -159,21 +215,40 @@ let animal = btnCreation.addEventListener('click', function () {
         '<div class="col-xs-3"><button id="happiness" class="btn btn-success">' + classAction +
         '</button></div>';
 
+    switch (animalType) {
+        case 'koala':
+            document.getElementById('tamagochiImage').innerHTML = '<img src="../koala.jpg" class="tamagochiImages">';
+            break;
+        case 'cat':
+            document.getElementById('tamagochiImage').innerHTML = '<img src="../cat.jpg" class="tamagochiImages">';
+            break;
+        case 'raccoon':
+            document.getElementById('tamagochiImage').innerHTML = '<img src="../raccoon.jpg" class="tamagochiImages">';
+            break;
+    }
+
 
     document.getElementById('timer').innerHTML = '<label id="minutes">00</label>:<label id="seconds">00</label>';
-    var minutesLabel = document.getElementById("minutes");
-    var secondsLabel = document.getElementById("seconds");
-    var totalSeconds = 0;
+    let minutesLabel = document.getElementById("minutes");
+    let secondsLabel = document.getElementById("seconds");
+    let totalSeconds = 0;
     setInterval(setTime, 1000);
+
+
+    document.getElementById('animalLevel').innerHTML = '<h4>Animal level: ' + animal["animalLevel"] + '</h4>';
 
     function setTime() {
         ++totalSeconds;
         secondsLabel.innerHTML = pad(totalSeconds % 60);
         minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+        if (totalSeconds % 60 === 0) {
+            animal["animalLevel"]++;
+            document.getElementById('animalLevel').innerHTML = '<h4>Animal level: ' + animal["animalLevel"] + '</h4>';
+        }
     }
 
     function pad(val) {
-        var valString = val + "";
+        let valString = val + "";
         if (valString.length < 2) {
             return "0" + valString;
         } else {
@@ -194,7 +269,7 @@ let animal = btnCreation.addEventListener('click', function () {
         animal.healthLevel += 5;
     });
     $('#happiness').click(function () {
-        switch (animalType) {
+        switch (animal["animalType"]) {
             case 'koala':
                 animal.healthLevel += 2;
                 animal.sleepLevel += 4;
@@ -213,28 +288,23 @@ let animal = btnCreation.addEventListener('click', function () {
 
 
     function timer() {
-        //логика уменьшения хар=х с течением времени
-        animal["healthLevel"] -= 0.12;
-        animal["fillLevel"] -= 0.15;
+        //логика уменьшения хар-к с течением времени
+        animal.healthChanges();
+        animal.fillChanges();
+        animal.happinessChanges();
 
-        //TODO cast to Switch
         let happinessLevel = '';
-        if (animalType === 'raccoon') {
-            animal["washHappiness"] -= 0.05;
-            happinessLevel = "washHappiness";
-            // console.log(animal["washHappiness"]);
+        switch (animal["animalType"]) {
+            case 'raccoon':
+                happinessLevel = "washHappiness";
+                break;
+            case 'cat':
+                happinessLevel = "milkLevel";
+                break;
+            case 'koala':
+                happinessLevel = "sleepLevel";
+                break;
         }
-        if (animalType === 'cat') {
-            animal["milkLevel"] -= 0.03;
-            happinessLevel = "milkLevel";
-            // console.log(animal["milkLevel"]);
-        }
-        if (animalType === 'koala') {
-            animal["sleepLevel"] -= 0.07;
-            happinessLevel = "sleepLevel";
-            // console.log(animal["sleepLevel"]);
-        }
-
 
         //логика смены окраса линий
         if (animal.fillLevel > 65) {
@@ -268,16 +338,25 @@ let animal = btnCreation.addEventListener('click', function () {
             $('#happiness-level').addClass('progress-bar progress-bar-danger');
         }
 
+        let flag = 2;
+        if ((animal.fillLevel < 30 || animal.healthLevel < 30) && flag % 2 === 0) {
+            document.getElementById('tamagochiImage').innerHTML = '<img src="../rage' + animalType + '.jpg" class="tamagochiImages">';
+            document.getElementById('tamagochiMessage').innerHTML = '<h4 class="red">I hate you, master!</h4>';
+            flag += 1;
+        } else if (animal.fillLevel > 30 && animal.healthLevel > 30) {
+            document.getElementById('tamagochiImage').innerHTML = '<img src="../' + animalType + '.jpg" class="tamagochiImages">';
+            document.getElementById('tamagochiMessage').innerHTML = '<h4>I love you, master!</h4>';
+            flag++;
+        }
 
         //Ограничения на выход уровней хар-к за 100
         if (animal.fillLevel > 100) {
             animal.fillLevel = 100;
         }
-
         if (animal.healthLevel > 100) {
             animal.healthLevel = 100;
         }
-        switch (animalType) {
+        switch (animal["animalType"]) {
             case 'koala':
                 if (animal.sleepLevel > 100) {
                     animal.sleepLevel = 100;

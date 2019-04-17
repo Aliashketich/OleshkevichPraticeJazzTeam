@@ -1,8 +1,8 @@
-package com.jazzteam.user.ext;
+package com.jazzteam.model.user.ext;
 
-import com.jazzteam.notification.Notification;
-import com.jazzteam.report.Report;
-import com.jazzteam.user.User;
+import com.jazzteam.model.notification.Notification;
+import com.jazzteam.model.report.Report;
+import com.jazzteam.model.user.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +18,13 @@ public class Employee extends User {
         this.ratingsOfPassedTest = ratingsOfPassedTest;
     }
 
-    public Employee(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, Report report, String role, String department, String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest) {
-        super(age, notifications, email, login, password, name, surname, report, role);
+    public Employee(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, ArrayList<Report> reports, String role, String department, String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest) {
+        super(age, notifications, email, login, password, name, surname, reports, role);
         this.department = department;
         this.informationSecuritySkill = informationSecuritySkill;
         this.ratingsOfPassedTest = ratingsOfPassedTest;
     }
+
 
     public String getDepartment() {
         return department;
@@ -48,4 +49,5 @@ public class Employee extends User {
     public void setRatingsOfPassedTest(HashMap<Integer, String> ratingsOfPassedTest) {
         this.ratingsOfPassedTest = ratingsOfPassedTest;
     }
+
 }

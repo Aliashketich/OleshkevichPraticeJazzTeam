@@ -14,15 +14,12 @@ public class ArrayTask {
     public int[][] deleteRowAndColumnWhichContainsOneValue(int[][] entryArray) throws MyException {
         if (entryArray.length == 0)
             throw new MyException("Entry array is empty!");
-        boolean arrayHaveOneValue = false;
+
         int numberOfDeleteRow = 0;
         int numberOfDeleteColumn = 0;
-
-
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 if (entryArray[i][j] == 1) {
-                    arrayHaveOneValue = true;
                     iCoordinateWithOneValue[numberOfDeleteRow] = i;
                     jCoordinateOfOneValue[numberOfDeleteColumn] = j;
                     numberOfDeleteColumn++;
@@ -31,9 +28,12 @@ public class ArrayTask {
             }
         }
 
+        if (!isArrayHaveOneValue(entryArray, row, column))
+            throw new MyException("Primary array haven't 1.");
         if (numberOfDeleteRow >= 5) {
             throw new MyException("Method should delete all elements of array because each row has 1");
         }
+
         int newRow = row - 1;
         int newColumn = column - 1;
 
@@ -59,11 +59,18 @@ public class ArrayTask {
             newRow--;
             newColumn--;
         }
-        if (arrayHaveOneValue)
-            return entryArray;
-        else {
-            throw new MyException("Primary array haven't 1.");
+        return entryArray;
+    }
+
+    public boolean isArrayHaveOneValue(int[][] entryArray, int row, int column) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (entryArray[i][j] == 1) {
+                    return true;
+                }
+            }
         }
+        return false;
     }
 
     public int[][] sortingArrayByDescendingByReshuffleRowsByElementsOfFirstColumn(int[][] arrayForSorting) {

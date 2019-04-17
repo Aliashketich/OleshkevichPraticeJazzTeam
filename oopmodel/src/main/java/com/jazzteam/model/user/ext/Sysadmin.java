@@ -1,8 +1,8 @@
-package com.jazzteam.user.ext;
+package com.jazzteam.model.user.ext;
 
-import com.jazzteam.notification.Notification;
-import com.jazzteam.report.Report;
-import com.jazzteam.user.User;
+import com.jazzteam.model.notification.Notification;
+import com.jazzteam.model.report.Report;
+import com.jazzteam.model.user.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +18,20 @@ public class Sysadmin extends User {
         this.workResultRating = workResultRating;
     }
 
-    public Sysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, Report report, String role, int experience, HashMap<Integer, String> passedTestRating, String workResultRating) {
-        super(age, notifications, email, login, password, name, surname, report, role);
+    public Sysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, ArrayList<Report> reports, int experience, HashMap<Integer, String> passedTestRating, String workResultRating) {
+        super(age, notifications, email, login, password, name, surname, reports, "sysadmin");
         this.experience = experience;
         this.passedTestRating = passedTestRating;
         this.workResultRating = workResultRating;
     }
+
+    public Sysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, ArrayList<Report> reports, String role, int experience, HashMap<Integer, String> passedTestRating, String workResultRating) {
+        super(age, notifications, email, login, password, name, surname, reports, role);
+        this.experience = experience;
+        this.passedTestRating = passedTestRating;
+        this.workResultRating = workResultRating;
+    }
+
 
     public int getExperience() {
         return experience;
@@ -48,4 +56,5 @@ public class Sysadmin extends User {
     public void setWorkResultRating(String workResultRating) {
         this.workResultRating = workResultRating;
     }
+
 }

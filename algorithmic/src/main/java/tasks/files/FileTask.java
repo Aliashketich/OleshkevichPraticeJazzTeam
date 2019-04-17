@@ -62,7 +62,7 @@ public class FileTask {
         return combinationOfWord;
     }
 
-    private int getNumberOfLetterContainsInWordsFromArrayListWithSetLength(ArrayList<String> arrayListOfWordWithSetLength, int j) {
+    public int getNumberOfLetterContainsInWordsFromArrayListWithSetLength(ArrayList<String> arrayListOfWordWithSetLength, int j) {
         int countOfAcceptLetters = 0;
         char[] wordFromArrayListOfWordWithSetLength = arrayListOfWordWithSetLength.get(j).toCharArray();
         for (char aWordFromArrayListOfWordWithSetLength : wordFromArrayListOfWordWithSetLength) {

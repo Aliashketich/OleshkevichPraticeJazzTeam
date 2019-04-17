@@ -1,4 +1,4 @@
-package com.jazzteam;
+package com.jazzteam.model;
 
 abstract public class Identifiable {
     protected int id;
@@ -22,7 +22,6 @@ abstract public class Identifiable {
 
     /**
      * Return next ID
-     *
      * @return int
      */
     protected static int getNextId() {

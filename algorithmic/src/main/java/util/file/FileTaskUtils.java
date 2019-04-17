@@ -14,7 +14,7 @@ public class FileTaskUtils {
     public static boolean checkRectangleForSatisfaction(ArrayList<String> arrayListOfWordWithSetLength, ArrayList<String> rectangleOfWordForCorrectCheck, int wordLength) throws MyException {
         if (wordLength == 0)
             throw new MyException("Word length can not be equals zero!");
-        char[][] wordsCharsArrayForSatisfaction = new char[wordLength][wordLength];
+        final char[][] wordsCharsArrayForSatisfaction = new char[wordLength][wordLength];
         for (int i = 0; i < wordLength; i++) {
             for (int j = 0; j < wordLength; j++) {
                 wordsCharsArrayForSatisfaction[i][j] = rectangleOfWordForCorrectCheck.get(j).charAt(i);
@@ -23,8 +23,8 @@ public class FileTaskUtils {
         int countOfCorrectWords = 0;
         for (int i = 0; i < wordLength; i++) {
             for (int j = 0; j < arrayListOfWordWithSetLength.size(); j++) {
-                String wordFromVocabulary = new String(arrayListOfWordWithSetLength.get(j).getBytes());
-                String wordFromCharArray = new String(wordsCharsArrayForSatisfaction[i].clone());
+                final String wordFromVocabulary = new String(arrayListOfWordWithSetLength.get(j).getBytes());
+                final String wordFromCharArray = new String(wordsCharsArrayForSatisfaction[i].clone());
                 if (wordFromCharArray.equals(wordFromVocabulary)) {
                     countOfCorrectWords++;
                     break;
@@ -36,7 +36,7 @@ public class FileTaskUtils {
 
     public static boolean arrayListHasSomeWordOnThisLetter(ArrayList<String> arrayListOfWordWithSetLength, char c, String excludeWord) {
         for (int i = 0; i < arrayListOfWordWithSetLength.size(); i++) {
-            char[] chars = arrayListOfWordWithSetLength.get(i).toCharArray();
+            final char[] chars = arrayListOfWordWithSetLength.get(i).toCharArray();
             if ((chars[0] == c) && (!arrayListOfWordWithSetLength.get(i).equals(excludeWord))) {
                 return true;
             }
@@ -46,7 +46,7 @@ public class FileTaskUtils {
 
 
     public static int getNumberOfWordsInGroup(HashMap<Integer, ArrayList<String>> wordsGroupWithSameLength, int wordsLengthInGroup) {
-        ArrayList<String> arrayListOfWordGroup = wordsGroupWithSameLength.get(wordsLengthInGroup);
+        final ArrayList<String> arrayListOfWordGroup = wordsGroupWithSameLength.get(wordsLengthInGroup);
         return arrayListOfWordGroup.size();
     }
 
@@ -86,7 +86,7 @@ public class FileTaskUtils {
 
     public static ArrayList<String> readAllStringsFromFile(String path) throws IOException, MyException {
         ArrayList<String> stringsFromFile = new ArrayList<>();
-        Scanner scanFile = new Scanner(new File(path));
+        final Scanner scanFile = new Scanner(new File(path));
         while (scanFile.hasNext()) {
             stringsFromFile.add(scanFile.next());
         }
@@ -105,7 +105,7 @@ public class FileTaskUtils {
             stringFromFile = scanFile.nextLine();
         }
         scanFile.close();
-        String stringSaveInUnicode = saveInUnicode(stringFromFile);
+        final String stringSaveInUnicode = saveInUnicode(stringFromFile);
         if (!stringSaveInUnicode.equals("")) {
             return stringSaveInUnicode;
         } else
@@ -113,12 +113,11 @@ public class FileTaskUtils {
     }
 
     public static HashMap<String, String> getVocabularyFromFile(String vocabularyFilePath) throws IOException, MyException {
-
-        ArrayList<String> stringArrayListFromReadTextFromFile = readAllStringsFromFile(vocabularyFilePath);
+        final ArrayList<String> stringArrayListFromReadTextFromFile = readAllStringsFromFile(vocabularyFilePath);
         HashMap<String, String> vocabularyHashMap = new HashMap<>();
 
         for (int i = 0; i < stringArrayListFromReadTextFromFile.size(); i++) {
-            String[] stringOfVocabulary = stringArrayListFromReadTextFromFile.get(i).split("/");
+            final String[] stringOfVocabulary = stringArrayListFromReadTextFromFile.get(i).split("/");
             vocabularyHashMap.put(stringOfVocabulary[0], stringOfVocabulary[1]);
         }
 

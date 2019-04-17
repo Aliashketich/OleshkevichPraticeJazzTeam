@@ -10,9 +10,9 @@
 <div class="container">
     <div id="animalCreation">
         <p>TAMAGOCHI TIME</p>
-        <h1>Try to not die!</h1>
+        <h1>Try to not kill your pet!</h1>
         <input type="text" placeholder="Enter tamagochi name" id="animalName">
-        <select id="animalType" class="form-select-button">
+        <select id="animalType">
             <option disabled selected class="glyphicon-option-vertical">Chose tamagochi type</option>
             <option value="koala" class="glyphicon-option-vertical">Koala</option>
             <option value="cat" class="glyphicon-option-vertical">Cat</option>
@@ -20,9 +20,11 @@
         </select>
         <button id="createBtn" class="btn btn-success">Play</button>
     </div>
+    <div id="animalLevel"></div>
+    <div id="tamagochiImage"></div>
+    <div id="tamagochiMessage"></div>
     <div id="timer"></div>
-    <div id="tamagochiBars">
-    </div>
+    <div id="tamagochiBars"></div>
 </div>
 <script src="../js/jquery-3.2.1.js"></script>
 <script src="../js/tamagochi.js"></script>

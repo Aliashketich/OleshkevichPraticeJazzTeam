@@ -1,9 +1,12 @@
-package com.jazzteam.test;
+package com.jazzteam.model.test;
 
-import com.jazzteam.Identifiable;
+import com.jazzteam.model.Identifiable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
+
+import static com.jazzteam.util.date.TimeAndDateUtils.getCurrentDate;
 
 public class Test extends Identifiable {
     private String testName;
@@ -14,17 +17,14 @@ public class Test extends Identifiable {
     private HashMap<Integer, ArrayList<String>> questions;
     private HashMap<Integer, Integer> correctAnswers;
 
-    public Test(String testName, String testCategory, String dateAdd, String dateOfLastEdit, String testTarget, HashMap<Integer, ArrayList<String>> questions, HashMap<Integer, Integer> correctAnswers) {
+    public Test(String testName, String testCategory, String testTarget, HashMap<Integer, ArrayList<String>> questions, HashMap<Integer, Integer> correctAnswers) {
         this.testName = testName;
         this.testCategory = testCategory;
-        this.dateAdd = dateAdd;
-        this.dateOfLastEdit = dateOfLastEdit;
+        this.dateAdd = getCurrentDate();
+        this.dateOfLastEdit = "none";
         this.testTarget = testTarget;
         this.questions = questions;
         this.correctAnswers = correctAnswers;
-    }
-
-    public Test() {
     }
 
     public String getTestName() {
@@ -81,5 +81,37 @@ public class Test extends Identifiable {
 
     public void setCorrectAnswers(HashMap<Integer, Integer> correctAnswers) {
         this.correctAnswers = correctAnswers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Test test = (Test) o;
+        return Objects.equals(testName, test.testName) &&
+                Objects.equals(testCategory, test.testCategory) &&
+                Objects.equals(dateAdd, test.dateAdd) &&
+                Objects.equals(dateOfLastEdit, test.dateOfLastEdit) &&
+                Objects.equals(testTarget, test.testTarget) &&
+                Objects.equals(questions, test.questions) &&
+                Objects.equals(correctAnswers, test.correctAnswers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(testName, testCategory, dateAdd, dateOfLastEdit, testTarget, questions, correctAnswers);
+    }
+
+    @Override
+    public String toString() {
+        return "Test{" +
+                "testName='" + testName + '\'' +
+                ", testCategory='" + testCategory + '\'' +
+                ", dateAdd='" + dateAdd + '\'' +
+                ", dateOfLastEdit='" + dateOfLastEdit + '\'' +
+                ", testTarget='" + testTarget + '\'' +
+                ", questions=" + questions +
+                ", correctAnswers=" + correctAnswers +
+                '}';
     }
 }

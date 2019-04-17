@@ -1,3 +1,21 @@
+.container {
+    align-content: center;
+    text-align: center;
+}
+
+.tamagochiImages {
+    height: 350px;
+    width: 350px;
+    margin-bottom: 10px;
+}
+
+#createBtn {
+    margin-top: 1px;
+}
+
+#animalName {
+    height: 37px;
+}
 
 .red {
     background-color: red;
@@ -17,10 +35,6 @@
 }
 
 @media (max-width: 767px) {
-    #pokemon {
-        width: 190px;
-        height: 190px;
-    }
 
     body {
         text-align: center;
@@ -42,11 +56,6 @@
 }
 
 @media (min-width: 768px) {
-    #pokemon {
-        width: 250px;
-        height: 250px;
-    }
-
     h1 {
         -webkit-text-stroke: 5px blue;
         font-size: 90px;
@@ -58,4 +67,28 @@
         width: 100px;
         margin-top: -10px;
     }
+}
+
+select {
+    height: 37px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-padding-end: 20px;
+    -moz-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -moz-padding-start: 2px;
+    background: #F07575 no-repeat center right;
+    border: 1px solid #AAA;
+    border-radius: 2px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    color: #555;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

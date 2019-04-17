@@ -1,6 +1,6 @@
-package com.jazzteam.statistic;
+package com.jazzteam.model.statistic;
 
-import com.jazzteam.Identifiable;
+import com.jazzteam.model.Identifiable;
 
 import java.util.HashMap;
 
