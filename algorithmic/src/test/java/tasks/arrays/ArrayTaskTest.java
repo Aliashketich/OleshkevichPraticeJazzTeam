@@ -100,4 +100,12 @@ public class ArrayTaskTest {
         arrayTask.sortingArrayByDescendingByReshuffleRowsByElementsOfFirstColumn(null);
     }
 
+    @Test
+    public void decreaseElementIfNextHasZeroValueTest() {
+        int[] arrayWithAllZeroValues = new int[3];
+        arrayWithAllZeroValues[1] = 1;
+        int[] expectedArray = new int[3];
+        arrayTask.decreaseElementIfNextHasZeroValue(arrayWithAllZeroValues, 0);
+        assertArrayEquals(expectedArray, arrayWithAllZeroValues);
+    }
 }

@@ -2,12 +2,14 @@
     align-content: center;
 }
 
-#city {
-    border: 2px solid aqua;
+.weather-block {
+    text-align: center;
     align-content: center;
-}
-
-#wrapper {
+    margin-top: 40px;
+    margin-left: 620px;
+    height: 120px;
+    width: 120px;
+    border: 4px solid #1d8ea6;
 }
 
 button {
@@ -19,6 +21,8 @@ button {
 }
 
 body {
+    text-align: center;
+    align-content: center;
     color: #8f8f8f;
     font: 12px Tahoma, sans-serif;
     background-color: #f8f8f8;

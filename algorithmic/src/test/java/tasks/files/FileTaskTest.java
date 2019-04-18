@@ -6,8 +6,10 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static util.file.FileTaskUtils.readAllStringsFromFile;
 
 public class FileTaskTest {
@@ -38,4 +40,16 @@ public class FileTaskTest {
     public void rectangleCanNotBeBuildWithEntryValuesTest() throws IOException, MyException {
         assertEquals("Solution not found!", fileTask.buildLargestRectangleOfWords(ROOT_FILE_DIRECTORY_PATH + "testFileWithoutSolution.txt"));
     }
+
+    @Test
+    public void buildRectangleWithOptimizedEntryValuesNegativeTest() throws MyException {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("clone");
+        arrayList.add("tomes");
+        arrayList.add("knock");
+        arrayList.add("black");
+        arrayList.add("value");
+        assertNull(fileTask.buildRectangleWithOptimizedEntryValues(5, arrayList, 0, 5, 5));
+    }
+
 }
