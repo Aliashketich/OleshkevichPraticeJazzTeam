@@ -1,5 +1,6 @@
 package com.jazzteam.model.user.ext;
 
+import com.jazzteam.exception.MyException;
 import com.jazzteam.model.Company;
 import com.jazzteam.model.mail.MailDistributionList;
 import com.jazzteam.model.mail.MailTemplate;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static com.jazzteam.util.date.TimeAndDateUtils.getCurrentDate;
+import static com.jazzteam.util.TimeAndDateUtils.getCurrentDate;
 
 public class Auditor extends User {
     private ArrayList<Employee> employeeList;
@@ -42,6 +43,8 @@ public class Auditor extends User {
         this.tests = tests;
         this.experience = experience;
     }
+
+    /*Getters and Setters*/
 
     public ArrayList<Employee> getEmployeeList() {
         return employeeList;
@@ -93,90 +96,26 @@ public class Auditor extends User {
 
     /*Use-cases methods*/
 
-    public boolean addDistributionList(ArrayList<String> emails, String distributionListName) {
-        /**
-         * Добавление списка рассылки из БД через обращение по id.
-         */
-        MailDistributionList newDistributionList = new MailDistributionList(emails, distributionListName);
-        return true;
-    }
-
-    public boolean deleteDistributionList(int distributionListId) {
-        /**
-         * Удаление списка рассылки из БД через обращение по id.
-         */
-        return true;
-    }
-
-    public MailDistributionList editDistributionList(int distributionListId, String newName, ArrayList<String> newEmailsList) {
-        MailDistributionList editedDistributionList = new MailDistributionList(newEmailsList, newName);
-        /**
-         * Вытянуть по ид запись,которую нужно изменить и изменить
-         * findMailDistributionListById(int distributionListId);
-         */
-        return editedDistributionList;
-    }
-
-    public ArrayList<MailDistributionList> findAllDistributionList() {
-        ArrayList<MailDistributionList> allDistributionList = new ArrayList<>();
-        /**
-         * Достать все списки рассылок из БД
-         */
-        return allDistributionList;
-    }
-
-    public boolean addMailTemplate(String templateName, String templateText) {
-        MailTemplate newMailTemplate = new MailTemplate(templateName, templateText);
-        /**
-         * Метод добавления шаблона письма
-         */
-        return true;
-    }
-
-    public boolean deleteMailTemplate(int mailTemplateId) {
-        /**
-         * Реализация удаления шаблона письма из БД
-         */
-        return true;
-    }
-
-    public MailTemplate editMailTemplate(int mailTemplateId, String newTemplateName, String newTemplateText) {
-        MailTemplate editedMailTemplate = new MailTemplate(newTemplateName, newTemplateText);
-        /**
-         * Изменение шаблона письма по его id
-         * findMailTemplateById(int mailTemplateId);
-         */
-        return editedMailTemplate;
-    }
-
-    public ArrayList<MailTemplate> findAllMailTemplates() {
-        /**
-         * Достать все шаблоны писем из БД
-         */
-        return new ArrayList<>();
-    }
-
-    public boolean addEmployee(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, Report report, String role, String department, String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest) {
-        /**
-         * notifications must be empty for new Employee
-         * report must be empty for new Employee
-         * testResults must be empty for new Employee
-         * informationSecuritySkill must be set "none" value for new Employee
-         */
-        return true;
-    }
-
     /**
      * method which delete User from company context
      *
      * @param user    User object which should be deleted
      * @param company Company global Context
+     * @throws MyException if you try delete auditor
      */
-    public void deleteUser(User user, Company company) {
+    public void deleteUser(User user, Company company) throws MyException {
         for (int i = 0; i < company.getAllUsers().size(); i++) {
-            if (company.getAllUsers().get(i).equals(user) && !company.getAllUsers().get(i).getRole().equals("auditor")) {
-                company.getAllUsers().remove(i);
-                break;
+            if (user.getRole().equals("auditor"))
+                throw new MyException("Auditor can not delete himself");
+            else {
+                try {
+                    if (company.getAllUsers().get(i).equals(user)) {
+                        company.getAllUsers().remove(i);
+                        break;
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    throw new MyException("Attempt for deleting nonexistent user");
+                }
             }
         }
     }
@@ -289,8 +228,8 @@ public class Auditor extends User {
 
     /**
      * method for editing Test
-     * this method call getCurrentDate() for set current date
-     * this method can not change questions hashmap
+     * this method call getCurrentDate() for set current date into dateOfLastEdit field
+     * this method can not edit questions
      *
      * @param test              object of Test which should be edited
      * @param newTestName       new name value for test
@@ -304,6 +243,79 @@ public class Auditor extends User {
         test.setDateOfLastEdit(getCurrentDate());
         test.setTestCategory(newTestCategory);
         test.setTestTarget(newTestTarget);
+    }
+
+    public boolean addDistributionList(ArrayList<String> emails, String distributionListName) {
+        /**
+         * Добавление списка рассылки из БД через обращение по id.
+         */
+        MailDistributionList newDistributionList = new MailDistributionList(emails, distributionListName);
+        return true;
+    }
+
+    public boolean deleteDistributionList(int distributionListId) {
+        /**
+         * Удаление списка рассылки из БД через обращение по id.
+         */
+        return true;
+    }
+
+    public MailDistributionList editDistributionList(int distributionListId, String newName, ArrayList<String> newEmailsList) {
+        MailDistributionList editedDistributionList = new MailDistributionList(newEmailsList, newName);
+        /**
+         * Вытянуть по ид запись,которую нужно изменить и изменить
+         * findMailDistributionListById(int distributionListId);
+         */
+        return editedDistributionList;
+    }
+
+    public ArrayList<MailDistributionList> findAllDistributionList() {
+        ArrayList<MailDistributionList> allDistributionList = new ArrayList<>();
+        /**
+         * Достать все списки рассылок из БД
+         */
+        return allDistributionList;
+    }
+
+    public boolean addMailTemplate(String templateName, String templateText) {
+        MailTemplate newMailTemplate = new MailTemplate(templateName, templateText);
+        /**
+         * Метод добавления шаблона письма
+         */
+        return true;
+    }
+
+    public boolean deleteMailTemplate(int mailTemplateId) {
+        /**
+         * Реализация удаления шаблона письма из БД
+         */
+        return true;
+    }
+
+    public MailTemplate editMailTemplate(int mailTemplateId, String newTemplateName, String newTemplateText) {
+        MailTemplate editedMailTemplate = new MailTemplate(newTemplateName, newTemplateText);
+        /**
+         * Изменение шаблона письма по его id
+         * findMailTemplateById(int mailTemplateId);
+         */
+        return editedMailTemplate;
+    }
+
+    public ArrayList<MailTemplate> findAllMailTemplates() {
+        /**
+         * Достать все шаблоны писем из БД
+         */
+        return new ArrayList<>();
+    }
+
+    public boolean addEmployee(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, Report report, String role, String department, String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest) {
+        /**
+         * notifications must be empty for new Employee
+         * report must be empty for new Employee
+         * testResults must be empty for new Employee
+         * informationSecuritySkill must be set "none" value for new Employee
+         */
+        return true;
     }
 
     @Override

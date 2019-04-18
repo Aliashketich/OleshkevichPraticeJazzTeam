@@ -2,7 +2,7 @@ package com.jazzteam.model.report;
 
 import com.jazzteam.model.Identifiable;
 
-import static com.jazzteam.util.date.TimeAndDateUtils.getCurrentDate;
+import static com.jazzteam.util.TimeAndDateUtils.getCurrentDate;
 
 public class Report extends Identifiable {
     private String creationDate;

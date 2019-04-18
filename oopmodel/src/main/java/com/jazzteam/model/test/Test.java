@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static com.jazzteam.util.date.TimeAndDateUtils.getCurrentDate;
+import static com.jazzteam.util.TimeAndDateUtils.getCurrentDate;
 
 public class Test extends Identifiable {
     private String testName;

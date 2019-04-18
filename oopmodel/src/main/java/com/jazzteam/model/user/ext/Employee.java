@@ -12,6 +12,10 @@ public class Employee extends User {
     private String informationSecuritySkill;
     private HashMap<Integer, String> ratingsOfPassedTest;
 
+    public Employee() {
+
+    }
+
     public Employee(String department, String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest) {
         this.department = department;
         this.informationSecuritySkill = informationSecuritySkill;

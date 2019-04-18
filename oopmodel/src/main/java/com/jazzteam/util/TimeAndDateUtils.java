@@ -1,4 +1,4 @@
-package com.jazzteam.util.date;
+package com.jazzteam.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

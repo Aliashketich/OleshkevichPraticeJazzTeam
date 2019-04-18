@@ -1,5 +1,6 @@
 package com.jazzteam.model.user.ext;
 
+import com.jazzteam.exception.MyException;
 import com.jazzteam.model.Company;
 import com.jazzteam.model.mail.MailDistributionList;
 import com.jazzteam.model.mail.MailTemplate;
@@ -15,8 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ModelTest {
     private Auditor auditor;
@@ -35,6 +35,7 @@ public class ModelTest {
     private ArrayList<com.jazzteam.model.test.Test> allTests = new ArrayList<>();
     private ArrayList<Statistic> allStatistics = new ArrayList<>();
     private ArrayList<Report> allReports = new ArrayList<>();
+    private HashMap<Integer, String> ratingsOfEmployeePassedTest = new HashMap<>();
 
 
     @Before
@@ -56,21 +57,21 @@ public class ModelTest {
 
 
         company = new Company(allReports, allStatistics, allTests, allUsers);
+        Company.getInstance();
 
         auditor = (Auditor) company.getAllUsers().get(0);
         auditor.setEmployeeList(company.findAllEmployees());
         auditor.setSysadmins(company.findAllSysadmins());
         auditor.setTests(company.getAllTests());
 
-        HashMap<Integer, String> ratingsOfPassedTest = new HashMap<>();
-        ratingsOfPassedTest.put(0, "A");
-        ratingsOfPassedTest.put(1, "C");
+        ratingsOfEmployeePassedTest.put(0, "A");
+        ratingsOfEmployeePassedTest.put(1, "C");
 
-        company.findAllEmployees().get(0).setRatingsOfPassedTest(ratingsOfPassedTest);
+        company.findAllEmployees().get(0).setRatingsOfPassedTest(ratingsOfEmployeePassedTest);
     }
 
     @Test
-    public void auditorIsUserClassObjectTest() {
+    public void auditorIsUserClassChildTest() {
         assertTrue(auditor instanceof User);
     }
 
@@ -97,7 +98,6 @@ public class ModelTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(new Date());
         allTests.get(0).setDateOfLastEdit(currentDate);
-
         assertEquals(allTests.get(0).toString(), allTests.get(0).toString());
     }
 
@@ -116,7 +116,6 @@ public class ModelTest {
         assertEquals(expectedSysadmin, actualSysadmin);
     }
 
-
     @Test
     public void deleteTestTest() {
         int primaryAllTestsSize = allTests.size();
@@ -125,22 +124,67 @@ public class ModelTest {
     }
 
     @Test
-    public void setInformationSecuritySkillOfEmployeeTest() {
-        company.calcInformationSecuritySkillOfEmployee(company.findAllEmployees().get(0));
-        assertEquals("B", company.findAllEmployees().get(0).getInformationSecuritySkill());
-    }
-
-    @Test
-    public void deleteUserTest() {
+    public void deleteUserWithCorrectValuesTest() throws MyException {
         int primaryAllUsersSize = allUsers.size();
-        auditor.deleteUser(allUsers.get(1), company);
+        auditor.deleteUser(allUsers.get(3), company);
         assertEquals(primaryAllUsersSize - 1, allUsers.size());
     }
 
-    @Test
-    public void deleteAuditorTest() {
-        int primaryAllUsersSize = allUsers.size();
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void deleteNonexistentUserTest() throws MyException {
+        auditor.deleteUser(allUsers.get(4), company);
+    }
+
+    @Test(expected = MyException.class)
+    public void deleteAuditorTest() throws MyException {
         auditor.deleteUser(allUsers.get(0), company);
-        assertEquals(primaryAllUsersSize, allUsers.size());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void deleteNullUserTest() throws MyException {
+        auditor.deleteUser(null, company);
+    }
+
+    @Test
+    public void findAllEmployeesListTest() {
+        ArrayList<Employee> actualEmployeesList = company.findAllEmployees();
+        ArrayList<Employee> expectedEmployeeList = new ArrayList<>();
+        expectedEmployeeList.add(new Employee(35, notifications, "firstEmployee@gmail.com", "employee1", "firstEmployee", "firstEmployee", "firstEmployee", reports, "employee", "test", "B", userRatings));
+        expectedEmployeeList.add(new Employee(35, notifications, "secondEmployee@gmail.com", "employee2", "secondEmployee", "secondEmployee", "secondEmployee", reports, "employee", "test", "A", userRatings));
+        assertArrayEquals(expectedEmployeeList.toArray(), actualEmployeesList.toArray());
+    }
+
+    @Test
+    public void findAllSysadminsListTest() {
+        ArrayList<Sysadmin> actualSysadminList = company.findAllSysadmins();
+        ArrayList<Sysadmin> expectedSysadminList = new ArrayList<>();
+        expectedSysadminList.add(new Sysadmin(44, notifications, "sysadmin@gmail.com", "sysadmin", "sysadmin", "sysname", "syssurname", reports, "sysadmin", 6, userRatings, "A"));
+        assertArrayEquals(expectedSysadminList.toArray(), actualSysadminList.toArray());
+    }
+
+    @Test
+    public void calcInformationSecuritySkillOfEmployeeTest() throws MyException {
+        assertEquals("B", company.calcInformationSecuritySkillOfEmployee(company.findAllEmployees().get(0)));
+    }
+
+
+    @Test(expected = MyException.class)
+    public void calcInformationSecuritySkillOfNullEmployeeTest() throws MyException {
+        assertEquals("Employee is null", company.calcInformationSecuritySkillOfEmployee(null));
+    }
+
+    @Test(expected = MyException.class)
+    public void calcInformationSecuritySkillOfNullRatingsEmployeeTest() throws MyException {
+        Employee employeeWithNullRatings = new Employee();
+        assertEquals("Ratings is null", company.calcInformationSecuritySkillOfEmployee(employeeWithNullRatings));
+    }
+
+    @Test(expected = MyException.class)
+    public void calcInformationSecuritySkillOfEmptyRatingsEmployeeTest() throws MyException {
+        Employee employeeWithEmptyRatings = new Employee();
+        ratingsOfEmployeePassedTest.put(0, "");
+        ratingsOfEmployeePassedTest.put(1, "");
+        employeeWithEmptyRatings.setRatingsOfPassedTest(ratingsOfEmployeePassedTest);
+        assertEquals("Incorrect values into Ratings. Value is not 'A/B/C/D/E'", company.calcInformationSecuritySkillOfEmployee(employeeWithEmptyRatings));
     }
 }

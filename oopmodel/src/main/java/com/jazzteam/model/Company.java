@@ -1,5 +1,6 @@
 package com.jazzteam.model;
 
+import com.jazzteam.exception.MyException;
 import com.jazzteam.model.report.Report;
 import com.jazzteam.model.statistic.Statistic;
 import com.jazzteam.model.test.Test;
@@ -10,11 +11,31 @@ import com.jazzteam.model.user.ext.Sysadmin;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.jazzteam.util.InformationSecuritySkillUtils.calcSumOfTestRatingsValues;
+import static com.jazzteam.util.InformationSecuritySkillUtils.getAverageInformationSecurityLevelValue;
+
 public class Company {
     private ArrayList<Report> allReports;
     private ArrayList<Statistic> allStatistics;
     private ArrayList<Test> allTests;
     private ArrayList<User> allUsers;
+    private static Company instance;
+
+    /**
+     * Singleton realization to ban the creation of other objects
+     *
+     * @return company object instance
+     */
+    public static Company getInstance() {
+        if (instance == null) {
+            instance = new Company();
+        }
+        return instance;
+    }
+
+    public Company() {
+
+    }
 
     public Company(ArrayList<Report> allReports, ArrayList<Statistic> allStatistics, ArrayList<Test> allTests, ArrayList<User> allUsers) {
         this.allReports = allReports;
@@ -83,7 +104,6 @@ public class Company {
         return sysadmins;
     }
 
-// TODO: 17.04.2019 Refactor it!!!
 
     /**
      * method calculation information security skill value for concrete Employee
@@ -91,51 +111,18 @@ public class Company {
      * @param employee Employee object
      * @return informationSecuritySkill value
      */
-    public String calcInformationSecuritySkillOfEmployee(Employee employee) {
+    public String calcInformationSecuritySkillOfEmployee(Employee employee) throws MyException {
+        if (employee == null)
+            throw new MyException("Employee is null");
+
         final HashMap<Integer, String> ratingsOfPassedTest = employee.getRatingsOfPassedTest();
-        final int countOfTests = ratingsOfPassedTest.size();
-        int sumStringValues = 0;
-        for (int i = 0; i < countOfTests; i++) {
-            switch (ratingsOfPassedTest.get(i)) {
-                case "A":
-                    sumStringValues += 5;
-                    break;
-                case "B":
-                    sumStringValues += 4;
-                    break;
-                case "C":
-                    sumStringValues += 3;
-                    break;
-                case "D":
-                    sumStringValues += 2;
-                    break;
-                case "F":
-                    sumStringValues += 1;
-                    break;
-                default:
-                    sumStringValues = 0;
-            }
-        }
-        String informationSecuritySkillOfEmployee = "";
+        if (ratingsOfPassedTest == null)
+            throw new MyException("Ratings is Null");
 
-        switch (sumStringValues / countOfTests) {
-            case 5:
-                informationSecuritySkillOfEmployee = "A";
-                break;
-            case 4:
-                informationSecuritySkillOfEmployee = "B";
-                break;
-            case 3:
-                informationSecuritySkillOfEmployee = "C";
-                break;
-            case 2:
-                informationSecuritySkillOfEmployee = "D";
-                break;
-            case 1:
-                informationSecuritySkillOfEmployee = "F";
-                break;
-        }
+        final int intEquivalentForSumOfAllRatings = calcSumOfTestRatingsValues(ratingsOfPassedTest);
+        if (intEquivalentForSumOfAllRatings == 0)
+            throw new MyException("Incorrect values into Ratings. Value is not 'A/B/C/D/E'");
 
-        return informationSecuritySkillOfEmployee;
+        return getAverageInformationSecurityLevelValue(intEquivalentForSumOfAllRatings, ratingsOfPassedTest.size());
     }
 }
