@@ -23,9 +23,12 @@ public class Auditor extends User {
     private ArrayList<Test> tests;
     private int experience;
 
+    private static final String AUDITOR_ROLE = "auditor";
+
     // TODO: 17.04.2019 Использование логгера для методов, чтобы отслеживать в консоли места крашей
 
-    public Auditor(ArrayList<Employee> employeeList, ArrayList<MailDistributionList> mailDistributionLists, ArrayList<MailTemplate> mailTemplates, ArrayList<Sysadmin> sysadmins, ArrayList<Test> tests, int experience) {
+    public Auditor(ArrayList<Employee> employeeList, ArrayList<MailDistributionList> mailDistributionLists,
+                   ArrayList<MailTemplate> mailTemplates, ArrayList<Sysadmin> sysadmins, ArrayList<Test> tests, int experience) {
         this.employeeList = employeeList;
         this.mailDistributionLists = mailDistributionLists;
         this.mailTemplates = mailTemplates;
@@ -34,8 +37,11 @@ public class Auditor extends User {
         this.experience = experience;
     }
 
-    public Auditor(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, ArrayList<Report> reports, ArrayList<Employee> employeeList, ArrayList<MailDistributionList> mailDistributionLists, ArrayList<MailTemplate> mailTemplates, ArrayList<Sysadmin> sysadmins, ArrayList<Test> tests, int experience) {
-        super(age, notifications, email, login, password, name, surname, reports, "auditor");
+    public Auditor(int age, ArrayList<Notification> notifications, String email, String login, String password, String name,
+                   String surname, ArrayList<Report> reports, ArrayList<Employee> employeeList,
+                   ArrayList<MailDistributionList> mailDistributionLists, ArrayList<MailTemplate> mailTemplates,
+                   ArrayList<Sysadmin> sysadmins, ArrayList<Test> tests, int experience) {
+        super(age, notifications, email, login, password, name, surname, reports, AUDITOR_ROLE);
         this.employeeList = employeeList;
         this.mailDistributionLists = mailDistributionLists;
         this.mailTemplates = mailTemplates;
@@ -97,7 +103,7 @@ public class Auditor extends User {
     /*Use-cases methods*/
 
     /**
-     * method which delete User from company context
+     * Method which delete User from company
      *
      * @param user    User object which should be deleted
      * @param company Company global Context
@@ -105,9 +111,9 @@ public class Auditor extends User {
      */
     public void deleteUser(User user, Company company) throws MyException {
         for (int i = 0; i < company.getAllUsers().size(); i++) {
-            if (user.getRole().equals("auditor"))
+            if (AUDITOR_ROLE.equals(user.getRole())) {
                 throw new MyException("Auditor can not delete himself");
-            else {
+            } else {
                 try {
                     if (company.getAllUsers().get(i).equals(user)) {
                         company.getAllUsers().remove(i);
@@ -121,7 +127,7 @@ public class Auditor extends User {
     }
 
     /**
-     * method for adding a new Sysadmin
+     * Method for adding a new Sysadmin
      * user role must be set at "sysadmin"
      *
      * @param age              age of new Sysadmin
@@ -137,12 +143,15 @@ public class Auditor extends User {
      * @param workResultRating work result rating of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
      * @return created Sysadmin object
      */
-    public Sysadmin addSysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, ArrayList<Report> reports, int experience, HashMap<Integer, String> passedTestRating, String workResultRating) {
-        return new Sysadmin(age, notifications, email, login, password, name, surname, reports, experience, passedTestRating, workResultRating);
+    public Sysadmin addSysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password,
+                                String name, String surname, ArrayList<Report> reports, int experience,
+                                HashMap<Integer, String> passedTestRating, String workResultRating) {
+        return new Sysadmin(age, notifications, email, login, password, name, surname, reports, experience, passedTestRating,
+                workResultRating);
     }
 
     /**
-     * method for editing Employee personal data
+     * Method for editing Employee personal data
      *
      * @param employee      Employee object for editing
      * @param newAge        new Employee age
@@ -153,13 +162,18 @@ public class Auditor extends User {
      * @param newSurname    new Employee surname
      * @param newDepartment new Employee department
      */
-    public void changeEmployeePersonalData(Employee employee, int newAge, String newEmail, String newLogin, String newPassword, String newName, String newSurname, String newDepartment) {
+    public void changeEmployeePersonalData(Employee employee, int newAge, String newEmail, String newLogin, String newPassword,
+                                           String newName, String newSurname, String newDepartment) throws MyException {
+        Employee emptyEmployee = new Employee();
+        if (employee.equals(emptyEmployee))
+            throw new MyException("Employee is empty");
+
         changeUserPersonalData(employee, newAge, newEmail, newLogin, newPassword, newName, newSurname);
         employee.setDepartment(newDepartment);
     }
 
     /**
-     * method for editing User personal data
+     * Method for editing User personal data
      *
      * @param user        User object for editing
      * @param newAge      new User age
@@ -169,7 +183,11 @@ public class Auditor extends User {
      * @param newName     new User name
      * @param newSurname  new User surname
      */
-    public void changeUserPersonalData(User user, int newAge, String newEmail, String newLogin, String newPassword, String newName, String newSurname) {
+    public void changeUserPersonalData(User user, int newAge, String newEmail, String newLogin, String newPassword,
+                                       String newName, String newSurname) {
+        if (user == null) {
+            throw new NullPointerException("User is null!");
+        }
         user.setAge(newAge);
         user.setEmail(newEmail);
         user.setLogin(newLogin);
@@ -179,7 +197,7 @@ public class Auditor extends User {
     }
 
     /**
-     * method for editing Sysadmin personal data
+     * Method for editing Sysadmin personal data
      *
      * @param sysadmin      Sysadmin object for editing
      * @param newAge        new Sysadmin age
@@ -190,13 +208,18 @@ public class Auditor extends User {
      * @param newSurname    new Sysadmin surname
      * @param newExperience new Sysadmin experience value
      */
-    public void changeSysadminPersonalData(Sysadmin sysadmin, int newAge, String newEmail, String newLogin, String newPassword, String newName, String newSurname, int newExperience) {
+    public void changeSysadminPersonalData(Sysadmin sysadmin, int newAge, String newEmail, String newLogin, String newPassword,
+                                           String newName, String newSurname, int newExperience) throws MyException {
+        Sysadmin emptySysadmin = new Sysadmin();
+        if (sysadmin.equals(emptySysadmin))
+            throw new MyException("Sysadmin is empty");
+
         changeUserPersonalData(sysadmin, newAge, newEmail, newLogin, newPassword, newName, newSurname);
         sysadmin.setExperience(newExperience);
     }
 
     /**
-     * method for insert Test into system
+     * Method for insert Test into system
      * also method set current date into Test.dateAdd field in format "dd/MM/yyyy")
      *
      * @param testName       name of new Test
@@ -206,12 +229,13 @@ public class Auditor extends User {
      * @param correctAnswers correct answers of new Test
      * @return created Test object
      */
-    public Test addTest(String testName, String testCategory, String testTarget, HashMap<Integer, ArrayList<String>> questions, HashMap<Integer, Integer> correctAnswers) {
+    public Test addTest(String testName, String testCategory, String testTarget, HashMap<Integer, ArrayList<String>> questions,
+                        HashMap<Integer, Integer> correctAnswers) {
         return new Test(testName, testCategory, testTarget, questions, correctAnswers);
     }
 
     /**
-     * method delete Test object
+     * Method delete Test object
      *
      * @param test    Test object for deleting
      * @param company Company global context
@@ -227,7 +251,7 @@ public class Auditor extends User {
     }
 
     /**
-     * method for editing Test
+     * Method for editing Test
      * this method call getCurrentDate() for set current date into dateOfLastEdit field
      * this method can not edit questions
      *
@@ -237,7 +261,8 @@ public class Auditor extends User {
      * @param newTestTarget     new target (employee/sysadmin) for test
      * @param newCorrectAnswers new HashMap<Integer,Integer> with correct test answers
      */
-    public void editTest(Test test, String newTestName, String newTestCategory, String newTestTarget, HashMap<Integer, Integer> newCorrectAnswers) {
+    public void editTest(Test test, String newTestName, String newTestCategory, String newTestTarget,
+                         HashMap<Integer, Integer> newCorrectAnswers) {
         test.setTestName(newTestName);
         test.setCorrectAnswers(newCorrectAnswers);
         test.setDateOfLastEdit(getCurrentDate());

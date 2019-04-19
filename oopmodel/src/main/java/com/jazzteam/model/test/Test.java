@@ -17,7 +17,8 @@ public class Test extends Identifiable {
     private HashMap<Integer, ArrayList<String>> questions;
     private HashMap<Integer, Integer> correctAnswers;
 
-    public Test(String testName, String testCategory, String testTarget, HashMap<Integer, ArrayList<String>> questions, HashMap<Integer, Integer> correctAnswers) {
+    public Test(String testName, String testCategory, String testTarget, HashMap<Integer, ArrayList<String>> questions,
+                HashMap<Integer, Integer> correctAnswers) {
         this.testName = testName;
         this.testCategory = testCategory;
         this.dateAdd = getCurrentDate();

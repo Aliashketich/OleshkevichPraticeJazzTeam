@@ -104,7 +104,6 @@ class Cat extends Animal {
         console.log('Tamagochi name: cat ' + name);
     }
 
-
     get milkLevel() {
         return this._milkLevel;
     }
@@ -259,7 +258,7 @@ let animal = btnCreation.addEventListener('click', function () {
     let count = setInterval(timer, 250);
 
 
-    //действия кнопок для повышения хар=к
+    //действия кнопок для повышения хар-к
     $('#feed').click(function () {
         animal.fillLevel += 5;
         animal.healthLevel += 2;

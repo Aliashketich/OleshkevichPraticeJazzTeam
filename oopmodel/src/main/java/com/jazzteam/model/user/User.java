@@ -22,7 +22,8 @@ public class User extends Identifiable {
         super();
     }
 
-    public User(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, ArrayList<Report> reports, String role) {
+    public User(int age, ArrayList<Notification> notifications, String email, String login, String password, String name,
+                String surname, ArrayList<Report> reports, String role) {
         super();
         this.age = age;
         this.notifications = notifications;

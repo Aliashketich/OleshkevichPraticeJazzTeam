@@ -12,6 +12,8 @@ public class Employee extends User {
     private String informationSecuritySkill;
     private HashMap<Integer, String> ratingsOfPassedTest;
 
+    private static final String EMPLOYEE_ROLE = "employee";
+
     public Employee() {
 
     }
@@ -22,8 +24,10 @@ public class Employee extends User {
         this.ratingsOfPassedTest = ratingsOfPassedTest;
     }
 
-    public Employee(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, ArrayList<Report> reports, String role, String department, String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest) {
-        super(age, notifications, email, login, password, name, surname, reports, role);
+    public Employee(int age, ArrayList<Notification> notifications, String email, String login, String password, String name,
+                    String surname, ArrayList<Report> reports, String department, String informationSecuritySkill,
+                    HashMap<Integer, String> ratingsOfPassedTest) {
+        super(age, notifications, email, login, password, name, surname, reports, EMPLOYEE_ROLE);
         this.department = department;
         this.informationSecuritySkill = informationSecuritySkill;
         this.ratingsOfPassedTest = ratingsOfPassedTest;

@@ -12,7 +12,8 @@ public class Notification extends Identifiable {
     private NotificationType type;
     private String targetLogin;
 
-    public Notification(boolean alreadySeen, String dateOfCreation, String fullDescription, String shortDescription, NotificationType type, String targetLogin) {
+    public Notification(boolean alreadySeen, String dateOfCreation, String fullDescription, String shortDescription,
+                        NotificationType type, String targetLogin) {
         this.alreadySeen = alreadySeen;
         this.dateOfCreation = dateOfCreation;
         this.fullDescription = fullDescription;

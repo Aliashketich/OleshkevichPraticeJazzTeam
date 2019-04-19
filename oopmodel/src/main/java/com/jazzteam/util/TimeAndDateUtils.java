@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class TimeAndDateUtils {
     /**
-     * method for getting current date
+     * Method for getting current date
      *
      * @return String current Date in format "dd/MM/yyyy"
      */

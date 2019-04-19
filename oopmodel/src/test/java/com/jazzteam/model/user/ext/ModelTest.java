@@ -40,14 +40,25 @@ public class ModelTest {
 
     @Before
     public void setUp() {
-        allUsers.add(new Auditor(40, notifications, "audit@gmail.com", "audit", "audit", "auditorname", "auditorsurname", reports, employeeArrayList, mailDistributionLists, mailTemplates, sysadmins, tests, 10));
-        allUsers.add(new Employee(35, notifications, "firstEmployee@gmail.com", "employee1", "firstEmployee", "firstEmployee", "firstEmployee", reports, "employee", "test", "B", userRatings));
-        allUsers.add(new Employee(35, notifications, "secondEmployee@gmail.com", "employee2", "secondEmployee", "secondEmployee", "secondEmployee", reports, "employee", "test", "A", userRatings));
-        allUsers.add(new Sysadmin(44, notifications, "sysadmin@gmail.com", "sysadmin", "sysadmin", "sysname", "syssurname", reports, "sysadmin", 6, userRatings, "A"));
+        allUsers.add(new Auditor(40, notifications, "audit@gmail.com", "audit", "audit",
+                "auditorname", "auditorsurname", reports, employeeArrayList, mailDistributionLists,
+                mailTemplates, sysadmins, tests, 10));
+        allUsers.add(new Employee(35, notifications, "firstEmployee@gmail.com", "employee1",
+                "firstEmployee", "firstEmployee", "firstEmployee", reports,
+                "test", "B", userRatings));
+        allUsers.add(new Employee(35, notifications, "secondEmployee@gmail.com", "employee2",
+                "secondEmployee", "secondEmployee", "secondEmployee", reports,
+                "test", "A", userRatings));
+        allUsers.add(new Sysadmin(44, notifications, "sysadmin@gmail.com", "sysadmin",
+                "sysadmin", "sysname", "syssurname", reports, "sysadmin", 6,
+                userRatings, "A"));
 
-        allTests.add(new com.jazzteam.model.test.Test("firstTest", "sport", "employee", questions, correctAnswers));
-        allTests.add(new com.jazzteam.model.test.Test("secondTest", "sport", "sysadmin", questions, correctAnswers));
-        allTests.add(new com.jazzteam.model.test.Test("thirdTest", "cooking", "employee", questions, correctAnswers));
+        allTests.add(new com.jazzteam.model.test.Test("firstTest", "sport", "employee",
+                questions, correctAnswers));
+        allTests.add(new com.jazzteam.model.test.Test("secondTest", "sport", "sysadmin",
+                questions, correctAnswers));
+        allTests.add(new com.jazzteam.model.test.Test("thirdTest", "cooking", "employee",
+                questions, correctAnswers));
 
         allReports.add(new Report("employee1", "firstTest", "A"));
         allReports.add(new Report("employee1", "thirdTest", "C"));
@@ -76,19 +87,61 @@ public class ModelTest {
     }
 
     @Test
-    public void changeEmployeePersonalDataTest() {
-        Employee employeeWithSetAllFields = new Employee(21, notifications, "email", "login", "password", "name", "surname", reports, "employee", "department", "A", userRatings);
-        Employee expectedEditedEmployee = new Employee(22, notifications, "test", "test", "test", "test", "test", reports, "employee", "test", "A", userRatings);
-        auditor.changeEmployeePersonalData(employeeWithSetAllFields, 22, "test", "test", "test", "test", "test", "test");
+    public void changeEmployeePersonalDataTest() throws MyException {
+        Employee employeeWithSetAllFields = new Employee(21, notifications, "email", "login",
+                "password", "name", "surname", reports, "department",
+                "A", userRatings);
+        Employee expectedEditedEmployee = new Employee(22, notifications, "test", "test",
+                "test", "test", "test", reports, "test",
+                "A", userRatings);
+        auditor.changeEmployeePersonalData(employeeWithSetAllFields, 22, "test", "test",
+                "test", "test", "test", "test");
         assertEquals(expectedEditedEmployee.toString(), employeeWithSetAllFields.toString());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void changeNullEmployeePersonalDataTest() throws MyException {
+        auditor.changeEmployeePersonalData(null, 22, "test", "test",
+                "test", "test", "test", "test");
+    }
+
+    @Test(expected = MyException.class)
+    public void changeEmptyEmployeePersonalDataTest() throws MyException {
+        Employee emptyEmployee = new Employee();
+        auditor.changeEmployeePersonalData(emptyEmployee, 22, "test", "test",
+                "test", "test", "test", "test");
+    }
+
     @Test
-    public void changeSysadminPersonalDataTest() {
-        Sysadmin sysadminWithSetAllFields = new Sysadmin(23, notifications, "sysadmin@gmail.com", "sysadmin", "sysadmin", "sysname", "syssurname", reports, "sysadmin", 5, userRatings, "A");
-        Sysadmin expectedEditedSysAdmin = new Sysadmin(24, notifications, "sysadmin@gmail.com", "sysadmin", "sysadmin", "sysname", "syssurname", reports, "sysadmin", 6, userRatings, "A");
-        auditor.changeSysadminPersonalData(sysadminWithSetAllFields, 24, "sysadmin@gmail.com", "sysadmin", "sysadmin", "sysname", "syssurname", 6);
+    public void changeSysadminPersonalDataTest() throws MyException {
+        Sysadmin sysadminWithSetAllFields = new Sysadmin(23, notifications, "sysadmin@gmail.com", "sysadmin",
+                "sysadmin", "sysname", "syssurname", reports, "sysadmin", 5, userRatings,
+                "A");
+        Sysadmin expectedEditedSysAdmin = new Sysadmin(24, notifications, "sysadmin@gmail.com", "sysadmin",
+                "sysadmin", "sysname", "syssurname", reports, "sysadmin", 6, userRatings,
+                "A");
+        auditor.changeSysadminPersonalData(sysadminWithSetAllFields, 24, "sysadmin@gmail.com", "sysadmin",
+                "sysadmin", "sysname", "syssurname", 6);
         assertEquals(expectedEditedSysAdmin.toString(), sysadminWithSetAllFields.toString());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void changeNullSysadminPersonalDataTest() throws MyException {
+        auditor.changeSysadminPersonalData(null, 24, "sysadmin@gmail.com", "sysadmin",
+                "sysadmin", "sysname", "syssurname", 6);
+    }
+
+    @Test(expected = MyException.class)
+    public void changeEmptySysadminPersonalDataTest() throws MyException {
+        Sysadmin emptySysadmin = new Sysadmin();
+        auditor.changeSysadminPersonalData(emptySysadmin, 24, "sysadmin@gmail.com", "sysadmin",
+                "sysadmin", "sysname", "syssurname", 6);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void changeNullUserPersonalDataTest() {
+        auditor.changeUserPersonalData(null, 34, "email", "login", "newPassword",
+                "newName", "newSurname");
     }
 
     @Test
@@ -105,14 +158,19 @@ public class ModelTest {
     public void addTestTest() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(new Date());
-        String toStringExpectedAddedTest = "Test{testName='firstTest', testCategory='sport', dateAdd='" + currentDate + "', dateOfLastEdit='none', testTarget='employee', questions={}, correctAnswers={}}";
-        assertEquals(toStringExpectedAddedTest, auditor.addTest("firstTest", "sport", "employee", questions, correctAnswers).toString());
+        String toStringExpectedAddedTest = "Test{testName='firstTest', testCategory='sport', dateAdd='" + currentDate +
+                "', dateOfLastEdit='none', testTarget='employee', questions={}, correctAnswers={}}";
+        assertEquals(toStringExpectedAddedTest, auditor.addTest("firstTest", "sport", "employee",
+                questions, correctAnswers).toString());
     }
 
     @Test
     public void addSysadminTest() {
-        Sysadmin expectedSysadmin = new Sysadmin(35, notifications, "sysemail", "sysadmin", "syspassword", "sysname", "syssurname", reports, "sysadmin", 10, userRatings, "A");
-        Sysadmin actualSysadmin = auditor.addSysadmin(35, notifications, "sysemail", "sysadmin", "syspassword", "sysname", "syssurname", reports, 10, userRatings, "A");
+        Sysadmin expectedSysadmin = new Sysadmin(35, notifications, "sysemail", "sysadmin", "syspassword",
+                "sysname", "syssurname", reports, "sysadmin", 10, userRatings, "A");
+        Sysadmin actualSysadmin = auditor.addSysadmin(35, notifications, "sysemail", "sysadmin",
+                "syspassword", "sysname", "syssurname", reports, 10, userRatings,
+                "A");
         assertEquals(expectedSysadmin, actualSysadmin);
     }
 
@@ -149,8 +207,12 @@ public class ModelTest {
     public void findAllEmployeesListTest() {
         ArrayList<Employee> actualEmployeesList = company.findAllEmployees();
         ArrayList<Employee> expectedEmployeeList = new ArrayList<>();
-        expectedEmployeeList.add(new Employee(35, notifications, "firstEmployee@gmail.com", "employee1", "firstEmployee", "firstEmployee", "firstEmployee", reports, "employee", "test", "B", userRatings));
-        expectedEmployeeList.add(new Employee(35, notifications, "secondEmployee@gmail.com", "employee2", "secondEmployee", "secondEmployee", "secondEmployee", reports, "employee", "test", "A", userRatings));
+        expectedEmployeeList.add(new Employee(35, notifications, "firstEmployee@gmail.com", "employee1",
+                "firstEmployee", "firstEmployee", "firstEmployee", reports, "test",
+                "B", userRatings));
+        expectedEmployeeList.add(new Employee(35, notifications, "secondEmployee@gmail.com", "employee2",
+                "secondEmployee", "secondEmployee", "secondEmployee", reports, "test",
+                "A", userRatings));
         assertArrayEquals(expectedEmployeeList.toArray(), actualEmployeesList.toArray());
     }
 
@@ -158,7 +220,9 @@ public class ModelTest {
     public void findAllSysadminsListTest() {
         ArrayList<Sysadmin> actualSysadminList = company.findAllSysadmins();
         ArrayList<Sysadmin> expectedSysadminList = new ArrayList<>();
-        expectedSysadminList.add(new Sysadmin(44, notifications, "sysadmin@gmail.com", "sysadmin", "sysadmin", "sysname", "syssurname", reports, "sysadmin", 6, userRatings, "A"));
+        expectedSysadminList.add(new Sysadmin(44, notifications, "sysadmin@gmail.com", "sysadmin",
+                "sysadmin", "sysname", "syssurname", reports, "sysadmin", 6,
+                userRatings, "A"));
         assertArrayEquals(expectedSysadminList.toArray(), actualSysadminList.toArray());
     }
 
@@ -166,7 +230,6 @@ public class ModelTest {
     public void calcInformationSecuritySkillOfEmployeeTest() throws MyException {
         assertEquals("B", company.calcInformationSecuritySkillOfEmployee(company.findAllEmployees().get(0)));
     }
-
 
     @Test(expected = MyException.class)
     public void calcInformationSecuritySkillOfNullEmployeeTest() throws MyException {
@@ -185,6 +248,7 @@ public class ModelTest {
         ratingsOfEmployeePassedTest.put(0, "");
         ratingsOfEmployeePassedTest.put(1, "");
         employeeWithEmptyRatings.setRatingsOfPassedTest(ratingsOfEmployeePassedTest);
-        assertEquals("Incorrect values into Ratings. Value is not 'A/B/C/D/E'", company.calcInformationSecuritySkillOfEmployee(employeeWithEmptyRatings));
+        assertEquals("Incorrect values into Ratings. Value is not 'A/B/C/D/E'",
+                company.calcInformationSecuritySkillOfEmployee(employeeWithEmptyRatings));
     }
 }

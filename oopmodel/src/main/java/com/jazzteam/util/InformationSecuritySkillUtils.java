@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class InformationSecuritySkillUtils {
     /**
-     * method for calculation overage sun of all ratings
+     * Method for calculation overage sun of all ratings
      *
      * @param ratingsOfPassedTest hashMap with ratings of all passed by User tests
      * @return int equivalent for sum of all ratings
@@ -36,7 +36,7 @@ public class InformationSecuritySkillUtils {
     }
 
     /**
-     * method for getting averaged Information Security Skill level
+     * Method for getting averaged Information Security Skill level
      *
      * @param intEquivalentForSumOfAllRatings int equivalent for sum of all ratings
      * @param numberOfTest                    number of all passed tests by User

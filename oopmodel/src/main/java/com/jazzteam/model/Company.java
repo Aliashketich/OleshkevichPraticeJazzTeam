@@ -21,6 +21,9 @@ public class Company {
     private ArrayList<User> allUsers;
     private static Company instance;
 
+    private static final String EMPLOYEE_ROLE = "employee";
+    private static final String SYSADMIN_ROLE = "sysadmin";
+
     /**
      * Singleton realization to ban the creation of other objects
      *
@@ -37,7 +40,8 @@ public class Company {
 
     }
 
-    public Company(ArrayList<Report> allReports, ArrayList<Statistic> allStatistics, ArrayList<Test> allTests, ArrayList<User> allUsers) {
+    public Company(ArrayList<Report> allReports, ArrayList<Statistic> allStatistics, ArrayList<Test> allTests,
+                   ArrayList<User> allUsers) {
         this.allReports = allReports;
         this.allStatistics = allStatistics;
         this.allTests = allTests;
@@ -77,36 +81,35 @@ public class Company {
     }
 
     /**
-     * method for getting all users with role "employee"
+     * Method for getting all users with role "employee"
      *
      * @return ArrayList<Employee> with all employees in Company
      */
     public ArrayList<Employee> findAllEmployees() {
-        ArrayList<Employee> employees = new ArrayList<>();
+        ArrayList<Employee> employeesList = new ArrayList<>();
         for (User user : allUsers) {
-            if (user.getRole().equals("employee"))
-                employees.add((Employee) user);
+            if (EMPLOYEE_ROLE.equals(user.getRole()))
+                employeesList.add((Employee) user);
         }
-        return employees;
+        return employeesList;
     }
 
     /**
-     * method for getting all users with role "employee"
+     * Method for getting all users with role "sysadmin"
      *
-     * @return ArrayList<Employee> with all employees in Company
+     * @return ArrayList<Sysadmin> with all sysadmins in Company
      */
     public ArrayList<Sysadmin> findAllSysadmins() {
-        ArrayList<Sysadmin> sysadmins = new ArrayList<>();
+        ArrayList<Sysadmin> sysadminsList = new ArrayList<>();
         for (User user : allUsers) {
-            if (user.getRole().equals("sysadmin"))
-                sysadmins.add((Sysadmin) user);
+            if (SYSADMIN_ROLE.equals(user.getRole()))
+                sysadminsList.add((Sysadmin) user);
         }
-        return sysadmins;
+        return sysadminsList;
     }
 
-
     /**
-     * method calculation information security skill value for concrete Employee
+     * Method calculation information security skill value for concrete Employee
      *
      * @param employee Employee object
      * @return informationSecuritySkill value
