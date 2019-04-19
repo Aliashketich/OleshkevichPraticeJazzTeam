@@ -5,6 +5,12 @@ import java.util.Date;
 
 public class TimeAndDateUtils {
     /**
+     * Private constructor for block object creation
+     */
+    private TimeAndDateUtils() {
+    }
+
+    /**
      * Method for getting current date
      *
      * @return String current Date in format "dd/MM/yyyy"

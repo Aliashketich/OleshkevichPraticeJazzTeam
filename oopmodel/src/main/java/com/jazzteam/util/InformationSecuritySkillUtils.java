@@ -4,6 +4,12 @@ import java.util.HashMap;
 
 public class InformationSecuritySkillUtils {
     /**
+     * Private constructor for block object creation
+     */
+    private InformationSecuritySkillUtils() {
+    }
+
+    /**
      * Method for calculation overage sun of all ratings
      *
      * @param ratingsOfPassedTest hashMap with ratings of all passed by User tests

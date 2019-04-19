@@ -128,4 +128,83 @@ public class Company {
 
         return getAverageInformationSecurityLevelValue(intEquivalentForSumOfAllRatings, ratingsOfPassedTest.size());
     }
+
+    /**
+     * This method set a new User to company
+     *
+     * @param newUser User object for adding to all company users
+     */
+    public void addUserToCompany(User newUser) throws MyException {
+        User emptyUser = new User();
+        if (newUser.equals(emptyUser)) {
+            throw new MyException("Try to add empty user to company.");
+        }
+
+        for (User anUser : allUsers) {
+            if (anUser.getLogin().equals(newUser.getLogin())) {
+                throw new MyException("User with that login already exist");
+            }
+            if (anUser.getEmail().equals(newUser.getEmail())) {
+                throw new MyException("User with that email already exist");
+            }
+        }
+        allUsers.add(newUser);
+    }
+
+    /**
+     * This method set a new Test to company
+     *
+     * @param newTest Test object for adding to all company tests
+     */
+    public void addTestToCompany(Test newTest) throws MyException {
+        Test emptyTest = new Test();
+        if (newTest.equals(emptyTest)) {
+            throw new MyException("Try to add empty test to company tests.");
+        }
+
+        for (Test anTest : allTests) {
+            if (anTest.getTestName().equals(newTest.getTestName())) {
+                throw new MyException("Test with that name already exist.");
+            }
+        }
+        allTests.add(newTest);
+    }
+
+    /**
+     * This method find User in company by User login
+     *
+     * @param login login of User
+     * @return founded User
+     * @throws MyException if User not found
+     */
+    public User findUserByLogin(String login) throws MyException {
+        User user = new User();
+        for (User anUser : allUsers) {
+            if (login.equals(anUser.getLogin())) {
+                user = anUser;
+            }
+        }
+        if (!user.equals(new User()))
+            return user;
+        else throw new MyException("That user not found.");
+    }
+
+    /**
+     * This method find Test in company by Test name
+     *
+     * @param testName name of test
+     * @return founded Test
+     * @throws MyException if Test not found
+     */
+    public Test findTestByName(String testName) throws MyException {
+        Test test = new Test();
+        for (Test anTest : allTests) {
+            if (testName.equals(anTest.getTestName())) {
+                test = anTest;
+            }
+        }
+        if (!test.equals(new Test()))
+            return test;
+        else throw new MyException("That test not found");
+    }
 }

@@ -127,30 +127,6 @@ public class Auditor extends User {
     }
 
     /**
-     * Method for adding a new Sysadmin
-     * user role must be set at "sysadmin"
-     *
-     * @param age              age of new Sysadmin
-     * @param notifications    notifications of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
-     * @param email            email of new Sysadmin
-     * @param login            login of new Sysadmin
-     * @param password         password of new Sysadmin
-     * @param name             name of new Sysadmin
-     * @param surname          surname of new Sysadmin
-     * @param reports          reports of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
-     * @param experience       experience of new Sysadmin
-     * @param passedTestRating ratings of all passed sysadmin's test (must be empty for new Sysadmin unless otherwise specified)
-     * @param workResultRating work result rating of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
-     * @return created Sysadmin object
-     */
-    public Sysadmin addSysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password,
-                                String name, String surname, ArrayList<Report> reports, int experience,
-                                HashMap<Integer, String> passedTestRating, String workResultRating) {
-        return new Sysadmin(age, notifications, email, login, password, name, surname, reports, experience, passedTestRating,
-                workResultRating);
-    }
-
-    /**
      * Method for editing Employee personal data
      *
      * @param employee      Employee object for editing
@@ -207,6 +183,7 @@ public class Auditor extends User {
      * @param newName       new Sysadmin name
      * @param newSurname    new Sysadmin surname
      * @param newExperience new Sysadmin experience value
+     * @throws MyException when try delete empty sysadmin
      */
     public void changeSysadminPersonalData(Sysadmin sysadmin, int newAge, String newEmail, String newLogin, String newPassword,
                                            String newName, String newSurname, int newExperience) throws MyException {
@@ -219,6 +196,89 @@ public class Auditor extends User {
     }
 
     /**
+     * Method delete Test object
+     *
+     * @param test    Test object for deleting
+     * @param company Company global context
+     * @return true if Test deleted or false if not
+     * @throws NullPointerException when test is null
+     * @throws MyException          when test is empty
+     */
+    public void deleteTest(Test test, Company company) throws MyException {
+        if (test == null) {
+            throw new NullPointerException("Test can not be delete because test is null already.");
+        }
+
+        Test emptyTest = new Test();
+        if (test.equals(emptyTest)) {
+            throw new MyException("Test is empty already.");
+        }
+
+        for (int i = 0; i < company.getAllTests().size(); i++) {
+            if (company.getAllTests().get(i).equals(test)) {
+                company.getAllTests().remove(i);
+                break;
+            }
+        }
+    }
+    /*---------------------------------//------------------------------------------------*/
+
+    /**
+     * Method for adding a new Sysadmin
+     *
+     * @param age              age of new Sysadmin
+     * @param notifications    notifications of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
+     * @param email            email of new Sysadmin
+     * @param login            login of new Sysadmin
+     * @param password         password of new Sysadmin
+     * @param name             name of new Sysadmin
+     * @param surname          surname of new Sysadmin
+     * @param reports          reports of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
+     * @param experience       experience of new Sysadmin
+     * @param passedTestRating ratings of all passed sysadmin's test (must be empty for new Sysadmin unless otherwise specified)
+     * @param workResultRating work result rating of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
+     * @param company          global company context
+     * @return created Sysadmin object
+     * @throws MyException if User can't be added
+     */
+    public Sysadmin addSysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password,
+                                String name, String surname, ArrayList<Report> reports, int experience,
+                                HashMap<Integer, String> passedTestRating, String workResultRating, Company company) throws MyException {
+        Sysadmin newSysadmin = new Sysadmin(age, notifications, email, login, password, name, surname, reports, experience,
+                passedTestRating, workResultRating);
+        company.addUserToCompany(newSysadmin);
+        return (Sysadmin) company.findUserByLogin(login);
+    }
+
+    /**
+     * Method for adding a new Employee
+     *
+     * @param age                      age of new Employee
+     * @param notifications            notifications of new Employee (must be empty for new Employee unless otherwise specified)
+     * @param email                    email of new Employee
+     * @param login                    login of new Employee
+     * @param password                 password of new Employee
+     * @param name                     name of new Employee
+     * @param surname                  surname of new Employee
+     * @param reports                  reports of new Employee (must be empty for new Employee unless otherwise specified)
+     * @param company                  global company context
+     * @param department               department of new Employee
+     * @param informationSecuritySkill information security skill of new Employee
+     * @param ratingsOfPassedTest      ratings of all passed tests of new Employee
+     * @return created Employee object
+     * @throws MyException if User can't be added
+     */
+    public Employee addEmployee(int age, ArrayList<Notification> notifications, String email, String login, String password,
+                                String name, String surname, ArrayList<Report> reports, String department,
+                                String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest,
+                                Company company) throws MyException {
+        Employee newEmployee = new Employee(age, notifications, email, login, password, name, surname, reports, department,
+                informationSecuritySkill, ratingsOfPassedTest);
+        company.addUserToCompany(newEmployee);
+        return (Employee) company.findUserByLogin(login);
+    }
+
+    /**
      * Method for insert Test into system
      * also method set current date into Test.dateAdd field in format "dd/MM/yyyy")
      *
@@ -227,27 +287,15 @@ public class Auditor extends User {
      * @param testTarget     target of new Test
      * @param questions      questions of new Test
      * @param correctAnswers correct answers of new Test
+     * @param company        global company context
      * @return created Test object
+     * @throws MyException if added Test not found
      */
     public Test addTest(String testName, String testCategory, String testTarget, HashMap<Integer, ArrayList<String>> questions,
-                        HashMap<Integer, Integer> correctAnswers) {
-        return new Test(testName, testCategory, testTarget, questions, correctAnswers);
-    }
-
-    /**
-     * Method delete Test object
-     *
-     * @param test    Test object for deleting
-     * @param company Company global context
-     * @return true if Test deleted or false if not
-     */
-    public void deleteTest(Test test, Company company) {
-        for (int i = 0; i < company.getAllTests().size(); i++) {
-            if (company.getAllTests().get(i).equals(test)) {
-                company.getAllTests().remove(i);
-                break;
-            }
-        }
+                        HashMap<Integer, Integer> correctAnswers, Company company) throws MyException {
+        Test newTest = new Test(testName, testCategory, testTarget, questions, correctAnswers);
+        company.addTestToCompany(newTest);
+        return company.findTestByName(testName);
     }
 
     /**
@@ -331,16 +379,6 @@ public class Auditor extends User {
          * Достать все шаблоны писем из БД
          */
         return new ArrayList<>();
-    }
-
-    public boolean addEmployee(int age, ArrayList<Notification> notifications, String email, String login, String password, String name, String surname, Report report, String role, String department, String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest) {
-        /**
-         * notifications must be empty for new Employee
-         * report must be empty for new Employee
-         * testResults must be empty for new Employee
-         * informationSecuritySkill must be set "none" value for new Employee
-         */
-        return true;
     }
 
     @Override
