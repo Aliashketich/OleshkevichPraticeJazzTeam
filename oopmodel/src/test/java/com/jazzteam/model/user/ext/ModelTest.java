@@ -11,12 +11,11 @@ import com.jazzteam.model.user.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class ModelTest {
     private Auditor auditor;
@@ -81,93 +80,6 @@ public class ModelTest {
         company.findAllEmployees().get(0).setRatingsOfPassedTest(ratingsOfEmployeePassedTest);
     }
 
-    @Test
-    public void auditorIsUserClassChildTest() {
-        assertTrue(auditor instanceof User);
-    }
-
-    /*Auditor edit personal data tests*/
-    @Test
-    public void changeEmployeePersonalDataTest() throws MyException {
-        Employee employeeWithSetAllFields = new Employee(21, notifications, "email", "login",
-                "password", "name", "surname", reports, "department",
-                "A", userRatings);
-        Employee expectedEditedEmployee = new Employee(22, notifications, "test", "test",
-                "test", "test", "test", reports, "test",
-                "A", userRatings);
-        auditor.changeEmployeePersonalData(employeeWithSetAllFields, 22, "test", "test",
-                "test", "test", "test", "test");
-        assertEquals(expectedEditedEmployee.toString(), employeeWithSetAllFields.toString());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void changeNullEmployeePersonalDataTest() throws MyException {
-        auditor.changeEmployeePersonalData(null, 22, "test", "test",
-                "test", "test", "test", "test");
-    }
-
-    @Test(expected = MyException.class)
-    public void changeEmptyEmployeePersonalDataTest() throws MyException {
-        Employee emptyEmployee = new Employee();
-        auditor.changeEmployeePersonalData(emptyEmployee, 22, "test", "test",
-                "test", "test", "test", "test");
-    }
-
-    @Test
-    public void changeSysadminPersonalDataTest() throws MyException {
-        Sysadmin sysadminWithSetAllFields = new Sysadmin(23, notifications, "sysadmin@gmail.com", "sysadmin",
-                "sysadmin", "sysname", "syssurname", reports, "sysadmin", 5, userRatings,
-                "A");
-        Sysadmin expectedEditedSysAdmin = new Sysadmin(24, notifications, "sysadmin@gmail.com", "sysadmin",
-                "sysadmin", "sysname", "syssurname", reports, "sysadmin", 6, userRatings,
-                "A");
-        auditor.changeSysadminPersonalData(sysadminWithSetAllFields, 24, "sysadmin@gmail.com", "sysadmin",
-                "sysadmin", "sysname", "syssurname", 6);
-        assertEquals(expectedEditedSysAdmin.toString(), sysadminWithSetAllFields.toString());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void changeNullSysadminPersonalDataTest() throws MyException {
-        auditor.changeSysadminPersonalData(null, 24, "sysadmin@gmail.com", "sysadmin",
-                "sysadmin", "sysname", "syssurname", 6);
-    }
-
-    @Test(expected = MyException.class)
-    public void changeEmptySysadminPersonalDataTest() throws MyException {
-        Sysadmin emptySysadmin = new Sysadmin();
-        auditor.changeSysadminPersonalData(emptySysadmin, 24, "sysadmin@gmail.com", "sysadmin",
-                "sysadmin", "sysname", "syssurname", 6);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void changeNullUserPersonalDataTest() {
-        auditor.changeUserPersonalData(null, 34, "email", "login", "newPassword",
-                "newName", "newSurname");
-    }
-
-    /*Auditor deleteUser tests*/
-    @Test
-    public void deleteUserWithCorrectValuesTest() throws MyException {
-        int primaryAllUsersSize = allUsers.size();
-        auditor.deleteUser(allUsers.get(3), company);
-        assertEquals(primaryAllUsersSize - 1, allUsers.size());
-    }
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void deleteNonexistentUserTest() throws MyException {
-        auditor.deleteUser(allUsers.get(4), company);
-    }
-
-    @Test(expected = MyException.class)
-    public void deleteAuditorTest() throws MyException {
-        auditor.deleteUser(allUsers.get(0), company);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void deleteNullUserTest() throws MyException {
-        auditor.deleteUser(null, company);
-    }
-
     /*Company calcInformationSecuritySkillOfEmployee tests*/
     @Test
     public void calcInformationSecuritySkillOfEmployeeTest() throws MyException {
@@ -193,131 +105,6 @@ public class ModelTest {
         employeeWithEmptyRatings.setRatingsOfPassedTest(ratingsOfEmployeePassedTest);
         assertEquals("Incorrect values into Ratings. Value is not 'A/B/C/D/E'",
                 company.calcInformationSecuritySkillOfEmployee(employeeWithEmptyRatings));
-    }
-
-    /*Auditor deleteTest tests*/
-    @Test
-    public void deleteTestTest() throws MyException {
-        int primaryAllTestsSize = allTests.size();
-        auditor.deleteTest(allTests.get(1), company);
-        assertEquals(primaryAllTestsSize - 1, allTests.size());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void deleteNullTestTest() throws MyException {
-        auditor.deleteTest(null, company);
-    }
-
-    @Test(expected = MyException.class)
-    public void deleteEmptyTestTest() throws MyException {
-        com.jazzteam.model.test.Test emptyTest = new com.jazzteam.model.test.Test();
-        auditor.deleteTest(emptyTest, company);
-    }
-
-    /*Auditor addSysadmin tests*/
-    @Test
-    public void addSysadminTest() throws MyException {
-        int primaryNumberOfSysadmins = company.findAllSysadmins().size();
-        auditor.addSysadmin(35, notifications, "sysemail", "sysadmin2", "syspassword",
-                "sysname", "syssurname", reports, 10, userRatings, "A", company);
-        assertEquals(primaryNumberOfSysadmins + 1, company.findAllSysadmins().size());
-    }
-
-    @Test(expected = MyException.class)
-    public void addSysadminWithAlreadyExistLoginTest() throws MyException {
-        int primaryNumberOfSysadmins = company.findAllSysadmins().size();
-        auditor.addSysadmin(35, notifications, "sysemail", "sysadmin", "syspassword",
-                "sysname", "syssurname", reports, 10, userRatings, "A", company);
-        assertEquals(primaryNumberOfSysadmins + 1, company.findAllSysadmins().size());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void addSysadminToNullCompanyTest() throws MyException {
-        int primaryNumberOfSysadmins = company.findAllSysadmins().size();
-        auditor.addSysadmin(35, notifications, "sysemail", "sysadmin2", "syspassword",
-                "sysname", "syssurname", reports, 10, userRatings, "A", null);
-        assertEquals(primaryNumberOfSysadmins + 1, company.findAllSysadmins().size());
-    }
-
-    @Test(expected = MyException.class)
-    public void addSysadminWithAlreadyExistEmailTest() throws MyException {
-        int primaryNumberOfSysadmins = company.findAllSysadmins().size();
-        auditor.addSysadmin(35, notifications, "sysadmin@gmail.com", "sysadmin2", "syspassword",
-                "sysname", "syssurname", reports, 10, userRatings, "A", company);
-        assertEquals(primaryNumberOfSysadmins + 1, company.findAllSysadmins().size());
-    }
-
-    /*Auditor addEmployee tests*/
-    @Test
-    public void addEmployeeTest() throws MyException {
-        int primaryNumberOfEmployee = company.findAllEmployees().size();
-        auditor.addEmployee(35, notifications, "egorEmployee@gmail.com", "employee egor",
-                "firstEmployee", "firstEmployee", "firstEmployee", reports,
-                "test", "B", userRatings, company);
-        assertEquals(primaryNumberOfEmployee + 1, company.findAllEmployees().size());
-    }
-
-    @Test(expected = MyException.class)
-    public void addEmployeeWithAlreadyExistLoginTest() throws MyException {
-        int primaryNumberOfEmployee = company.findAllEmployees().size();
-        auditor.addEmployee(35, notifications, "firstEmploe@gmail.com", "employee1",
-                "firstEmployee", "firstEmployee", "firstEmployee", reports,
-                "test", "B", userRatings, company);
-        assertEquals(primaryNumberOfEmployee + 1, company.findAllEmployees().size());
-    }
-
-    @Test(expected = MyException.class)
-    public void addEmployeeWithAlreadyExistEmailTest() throws MyException {
-        int primaryNumberOfEmployee = company.findAllEmployees().size();
-        auditor.addEmployee(35, notifications, "firstEmployee@gmail.com", "employ",
-                "firstEmployee", "firstEmployee", "firstEmployee", reports,
-                "test", "B", userRatings, company);
-        assertEquals(primaryNumberOfEmployee + 1, company.findAllEmployees().size());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void addEmployeeToNullCompanyTest() throws MyException {
-        int primaryNumberOfEmployee = company.findAllEmployees().size();
-        auditor.addEmployee(35, notifications, "filoyee@gmail.com", "employ",
-                "firstEmployee", "firstEmployee", "firstEmployee", reports,
-                "test", "B", userRatings, null);
-        assertEquals(primaryNumberOfEmployee + 1, company.findAllEmployees().size());
-    }
-
-    /*Auditor addTest tests*/
-    @Test
-    public void addTestTest() throws MyException {
-        int primaryNumberOfTests = company.getAllTests().size();
-        auditor.addTest("ttest", "sport", "employee",
-                questions, correctAnswers, company);
-        assertEquals(primaryNumberOfTests + 1, company.getAllTests().size());
-    }
-
-    @Test(expected = MyException.class)
-    public void addTestWithAlreadyExistNameTest() throws MyException {
-        int primaryNumberOfTests = company.getAllTests().size();
-        auditor.addTest("firstTest", "sport", "employee",
-                questions, correctAnswers, company);
-        assertEquals(primaryNumberOfTests + 1, company.getAllTests().size());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void addTestToNullCompanyTest() throws MyException {
-        int primaryNumberOfTests = company.getAllTests().size();
-        auditor.addTest("ttest", "sport", "employee",
-                questions, correctAnswers, null);
-        assertEquals(primaryNumberOfTests + 1, company.getAllTests().size());
-    }
-
-    /*Auditor editTest tests*/
-    @Test
-    public void editTestTest() {
-        com.jazzteam.model.test.Test test = allTests.get(0);
-        auditor.editTest(test, "editedName", "walk", "employee", correctAnswers);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String currentDate = dateFormat.format(new Date());
-        allTests.get(0).setDateOfLastEdit(currentDate);
-        assertEquals(allTests.get(0).toString(), allTests.get(0).toString());
     }
 
     /*Company findAllEmployees tests*/

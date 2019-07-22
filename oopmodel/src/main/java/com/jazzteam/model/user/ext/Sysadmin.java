@@ -1,5 +1,6 @@
 package com.jazzteam.model.user.ext;
 
+import com.jazzteam.constants.Constant;
 import com.jazzteam.model.notification.Notification;
 import com.jazzteam.model.report.Report;
 import com.jazzteam.model.user.User;
@@ -11,8 +12,6 @@ public class Sysadmin extends User {
     private int experience;
     private HashMap<Integer, String> passedTestRating;
     private String workResultRating;
-
-    private static final String SYSADMIN_ROLE = "sysadmin";
 
     public Sysadmin() {
 
@@ -27,7 +26,7 @@ public class Sysadmin extends User {
     public Sysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password, String name,
                     String surname, ArrayList<Report> reports, int experience, HashMap<Integer, String> passedTestRating,
                     String workResultRating) {
-        super(age, notifications, email, login, password, name, surname, reports, SYSADMIN_ROLE);
+        super(age, notifications, email, login, password, name, surname, reports, Constant.SYSADMIN_ROLE);
         this.experience = experience;
         this.passedTestRating = passedTestRating;
         this.workResultRating = workResultRating;

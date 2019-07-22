@@ -7,19 +7,19 @@ import java.util.Objects;
 public class Notification extends Identifiable {
     private boolean alreadySeen;
     private String dateOfCreation;
-    private String fullDescription;
-    private String shortDescription;
+    private String description;
     private NotificationType type;
-    private String targetLogin;
+    private String idUser;
 
-    public Notification(boolean alreadySeen, String dateOfCreation, String fullDescription, String shortDescription,
-                        NotificationType type, String targetLogin) {
+    public Notification(boolean alreadySeen, String dateOfCreation, String description, NotificationType type, String idUser) {
         this.alreadySeen = alreadySeen;
         this.dateOfCreation = dateOfCreation;
-        this.fullDescription = fullDescription;
-        this.shortDescription = shortDescription;
+        this.description = description;
         this.type = type;
-        this.targetLogin = targetLogin;
+        this.idUser = idUser;
+    }
+
+    public Notification() {
     }
 
     public boolean isAlreadySeen() {
@@ -38,20 +38,12 @@ public class Notification extends Identifiable {
         this.dateOfCreation = dateOfCreation;
     }
 
-    public String getFullDescription() {
-        return fullDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setFullDescription(String fullDescription) {
-        this.fullDescription = fullDescription;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public NotificationType getType() {
@@ -62,12 +54,12 @@ public class Notification extends Identifiable {
         this.type = type;
     }
 
-    public String getTargetLogin() {
-        return targetLogin;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setTargetLogin(String targetLogin) {
-        this.targetLogin = targetLogin;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     @Override
@@ -77,15 +69,14 @@ public class Notification extends Identifiable {
         Notification that = (Notification) o;
         return alreadySeen == that.alreadySeen &&
                 Objects.equals(dateOfCreation, that.dateOfCreation) &&
-                Objects.equals(fullDescription, that.fullDescription) &&
-                Objects.equals(shortDescription, that.shortDescription) &&
+                Objects.equals(description, that.description) &&
                 type == that.type &&
-                Objects.equals(targetLogin, that.targetLogin);
+                Objects.equals(idUser, that.idUser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(alreadySeen, dateOfCreation, fullDescription, shortDescription, type, targetLogin);
+        return Objects.hash(alreadySeen, dateOfCreation, description, type, idUser);
     }
 
     @Override
@@ -93,10 +84,9 @@ public class Notification extends Identifiable {
         return "Notification{" +
                 "alreadySeen=" + alreadySeen +
                 ", dateOfCreation='" + dateOfCreation + '\'' +
-                ", fullDescription='" + fullDescription + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
+                ", description='" + description + '\'' +
                 ", type=" + type +
-                ", targetLogin='" + targetLogin + '\'' +
+                ", idUser='" + idUser + '\'' +
                 '}';
     }
 }

@@ -1,5 +1,7 @@
 package com.jazzteam.model;
 
+import com.jazzteam.constants.Constant;
+import com.jazzteam.constants.ExceptionMessage;
 import com.jazzteam.exception.MyException;
 import com.jazzteam.model.report.Report;
 import com.jazzteam.model.statistic.Statistic;
@@ -20,9 +22,6 @@ public class Company {
     private ArrayList<Test> allTests;
     private ArrayList<User> allUsers;
     private static Company instance;
-
-    private static final String EMPLOYEE_ROLE = "employee";
-    private static final String SYSADMIN_ROLE = "sysadmin";
 
     /**
      * Singleton realization to ban the creation of other objects
@@ -88,7 +87,7 @@ public class Company {
     public ArrayList<Employee> findAllEmployees() {
         ArrayList<Employee> employeesList = new ArrayList<>();
         for (User user : allUsers) {
-            if (EMPLOYEE_ROLE.equals(user.getRole()))
+            if (Constant.EMPLOYEE_ROLE.equals(user.getRole()))
                 employeesList.add((Employee) user);
         }
         return employeesList;
@@ -102,7 +101,7 @@ public class Company {
     public ArrayList<Sysadmin> findAllSysadmins() {
         ArrayList<Sysadmin> sysadminsList = new ArrayList<>();
         for (User user : allUsers) {
-            if (SYSADMIN_ROLE.equals(user.getRole()))
+            if (Constant.SYSADMIN_ROLE.equals(user.getRole()))
                 sysadminsList.add((Sysadmin) user);
         }
         return sysadminsList;
@@ -116,15 +115,15 @@ public class Company {
      */
     public String calcInformationSecuritySkillOfEmployee(Employee employee) throws MyException {
         if (employee == null)
-            throw new MyException("Employee is null");
+            throw new MyException(ExceptionMessage.EMPLOYEE_IS_NULL);
 
         final HashMap<Integer, String> ratingsOfPassedTest = employee.getRatingsOfPassedTest();
         if (ratingsOfPassedTest == null)
-            throw new MyException("Ratings is Null");
+            throw new MyException(ExceptionMessage.RATINGS_IS_NULL);
 
         final int intEquivalentForSumOfAllRatings = calcSumOfTestRatingsValues(ratingsOfPassedTest);
         if (intEquivalentForSumOfAllRatings == 0)
-            throw new MyException("Incorrect values into Ratings. Value is not 'A/B/C/D/E'");
+            throw new MyException(ExceptionMessage.INCORRECT_RATING_VALUE);
 
         return getAverageInformationSecurityLevelValue(intEquivalentForSumOfAllRatings, ratingsOfPassedTest.size());
     }
@@ -137,15 +136,15 @@ public class Company {
     public void addUserToCompany(User newUser) throws MyException {
         User emptyUser = new User();
         if (newUser.equals(emptyUser)) {
-            throw new MyException("Try to add empty user to company.");
+            throw new MyException(ExceptionMessage.USER_IS_EMPTY);
         }
 
         for (User anUser : allUsers) {
             if (anUser.getLogin().equals(newUser.getLogin())) {
-                throw new MyException("User with that login already exist");
+                throw new MyException(ExceptionMessage.USER_WITH_THAT_LOGIN_ALREADY_EXIST);
             }
             if (anUser.getEmail().equals(newUser.getEmail())) {
-                throw new MyException("User with that email already exist");
+                throw new MyException(ExceptionMessage.USER_WITH_THAT_EMAIL_ALREADY_EXIST);
             }
         }
         allUsers.add(newUser);
@@ -159,12 +158,12 @@ public class Company {
     public void addTestToCompany(Test newTest) throws MyException {
         Test emptyTest = new Test();
         if (newTest.equals(emptyTest)) {
-            throw new MyException("Try to add empty test to company tests.");
+            throw new MyException(ExceptionMessage.TEST_IS_EMPTY);
         }
 
         for (Test anTest : allTests) {
             if (anTest.getTestName().equals(newTest.getTestName())) {
-                throw new MyException("Test with that name already exist.");
+                throw new MyException(ExceptionMessage.TEST_WITH_THAT_NAME_ALREADY_EXIST);
             }
         }
         allTests.add(newTest);
@@ -186,7 +185,7 @@ public class Company {
         }
         if (!user.equals(new User()))
             return user;
-        else throw new MyException("That user not found.");
+        else throw new MyException(ExceptionMessage.USER_NOT_FOUND);
     }
 
     /**
@@ -205,6 +204,6 @@ public class Company {
         }
         if (!test.equals(new Test()))
             return test;
-        else throw new MyException("That test not found");
+        else throw new MyException(ExceptionMessage.TEST_NOT_FOUND);
     }
 }

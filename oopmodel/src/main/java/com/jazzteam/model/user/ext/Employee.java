@@ -1,5 +1,6 @@
 package com.jazzteam.model.user.ext;
 
+import com.jazzteam.constants.Constant;
 import com.jazzteam.model.notification.Notification;
 import com.jazzteam.model.report.Report;
 import com.jazzteam.model.user.User;
@@ -11,8 +12,6 @@ public class Employee extends User {
     private String department;
     private String informationSecuritySkill;
     private HashMap<Integer, String> ratingsOfPassedTest;
-
-    private static final String EMPLOYEE_ROLE = "employee";
 
     public Employee() {
 
@@ -27,7 +26,7 @@ public class Employee extends User {
     public Employee(int age, ArrayList<Notification> notifications, String email, String login, String password, String name,
                     String surname, ArrayList<Report> reports, String department, String informationSecuritySkill,
                     HashMap<Integer, String> ratingsOfPassedTest) {
-        super(age, notifications, email, login, password, name, surname, reports, EMPLOYEE_ROLE);
+        super(age, notifications, email, login, password, name, surname, reports, Constant.EMPLOYEE_ROLE);
         this.department = department;
         this.informationSecuritySkill = informationSecuritySkill;
         this.ratingsOfPassedTest = ratingsOfPassedTest;

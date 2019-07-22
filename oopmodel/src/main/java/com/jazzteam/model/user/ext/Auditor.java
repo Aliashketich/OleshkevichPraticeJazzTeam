@@ -1,5 +1,6 @@
 package com.jazzteam.model.user.ext;
 
+import com.jazzteam.constants.Constant;
 import com.jazzteam.exception.MyException;
 import com.jazzteam.model.Company;
 import com.jazzteam.model.mail.MailDistributionList;
@@ -23,10 +24,6 @@ public class Auditor extends User {
     private ArrayList<Test> tests;
     private int experience;
 
-    private static final String AUDITOR_ROLE = "auditor";
-
-    // TODO: 17.04.2019 Использование логгера для методов, чтобы отслеживать в консоли места крашей
-
     public Auditor(ArrayList<Employee> employeeList, ArrayList<MailDistributionList> mailDistributionLists,
                    ArrayList<MailTemplate> mailTemplates, ArrayList<Sysadmin> sysadmins, ArrayList<Test> tests, int experience) {
         this.employeeList = employeeList;
@@ -41,7 +38,7 @@ public class Auditor extends User {
                    String surname, ArrayList<Report> reports, ArrayList<Employee> employeeList,
                    ArrayList<MailDistributionList> mailDistributionLists, ArrayList<MailTemplate> mailTemplates,
                    ArrayList<Sysadmin> sysadmins, ArrayList<Test> tests, int experience) {
-        super(age, notifications, email, login, password, name, surname, reports, AUDITOR_ROLE);
+        super(age, notifications, email, login, password, name, surname, reports, Constant.AUDITOR_ROLE);
         this.employeeList = employeeList;
         this.mailDistributionLists = mailDistributionLists;
         this.mailTemplates = mailTemplates;
@@ -49,8 +46,6 @@ public class Auditor extends User {
         this.tests = tests;
         this.experience = experience;
     }
-
-    /*Getters and Setters*/
 
     public ArrayList<Employee> getEmployeeList() {
         return employeeList;
@@ -98,287 +93,6 @@ public class Auditor extends User {
 
     public void setExperience(int experience) {
         this.experience = experience;
-    }
-
-    /*Use-cases methods*/
-
-    /**
-     * Method which delete User from company
-     *
-     * @param user    User object which should be deleted
-     * @param company Company global Context
-     * @throws MyException if you try delete auditor
-     */
-    public void deleteUser(User user, Company company) throws MyException {
-        for (int i = 0; i < company.getAllUsers().size(); i++) {
-            if (AUDITOR_ROLE.equals(user.getRole())) {
-                throw new MyException("Auditor can not delete himself");
-            } else {
-                try {
-                    if (company.getAllUsers().get(i).equals(user)) {
-                        company.getAllUsers().remove(i);
-                        break;
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    throw new MyException("Attempt for deleting nonexistent user");
-                }
-            }
-        }
-    }
-
-    /**
-     * Method for editing Employee personal data
-     *
-     * @param employee      Employee object for editing
-     * @param newAge        new Employee age
-     * @param newEmail      new Employee email
-     * @param newLogin      new Employee login
-     * @param newPassword   new Employee password
-     * @param newName       new Employee name
-     * @param newSurname    new Employee surname
-     * @param newDepartment new Employee department
-     */
-    public void changeEmployeePersonalData(Employee employee, int newAge, String newEmail, String newLogin, String newPassword,
-                                           String newName, String newSurname, String newDepartment) throws MyException {
-        Employee emptyEmployee = new Employee();
-        if (employee.equals(emptyEmployee))
-            throw new MyException("Employee is empty");
-
-        changeUserPersonalData(employee, newAge, newEmail, newLogin, newPassword, newName, newSurname);
-        employee.setDepartment(newDepartment);
-    }
-
-    /**
-     * Method for editing User personal data
-     *
-     * @param user        User object for editing
-     * @param newAge      new User age
-     * @param newEmail    new User email
-     * @param newLogin    new User login
-     * @param newPassword new User password
-     * @param newName     new User name
-     * @param newSurname  new User surname
-     */
-    public void changeUserPersonalData(User user, int newAge, String newEmail, String newLogin, String newPassword,
-                                       String newName, String newSurname) {
-        if (user == null) {
-            throw new NullPointerException("User is null!");
-        }
-        user.setAge(newAge);
-        user.setEmail(newEmail);
-        user.setLogin(newLogin);
-        user.setPassword(newPassword);
-        user.setName(newName);
-        user.setSurname(newSurname);
-    }
-
-    /**
-     * Method for editing Sysadmin personal data
-     *
-     * @param sysadmin      Sysadmin object for editing
-     * @param newAge        new Sysadmin age
-     * @param newEmail      new Sysadmin email
-     * @param newLogin      new Sysadmin login
-     * @param newPassword   new Sysadmin password
-     * @param newName       new Sysadmin name
-     * @param newSurname    new Sysadmin surname
-     * @param newExperience new Sysadmin experience value
-     * @throws MyException when try delete empty sysadmin
-     */
-    public void changeSysadminPersonalData(Sysadmin sysadmin, int newAge, String newEmail, String newLogin, String newPassword,
-                                           String newName, String newSurname, int newExperience) throws MyException {
-        Sysadmin emptySysadmin = new Sysadmin();
-        if (sysadmin.equals(emptySysadmin))
-            throw new MyException("Sysadmin is empty");
-
-        changeUserPersonalData(sysadmin, newAge, newEmail, newLogin, newPassword, newName, newSurname);
-        sysadmin.setExperience(newExperience);
-    }
-
-    /**
-     * Method delete Test object
-     *
-     * @param test    Test object for deleting
-     * @param company Company global context
-     * @return true if Test deleted or false if not
-     * @throws NullPointerException when test is null
-     * @throws MyException          when test is empty
-     */
-    public void deleteTest(Test test, Company company) throws MyException {
-        if (test == null) {
-            throw new NullPointerException("Test can not be delete because test is null already.");
-        }
-
-        Test emptyTest = new Test();
-        if (test.equals(emptyTest)) {
-            throw new MyException("Test is empty already.");
-        }
-
-        for (int i = 0; i < company.getAllTests().size(); i++) {
-            if (company.getAllTests().get(i).equals(test)) {
-                company.getAllTests().remove(i);
-                break;
-            }
-        }
-    }
-    /*---------------------------------//------------------------------------------------*/
-
-    /**
-     * Method for adding a new Sysadmin
-     *
-     * @param age              age of new Sysadmin
-     * @param notifications    notifications of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
-     * @param email            email of new Sysadmin
-     * @param login            login of new Sysadmin
-     * @param password         password of new Sysadmin
-     * @param name             name of new Sysadmin
-     * @param surname          surname of new Sysadmin
-     * @param reports          reports of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
-     * @param experience       experience of new Sysadmin
-     * @param passedTestRating ratings of all passed sysadmin's test (must be empty for new Sysadmin unless otherwise specified)
-     * @param workResultRating work result rating of new Sysadmin (must be empty for new Sysadmin unless otherwise specified)
-     * @param company          global company context
-     * @return created Sysadmin object
-     * @throws MyException if User can't be added
-     */
-    public Sysadmin addSysadmin(int age, ArrayList<Notification> notifications, String email, String login, String password,
-                                String name, String surname, ArrayList<Report> reports, int experience,
-                                HashMap<Integer, String> passedTestRating, String workResultRating, Company company) throws MyException {
-        Sysadmin newSysadmin = new Sysadmin(age, notifications, email, login, password, name, surname, reports, experience,
-                passedTestRating, workResultRating);
-        company.addUserToCompany(newSysadmin);
-        return (Sysadmin) company.findUserByLogin(login);
-    }
-
-    /**
-     * Method for adding a new Employee
-     *
-     * @param age                      age of new Employee
-     * @param notifications            notifications of new Employee (must be empty for new Employee unless otherwise specified)
-     * @param email                    email of new Employee
-     * @param login                    login of new Employee
-     * @param password                 password of new Employee
-     * @param name                     name of new Employee
-     * @param surname                  surname of new Employee
-     * @param reports                  reports of new Employee (must be empty for new Employee unless otherwise specified)
-     * @param company                  global company context
-     * @param department               department of new Employee
-     * @param informationSecuritySkill information security skill of new Employee
-     * @param ratingsOfPassedTest      ratings of all passed tests of new Employee
-     * @return created Employee object
-     * @throws MyException if User can't be added
-     */
-    public Employee addEmployee(int age, ArrayList<Notification> notifications, String email, String login, String password,
-                                String name, String surname, ArrayList<Report> reports, String department,
-                                String informationSecuritySkill, HashMap<Integer, String> ratingsOfPassedTest,
-                                Company company) throws MyException {
-        Employee newEmployee = new Employee(age, notifications, email, login, password, name, surname, reports, department,
-                informationSecuritySkill, ratingsOfPassedTest);
-        company.addUserToCompany(newEmployee);
-        return (Employee) company.findUserByLogin(login);
-    }
-
-    /**
-     * Method for insert Test into system
-     * also method set current date into Test.dateAdd field in format "dd/MM/yyyy")
-     *
-     * @param testName       name of new Test
-     * @param testCategory   category of new Test
-     * @param testTarget     target of new Test
-     * @param questions      questions of new Test
-     * @param correctAnswers correct answers of new Test
-     * @param company        global company context
-     * @return created Test object
-     * @throws MyException if added Test not found
-     */
-    public Test addTest(String testName, String testCategory, String testTarget, HashMap<Integer, ArrayList<String>> questions,
-                        HashMap<Integer, Integer> correctAnswers, Company company) throws MyException {
-        Test newTest = new Test(testName, testCategory, testTarget, questions, correctAnswers);
-        company.addTestToCompany(newTest);
-        return company.findTestByName(testName);
-    }
-
-    /**
-     * Method for editing Test
-     * this method call getCurrentDate() for set current date into dateOfLastEdit field
-     * this method can not edit questions
-     *
-     * @param test              object of Test which should be edited
-     * @param newTestName       new name value for test
-     * @param newTestCategory   new category value for Test
-     * @param newTestTarget     new target (employee/sysadmin) for test
-     * @param newCorrectAnswers new HashMap<Integer,Integer> with correct test answers
-     */
-    public void editTest(Test test, String newTestName, String newTestCategory, String newTestTarget,
-                         HashMap<Integer, Integer> newCorrectAnswers) {
-        test.setTestName(newTestName);
-        test.setCorrectAnswers(newCorrectAnswers);
-        test.setDateOfLastEdit(getCurrentDate());
-        test.setTestCategory(newTestCategory);
-        test.setTestTarget(newTestTarget);
-    }
-
-    public boolean addDistributionList(ArrayList<String> emails, String distributionListName) {
-        /**
-         * Добавление списка рассылки из БД через обращение по id.
-         */
-        MailDistributionList newDistributionList = new MailDistributionList(emails, distributionListName);
-        return true;
-    }
-
-    public boolean deleteDistributionList(int distributionListId) {
-        /**
-         * Удаление списка рассылки из БД через обращение по id.
-         */
-        return true;
-    }
-
-    public MailDistributionList editDistributionList(int distributionListId, String newName, ArrayList<String> newEmailsList) {
-        MailDistributionList editedDistributionList = new MailDistributionList(newEmailsList, newName);
-        /**
-         * Вытянуть по ид запись,которую нужно изменить и изменить
-         * findMailDistributionListById(int distributionListId);
-         */
-        return editedDistributionList;
-    }
-
-    public ArrayList<MailDistributionList> findAllDistributionList() {
-        ArrayList<MailDistributionList> allDistributionList = new ArrayList<>();
-        /**
-         * Достать все списки рассылок из БД
-         */
-        return allDistributionList;
-    }
-
-    public boolean addMailTemplate(String templateName, String templateText) {
-        MailTemplate newMailTemplate = new MailTemplate(templateName, templateText);
-        /**
-         * Метод добавления шаблона письма
-         */
-        return true;
-    }
-
-    public boolean deleteMailTemplate(int mailTemplateId) {
-        /**
-         * Реализация удаления шаблона письма из БД
-         */
-        return true;
-    }
-
-    public MailTemplate editMailTemplate(int mailTemplateId, String newTemplateName, String newTemplateText) {
-        MailTemplate editedMailTemplate = new MailTemplate(newTemplateName, newTemplateText);
-        /**
-         * Изменение шаблона письма по его id
-         * findMailTemplateById(int mailTemplateId);
-         */
-        return editedMailTemplate;
-    }
-
-    public ArrayList<MailTemplate> findAllMailTemplates() {
-        /**
-         * Достать все шаблоны писем из БД
-         */
-        return new ArrayList<>();
     }
 
     @Override

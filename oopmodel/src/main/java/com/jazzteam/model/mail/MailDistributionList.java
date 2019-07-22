@@ -17,7 +17,6 @@ public class MailDistributionList extends Identifiable {
     public MailDistributionList() {
     }
 
-
     public ArrayList<String> getEmails() {
         return emails;
     }
